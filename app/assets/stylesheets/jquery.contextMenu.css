@@ -16,9 +16,6 @@
     margin:0; 
     padding:0;
     
-    width:150px !important;
-
-  
     display: inline-block;
     position: absolute;
     list-style-type: none;
@@ -89,14 +86,20 @@
     http://css-tricks.com/13224-pseudo-spriting/ to get an idea of how to implement 
     .context-menu-item.icon:before {}
  */
-.context-menu-item.icon { width:123px;min-height: 18px; background-repeat: no-repeat; background-position: 4px 2px; }
-.context-menu-item.icon-edit { width:123px;background-image: url(images/page_white_edit.png); }
-.context-menu-item.icon-cut { width:123px;background-image: url(images/cut.png); }
-.context-menu-item.icon-copy { width:123px;background-image: url(images/page_white_copy.png); }
-.context-menu-item.icon-paste { width:123px;background-image: url(images/page_white_paste.png); }
-.context-menu-item.icon-delete { width:123px;background-image: url(images/page_white_delete.png); }
-.context-menu-item.icon-add { width:123px;background-image: url(images/page_white_add.png); }
-.context-menu-item.icon-quit { width:123px;background-image: url(images/door.png); }
+
+.context-menu-item.icon { min-height: 15px;background-repeat: no-repeat; background-position: 4px 2px; }
+
+.context-menu-item.icon-add { background-image: url(hand_note/note_add.png);background-size:16px 16px;background-repeat:no-repeat; }
+.context-menu-item.icon-searchbykey { background-image: url(hand_note/note_search.png);background-size:16px 16px;background-repeat:no-repeat; }
+.context-menu-item.icon-settings { background-image: url(hand_note/note_settings.png);background-size:16px 16px;background-repeat:no-repeat; }
+
+.context-menu-item.icon-shareteam { background-image: url(hand_note/note_shareteam.png);background-size:16px 16px;background-repeat:no-repeat; }
+.context-menu-item.icon-mail { background-image: url(hand_note/note_mail.png);background-size:16px 16px;background-repeat:no-repeat; }
+.context-menu-item.icon-delete { background-image: url(hand_note/note_delete.png);background-size:16px 16px;background-repeat:no-repeat; }
+
+.context-menu-item.icon-edit { background-image: url(hand_note/note_edit.png);background-size:16px 16px;background-repeat:no-repeat; }
+
+.context-menu-item { display: block;}
 
 /* vertically align inside labels */
 .context-menu-input > label > * { vertical-align: top; }

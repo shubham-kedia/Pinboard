@@ -19,9 +19,9 @@ $(function(){
         items: {
             "new": {name: "New note",icon: "add"},
               "sep1": "---------",
-            "cut": {name: "Search by keyword", icon: "cut"},
+            "search": {name: "Search by keyword",icon: "searchbykey"},
               "sep2": "---------",
-            "copy": {name: "Settings", icon: "copy"}
+            "settings": {name: "Settings", icon: "settings"}
 
         }
     });
@@ -33,9 +33,9 @@ $.contextMenu({
             window.console && console.log(m) || alert(m); 
         },
         items: {
-            "share": {name: "Share with your team", icon: "add"},
+            "share": {name: "Share with your team", icon: "shareteam"},
              "sep1": "---------",
-            "mail": {name: "Send by e-mail", icon: "copy"},
+            "mail": {name: "Send by e-mail", icon: "mail"},
              "sep2": "---------",
             "delete": {name: "Delete", icon: "delete"}
 
@@ -46,4 +46,24 @@ $.contextMenu({
     $('.context-menu-one').on('click', function(e){
         console.log('clicked', this);
     })
+
+
+});
+
+
+$(function () {
+    var $modal = $('#modal');
+    $('#clicker').on('click', function (e) { /** Call the modal manually */
+        e.preventDefault();
+        var url = $(this).attr('href');
+        $modal.html('<iframe width="100%" height="100%" frameborder="0" scrolling="no" allowtransparency="true" src="' + url + '"></iframe>');
+        $modal.modal({
+            show: true
+        });
+    });
+
+
+    $modal.on('hide', function () {
+        $modal.empty() /** Clean up */
+    });
 });
