@@ -41,7 +41,7 @@ h2,p{
 }
 .board ul li p{
   font-family:"Reenie Beanie",arial,sans-serif;
-  font-size:180%;
+  font-size:70%;
 }
 .board ul li a{
   -webkit-transform: rotate(-6deg);

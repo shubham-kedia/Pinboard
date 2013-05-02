@@ -1,5 +1,13 @@
 Board::Application.routes.draw do
   
+  # get "notice/index"
+
+  # get "notice/create"
+
+  # get "notice/delete"
+
+  # get "notice/update"
+
   devise_for :users
 
   # The priority is based upon order of creation:
@@ -48,7 +56,7 @@ Board::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-
+   resources :notice
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'

@@ -11,7 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130430165504) do
+ActiveRecord::Schema.define(:version => 20130502113522) do
+
+  create_table "noticeboards", :force => true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "notices", :force => true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.string   "author"
+    t.string   "access_type"
+    t.integer  "noticeboard_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -26,6 +43,10 @@ ActiveRecord::Schema.define(:version => 20130430165504) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.string   "name"
+    t.string   "color"
+    t.string   "gender"
+    t.string   "contact_no"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
