@@ -29,8 +29,13 @@ class NoticesController < ApplicationController
   end
 
   def delete
+  	@notice.find(params[:id])
+  	@notice.destroy
+
   end
 
   def update
+  	@notice.find(params[:id])
+    @notice=@notice.update_attributes(:title=>params[:title],:content=>[:content])
   end
 end
