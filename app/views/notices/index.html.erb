@@ -1,3 +1,5 @@
+
+ </script>
    <div class="row">
      <div class="pull-right hide">
       <a id="new_modal_link" href="#myModal_new" role="button" class="btn btn-primary btn-large" data-toggle="modal">New</a>
@@ -38,7 +40,13 @@
                 <div class="board_container context-menu-board">
                   <ul>
                      <%@public_notices.each do |notice| %>
-                        <li class="context-menu-note-public" id="<%= notice.id %>">
+                       <% if(notice.author == @user.name) %>
+                        <% ownclass= "context-menu-note-public-own" %>
+                       <% else %>
+                        <% ownclass= "context-menu-note-public" %>
+                       <% end %>
+
+                        <li class="<%=ownclass%>" id="<%= notice.id %>">
                          <a href="#">
                           <img src="assets/pin.png" class="sticky_pin">
                           <h4><%=notice.title%></h4>

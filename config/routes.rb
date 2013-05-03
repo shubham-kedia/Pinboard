@@ -58,7 +58,10 @@ Board::Application.routes.draw do
   #   end
    resources :notices
 
+   match '/notices/load_notices/' => 'notices#load_notices' ,:via => [:post]
+
    match '/notices/makeprivate/:id' => 'notices#make_private' ,:via => [:post]
+
    match '/notices/makepublic/:id' => 'notices#make_public' ,:via => [:post]
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
