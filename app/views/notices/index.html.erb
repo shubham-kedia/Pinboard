@@ -2,7 +2,7 @@
  </script>
    <div class="row">
      <div class="pull-right hide">
-      <a id="new_modal_link" href="#myModal_new" role="button" class="btn btn-primary btn-large" data-toggle="modal">New</a>
+      <a id="new_modal_link" href="#myModal_new" role="button" class="btn btn-primary btn-large">New</a>
     </div>
           <div class="tabbable" id="notes_tab" style="margin-top:50px"> <!-- Only required for left/right tabs -->
             <ul class="nav nav-tabs">
@@ -21,11 +21,11 @@
                     <ul>
                       <% unless @private_notices.nil?%>
                        <%@private_notices.each do |notice| %>
-                        <li class="context-menu-note-private" id="<%= notice.id %>">
+                        <li class="context-menu-note-private notice" type="private" id="<%= notice.id %>">
                          <a href="#">
                           <img src="assets/pin.png" class="sticky_pin">
-                          <h4><%=notice.title%></h4>
-                          <p><%=notice.content%></p>
+                          <h4 class="notice_title"><%=notice.title%></h4>
+                          <p class="notice_content"><%=notice.content%></p>
                          </a>
                         </li>
                        <%end%>
@@ -46,11 +46,11 @@
                         <% ownclass= "context-menu-note-public" %>
                        <% end %>
 
-                        <li class="<%=ownclass%>" id="<%= notice.id %>">
+                        <li class="<%=ownclass%>  notice" type="private" id="<%= notice.id %>">
                          <a href="#">
                           <img src="assets/pin.png" class="sticky_pin">
-                          <h4><%=notice.title%></h4>
-                          <p><%=notice.content%></p>
+                          <h4 class="notice_title"><%=notice.title%></h4>
+                          <p class="notice_content"><%=notice.content%></p>
                          </a>
                         </li>
                       <%end%>
@@ -68,7 +68,7 @@
 loadnotices();
 </script>
 
-        <!-- Modal -->
+<!-- Modal -->
 <div id="myModal_new" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -113,13 +113,11 @@ loadnotices();
 
   </div>
   <div class="modal-footer">
-
-  </div>
+ </div>
 </div>
 
-
 <script type="text/template" id="private_notice_template">
-  <li class="context-menu-note-private" id="<%%element.id%>">
+  <li class="context-menu-note-<%%type%>" id="<%%element.id%>">
     <a href="#">
       <img src="assets/pin.png" class="sticky_pin">
       <h4><%%=element.title%></h4>
@@ -128,12 +126,9 @@ loadnotices();
   </li>
 </script>
 
-<script type="text/template" id="public_notice_template">
-  <li class="context-menu-note-private" id="<%%element.id%>">
-    <a href="#">
-      <img src="assets/pin.png" class="sticky_pin">
-      <h4><%%=element.title%></h4>
-      <p><%%=element.content%></p>
-    </a>
-  </li>
+<script>
+  window.new_notice_url = "<%=notices_url%>";
+  window.edit_notice_url = "<%=notices_url%>";
 </script>
+
+

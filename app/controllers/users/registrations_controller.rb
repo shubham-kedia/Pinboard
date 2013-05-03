@@ -9,12 +9,8 @@ def new
     sign_in_and_redirect user
   end
 
-  def update
-    super
-  end
-
-  def profile
-    @user = current_user
-  end
+  # def update
+  #   super
+  # end
 
 end

@@ -1,4 +1,4 @@
-Board::Application.routes.draw do
+ Board::Application.routes.draw do
 
   # get "notice/index"
 
@@ -8,7 +8,12 @@ Board::Application.routes.draw do
 
   # get "notice/update"
 
-  devise_for :users
+
+  devise_for :users, :controllers => {:registrations => "users/registrations"}  , :path_names => {:sign_in => 'login' }
+  match '/users/settings' => 'users#profile' ,:via => [:get] ,:as => :user_profile
+  match '/users/update' => 'users#update' ,:via => [:post] ,:as => :user_update
+
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -67,7 +72,8 @@ Board::Application.routes.draw do
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
 
-    match '/users/settings' => 'registrations#settings'
+    match '/notice/send_by_mail' => 'notices#sendemail' ,:via => [:post]
+
     root :to => "home#index"
 
   # See how all your routes lay out with "rake routes"

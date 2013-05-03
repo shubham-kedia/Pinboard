@@ -16,4 +16,10 @@ class NoticeController < ApplicationController
 
   def update
   end
+
+  def sendemail
+    notice = Notice.find(params[:id])
+    NoticeMailer.send_notice_email(currentuser.name , params[:email],notice.title,notice.date.strftime("%d-%m-%Y"),notice.content).deliver
+  end
+
 end

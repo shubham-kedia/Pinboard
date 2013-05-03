@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me ,:name, :color, :gender, :contact_no
   # attr_accessible :title, :body
 
+  # validates_presence_of :password ,:if => :new_record?
   #associations
   has_one :noticeboard
 end
