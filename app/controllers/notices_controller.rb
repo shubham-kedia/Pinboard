@@ -40,8 +40,9 @@ class NoticesController < ApplicationController
   end
 
   def update
-    @notice.find(params[:id])
-    @notice=@notice.update_attributes(:title=>params[:title],:content=>[:content])
+    @notice = Notice.find(params[:id])
+    @notice=@notice.update_attributes(params[:notice])
+    redirect_to notices_url
   end
 
   def make_private
@@ -76,14 +77,14 @@ def load_notices
 
     public_notices_array = Array.new
 
-      @public_notices.each do |notice| 
+      @public_notices.each do |notice|
         public_notices_array.push notice
       end
 
     private_notices_array = Array.new
 
       unless @private_notices.nil?
-        @private_notices.each do |notice| 
+        @private_notices.each do |notice|
           private_notices_array.push notice
         end
       end

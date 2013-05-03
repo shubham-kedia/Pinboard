@@ -21,11 +21,11 @@
                     <ul>
                       <% unless @private_notices.nil?%>
                        <%@private_notices.each do |notice| %>
-                        <li class="context-menu-note-private" id="<%= notice.id %>">
+                        <li class="context-menu-note-private notice" type="private" id="<%= notice.id %>">
                          <a href="#">
                           <img src="assets/pin.png" class="sticky_pin">
-                          <h4><%=notice.title%></h4>
-                          <p><%=notice.content%></p>
+                          <h4 class="notice_title"><%=notice.title%></h4>
+                          <p class="notice_content"><%=notice.content%></p>
                          </a>
                         </li>
                        <%end%>
@@ -46,11 +46,11 @@
                         <% ownclass= "context-menu-note-public" %>
                        <% end %>
 
-                        <li class="<%=ownclass%>" id="<%= notice.id %>">
+                        <li class="<%=ownclass%>  notice" type="private" id="<%= notice.id %>">
                          <a href="#">
                           <img src="assets/pin.png" class="sticky_pin">
-                          <h4><%=notice.title%></h4>
-                          <p><%=notice.content%></p>
+                          <h4 class="notice_title"><%=notice.title%></h4>
+                          <p class="notice_content"><%=notice.content%></p>
                          </a>
                         </li>
                       <%end%>
@@ -115,7 +115,7 @@
 </div>
 
 <script>
-  window.new_notice_url = "<%=new_notice_url%>";
+  window.new_notice_url = "<%=notices_url%>";
   window.edit_notice_url = "<%=notices_url%>";
 </script>
 

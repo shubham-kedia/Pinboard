@@ -23,7 +23,7 @@ $(function(){
                     else
                         alert("error during make Private");*/
                 }
-        });  
+        });
 });
 $(function(){
     $.contextMenu({
@@ -154,18 +154,22 @@ function contextMenuAction(key,id,obj)
 show_notice_modal = function(obj){
   //if empty show empty form
   var form = $("#new_notice");
-  if (id == null || typeof(id) == 'undefined'){
+  if (obj == null || typeof(obj) == 'undefined'){
       $("#notice_title").val('');
       $("#notice_access_type").val('private');
       $("#notice_content").val('');
-      form.attr({'action': window.new_notice_url  ,'method' : 'put'});
+      form.attr({'action': window.new_notice_url });
+      form.find('input[name="_method"]').remove();
       $("#myModal_new").modal('show');
 
   }else{
       $("#notice_title").val(obj.title);
       $("#notice_access_type").val(obj.type);
       $("#notice_content").val(obj.content);
-      form.attr({'action': window.edit_notice_url + '/' + obj.id ,'method' : 'put'});
+      form.attr({'action': window.edit_notice_url + '/' + obj.id });
+
+      form.find('input[name="_method"]').remove();
+      form.append('<input name="_method" type="hidden" value="put" />')
       $("#myModal_new").modal('show');
   }
   return true;
@@ -179,7 +183,7 @@ context_menu_callback  =function(key, options) {
             var obj = {}
             if (options.$trigger.hasClass('notice')){
               obj ={
-                id: options.$trigger.attr('id');,
+                id: options.$trigger.attr('id'),
                 content:options.$trigger.find('.notice_title').html(),
                 title:options.$trigger.find('.notice_content').html(),
                 type:options.$trigger.attr('access_type')
