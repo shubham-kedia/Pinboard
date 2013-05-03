@@ -12,10 +12,8 @@
                   <ul>
                      <%@private_notices.each do |notice| %>
                       <li class="context-menu-note notice" type="private" id="<%= notice.id %>">
-                       <a href="#">
                         <h4 class="notice_title"><%=notice.title%></h4>
                         <p class="notice_conten"><%=notice.content%></p>
-                       </a>
                       </li>
                    <%end%>
 
@@ -31,10 +29,8 @@
 
                      <%@public_notices.each do |notice| %>
                       <li class="context-menu-note notice"  type="public" id="<%= notice.id %>">
-                       <a href="#">
                         <h4 class="notice_title"><%=notice.title%></h4>
                         <p class="notice_conten"><%=notice.content%></p>
-                       </a>
                       </li>
                    <%end%>
 

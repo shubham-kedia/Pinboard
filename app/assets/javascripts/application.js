@@ -57,6 +57,19 @@ $(function(){
         }
     });
 
+    $(document).on('dblclick','.notice',function(e){
+        e.preventDefault();
+        var obj ={
+          id:  $(this).attr('id'),
+          content: $(this).find('.notice_title').html(),
+          title: $(this).find('.notice_content').html(),
+          type: $(this).attr('access_type')
+        }
+
+        show_notice_modal(obj);
+
+    });
+
 $.contextMenu({
         selector: '.context-menu-note-private',
         callback: context_menu_callback ,
@@ -178,16 +191,19 @@ show_notice_modal = function(obj){
       $("#notice_content").val('');
       form.attr({'action': window.new_notice_url });
       form.find('input[name="_method"]').remove();
+      form.find('input[type="submit"]').val('Create Notice');
       $("#myModal_new").modal('show');
+      $("#myModalLabel").text('Create Notice');
 
   }else{
       $("#notice_title").val(obj.title);
       $("#notice_access_type").val(obj.type);
       $("#notice_content").val(obj.content);
       form.attr({'action': window.edit_notice_url + '/' + obj.id });
-
+      form.find('input[type="submit"]').val('Update Notice');
       form.find('input[name="_method"]').remove();
       form.append('<input name="_method" type="hidden" value="put" />')
+      $("#myModalLabel").text('Edit Notice');
       $("#myModal_new").modal('show');
   }
   return true;

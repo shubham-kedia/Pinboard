@@ -11,7 +11,7 @@
 
   devise_for :users, :controllers => {:registrations => "users/registrations"}  , :path_names => {:sign_in => 'login' }
   match '/users/settings' => 'users#profile' ,:via => [:get] ,:as => :user_profile
-  match '/users/update' => 'users#update' ,:via => [:post] ,:as => :user_update
+  match '/users/update' => 'users#update' ,:via => [:put] ,:as => :user_update
 
 
 
