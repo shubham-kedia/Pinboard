@@ -26,15 +26,21 @@ function loadnotices()
                         $.each(data.private_notice, function(index, element) {
                             element.className = 'context-menu-note-private';
                             element.type="private";
+                            element.user_color=data.user_color;
                             $("#board_private ul").append(t({element:element}));
                         });
                         $("#board_public ul").empty();
                         var t = _.template($('#notice_template').html());
                         $.each(data.public_notice, function(index, element) {
                             if(data.user_name == element.author)
+                            {
+                                element.user_color=data.user_color;
                                 element.className = 'context-menu-note-public-own';
+                            }
                             else
+                            {
                                 element.className = 'context-menu-note-public';
+                            }
                             element.type="public";
                             $("#board_public ul").append(t({element:element}));
                         });

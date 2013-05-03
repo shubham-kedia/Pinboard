@@ -118,7 +118,7 @@
 
 <script type="text/template" id="notice_template">
   <li class="<%%=element.className%>  notice" type="<%%=element.type%>" id="<%%=element.id%>">
-    <a href="#">
+    <a  style="color:<%%=element.user_color%>;" href="#">
       <img src="assets/pin.png" class="sticky_pin">
       <h4><%%=element.title%></h4>
       <p><%%=element.content%></p>
@@ -127,6 +127,7 @@
 </script>
 
 <script>
+loadnotices();
   window.new_notice_url = "<%=notices_url%>";
   window.edit_notice_url = "<%=notices_url%>";
 </script>
