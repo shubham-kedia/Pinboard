@@ -5,7 +5,7 @@
   color:#fff;
 }
 h2,p{
-  font-size:100%;
+  font-size:80%;
   font-weight:normal;
 }
 .board_container ul,li{
@@ -18,7 +18,7 @@ h2,p{
 .board_container ul li a{
   text-decoration:none;
   color:#000;
-  /*background:#ffc;*/
+  background:#ccf;
   display:block;  
   height:10em;
   width:10em;
@@ -35,13 +35,14 @@ h2,p{
   float:left;
 }
 .board_container ul li h2{
-  font-size:140%;
+  font-size:90%;
   font-weight:bold;
   padding-bottom:10px;
 }
 .board_container ul li p{
   font-family:"Reenie Beanie",arial,sans-serif;
-  font-size:180%;
+  font-size:100%;
+  word-wrap:break-word;
 }
 .board_container ul li a{
   -webkit-transform: rotate(-6deg);
@@ -72,9 +73,9 @@ h2,p{
   top:-10px;
 }
 .board_container ul li a:hover,.board_container ul li a:focus{
-  box-shadow:10px 10px 7px rgba(0,0,0,.7);
-  -moz-box-shadow:10px 10px 7px rgba(0,0,0,.7);
-  -webkit-box-shadow: 10px 10px 7px rgba(0,0,0,.7);
+  box-shadow:5px 5px 7px #777;
+  -moz-box-shadow:5px 5px 7px #777;
+  -webkit-box-shadow: 5px 5px 7px #777;
   -webkit-transform: scale(1.25);
   -moz-transform: scale(1.25);
   -o-transform: scale(1.25);
@@ -83,8 +84,8 @@ h2,p{
 }
 
 .sticky_pin{
-  height: 36px;
-  width: 36px;
+  height: 30px;
+  width: 30px;
   margin-left: 50px;
-  margin-top: -35px;
+  margin-top: -50px;
 }

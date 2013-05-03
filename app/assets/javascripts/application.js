@@ -22,14 +22,26 @@ function loadnotices()
                     if (data.status == 1)
                     {
                         $("#board_private ul").empty();
-                        var listedItems="";
-                        var t = _.template($('#private_notice_template').html());
+                        var t = _.template($('#notice_template').html());
                         $.each(data.private_notice, function(index, element) {
-                            element.type = 'private';
+                            element.className = 'context-menu-note-private';
+                            element.type="private";
                             $("#board_private ul").append(t({element:element}));
                         });
+                        $("#board_public ul").empty();
+                        var t = _.template($('#notice_template').html());
+                        $.each(data.public_notice, function(index, element) {
+                            if(data.user_name == element.author)
+                                element.className = 'context-menu-note-public-own';
+                            else
+                                element.className = 'context-menu-note-public';
+                            element.type="public";
+                            $("#board_public ul").append(t({element:element}));
+                        });
 
-                       /* $.each(data.private_notices, function(index, element) {
+                       /* 
+                        var listedItems="";
+                       $.each(data.private_notices, function(index, element) {
                             listedItems += "<li class='context-menu-note-private' id='"+element.id+"'>";
                             listedItems += "<a href='#'><img src='assets/pin.png' class='sticky_pin'>";
                             listedItems += "<h4>"+element.title+"</h4><p>"+element.content+"</p></a></li>"
@@ -78,7 +90,7 @@ $.contextMenu({
              "sep1": "---------",
             "mail": {name: "Send by e-mail", icon: "mail"},
              "sep2": "---------",
-            "edit": {name: "Edit", icon: "edit_note"},
+            "edit": {name: "Edit", icon: "edit_notice"},
              "sep3": "---------",
             "delete": {name: "Delete", icon: "delete"}
 
