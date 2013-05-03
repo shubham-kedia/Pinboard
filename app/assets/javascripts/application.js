@@ -9,8 +9,8 @@
 //= require twitter/bootstrap
 //= require_tree .
 
-
-$(function(){
+function loadnotices()
+{
     $.ajax({
       url: "/notices/load_notices/",
       type: "post",
@@ -18,13 +18,30 @@ $(function(){
       data: {},   // for query string
       success: function(data)
                 {
-                   /* if (data.status == 1)
-                        window.location.reload();
+
+                    if (data.status == 1)
+                    {
+                        $("#board_private ul").empty();
+                        var listedItems="";
+                        var t = _.template($('#private_notice_template').html());
+                        $.each(data.private_notice, function(index, element) {
+                            $("#board_private ul").append(t({element:element}));
+                        });
+
+                       /* $.each(data.private_notices, function(index, element) {
+                            listedItems += "<li class='context-menu-note-private' id='"+element.id+"'>";
+                            listedItems += "<a href='#'><img src='assets/pin.png' class='sticky_pin'>";
+                            listedItems += "<h4>"+element.title+"</h4><p>"+element.content+"</p></a></li>"
+                        });
+                        $("#board_private ul").append(listedItems);*/
+                        // window.location.reload();
+                    }
                     else
-                        alert("error during make Private");*/
+                        alert("error during make Private");
                 }
         });  
-});
+}
+
 $(function(){
     $.contextMenu({
         selector: '.context-menu-board', 

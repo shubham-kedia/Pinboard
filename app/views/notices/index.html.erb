@@ -16,7 +16,7 @@
             <div class="tab-content">
               <div class="tab-pane active" id="private_tab">
 
-                <div class="board_container context-menu-board" id="board">
+                <div class="board_container context-menu-board" id="board_private">
 
                     <ul>
                       <% unless @private_notices.nil?%>
@@ -37,7 +37,7 @@
               </div>
               <div class="tab-pane" id="public_tab">
 
-                <div class="board_container context-menu-board">
+                <div class="board_container context-menu-board" id="board_public">
                   <ul>
                      <%@public_notices.each do |notice| %>
                        <% if(notice.author == @user.name) %>
@@ -64,7 +64,9 @@
 
         </div>
 
-
+<script type="text/javascript">
+loadnotices();
+</script>
 
         <!-- Modal -->
 <div id="myModal_new" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -114,3 +116,24 @@
 
   </div>
 </div>
+
+
+<script type="text/template" id="private_notice_template">
+  <li class="context-menu-note-private" id="<%%element.id%>">
+    <a href="#">
+      <img src="assets/pin.png" class="sticky_pin">
+      <h4><%%=element.title%></h4>
+      <p><%%=element.content%></p>
+    </a>
+  </li>
+</script>
+
+<script type="text/template" id="public_notice_template">
+  <li class="context-menu-note-private" id="<%%element.id%>">
+    <a href="#">
+      <img src="assets/pin.png" class="sticky_pin">
+      <h4><%%=element.title%></h4>
+      <p><%%=element.content%></p>
+    </a>
+  </li>
+</script>
