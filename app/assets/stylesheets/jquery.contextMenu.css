@@ -45,7 +45,7 @@
 
 .context-menu-separator {
     padding-bottom:0;
-    border-bottom: 1px solid #DDD;
+    border-bottom: 1px solid #fff;
 }
 
 .context-menu-item > label > input,
@@ -58,7 +58,7 @@
 
 .context-menu-item.hover {
     cursor: pointer;
-    background-color: #39F;
+    background-color: #39F !important;
 }
 
 .context-menu-item.disabled {
@@ -89,15 +89,15 @@
 
 .context-menu-item.icon { min-height: 15px;background-repeat: no-repeat; background-position: 4px 2px; }
 
-.context-menu-item.icon-add { background-image: url(hand_note/note_add.png);background-size:16px 16px;background-repeat:no-repeat; }
-.context-menu-item.icon-searchbykey { background-image: url(hand_note/note_search.png);background-size:16px 16px;background-repeat:no-repeat; }
-.context-menu-item.icon-settings { background-image: url(hand_note/note_settings.png);background-size:16px 16px;background-repeat:no-repeat; }
+.context-menu-item.icon-add { background:#fff url(hand_note/note_add.png);background-size:16px 16px;background-repeat:no-repeat; }
+.context-menu-item.icon-searchbykey { background:#fff url(hand_note/note_search.png);background-size:16px 16px;background-repeat:no-repeat; }
+.context-menu-item.icon-settings { background:#fff url(hand_note/note_settings.png);background-size:16px 16px;background-repeat:no-repeat; }
 
-.context-menu-item.icon-shareteam { background-image: url(hand_note/note_shareteam.png);background-size:16px 16px;background-repeat:no-repeat; }
-.context-menu-item.icon-mail { background-image: url(hand_note/note_mail.png);background-size:16px 16px;background-repeat:no-repeat; }
-.context-menu-item.icon-delete { background-image: url(hand_note/note_delete.png);background-size:16px 16px;background-repeat:no-repeat; }
+.context-menu-item.icon-shareteam { background:#fff url(hand_note/note_shareteam.png);background-size:16px 16px;background-repeat:no-repeat; }
+.context-menu-item.icon-mail { background:#fff url(hand_note/note_mail.png);background-size:16px 16px;background-repeat:no-repeat; }
+.context-menu-item.icon-delete { background:#fff url(hand_note/note_delete.png);background-size:16px 16px;background-repeat:no-repeat; }
 
-.context-menu-item.icon-edit { background-image: url(hand_note/note_edit.png);background-size:16px 16px;background-repeat:no-repeat; }
+.context-menu-item.icon-edit { background:#fff url(hand_note/note_edit.png);background-size:16px 16px;background-repeat:no-repeat; }
 
 .context-menu-item { display: block;}
 

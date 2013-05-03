@@ -2,7 +2,7 @@
 
             <div class="tabbable" style="margin-top:50px"> <!-- Only required for left/right tabs -->
             <ul class="nav nav-tabs">
-              <li><a href="#public_tab" data-toggle="tab">Public Notes</a></li>
+              <li class="active"><a href="#public_tab" data-toggle="tab">Public Notes</a></li>
             </ul>
             <div class="tab-content">
               <div class="tab-pane" id="private_tab">
@@ -19,11 +19,12 @@
 
               <div class="tab-pane active" id="public_tab">
                 
-                <div class="board context-menu-board">
+                <div class="board_container context-menu-board">
                   <ul>
                     <%@public_notices.each do |notice| %>
                       <li class="context-menu-note" id="<%= notice.id %>">
                        <a href="#">
+                        <img src="assets/pin.png" class="sticky_pin">
                         <h4><%=notice.title%></h4>
                         <p><%=notice.content%></p>
                        </a>

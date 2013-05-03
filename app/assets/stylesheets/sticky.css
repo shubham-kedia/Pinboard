@@ -1,4 +1,4 @@
-.board{
+.board_container{
   font-family:arial,sans-serif;
   font-size:100%;
   background:rgba(255, 255, 0, 0.16);
@@ -8,18 +8,18 @@ h2,p{
   font-size:100%;
   font-weight:normal;
 }
-.board ul,li{
+.board_container ul,li{
   list-style:none;
 }
-.board ul{
+.board_container ul{
   overflow:hidden;
   padding:3em;
 }
-.board ul li a{
+.board_container ul li a{
   text-decoration:none;
   color:#000;
-  background:#ffc;
-  display:block;
+  /*background:#ffc;*/
+  display:block;  
   height:10em;
   width:10em;
   padding:1em;
@@ -30,48 +30,48 @@ h2,p{
   -o-transition:-o-transform .15s linear;
   -webkit-transition:-webkit-transform .15s linear;
 }
-.board ul li{
+.board_container ul li{
   margin:1em;
   float:left;
 }
-.board ul li h2{
+.board_container ul li h2{
   font-size:140%;
   font-weight:bold;
   padding-bottom:10px;
 }
-.board ul li p{
+.board_container ul li p{
   font-family:"Reenie Beanie",arial,sans-serif;
-  font-size:70%;
+  font-size:180%;
 }
-.board ul li a{
+.board_container ul li a{
   -webkit-transform: rotate(-6deg);
   -o-transform: rotate(-6deg);
   -moz-transform:rotate(-6deg);
 }
-.board ul li:nth-child(even) a{
+.board_container ul li:nth-child(even) a{
   -o-transform:rotate(4deg);
   -webkit-transform:rotate(4deg);
   -moz-transform:rotate(4deg);
   position:relative;
   top:5px;
-  background:#cfc;
+  /*background:#cfc;*/
 }
-.board ul li:nth-child(3n) a{
+.board_container ul li:nth-child(3n) a{
   -o-transform:rotate(-3deg);
   -webkit-transform:rotate(-3deg);
   -moz-transform:rotate(-3deg);
   position:relative;
   top:-5px;
-  background:#ccf;
+  /*background:#ccf;*/
 }
-.board ul li:nth-child(5n) a{
+.board_container ul li:nth-child(5n) a{
   -o-transform:rotate(5deg);
   -webkit-transform:rotate(5deg);
   -moz-transform:rotate(5deg);
   position:relative;
   top:-10px;
 }
-.board ul li a:hover,.board ul li a:focus{
+.board_container ul li a:hover,.board_container ul li a:focus{
   box-shadow:10px 10px 7px rgba(0,0,0,.7);
   -moz-box-shadow:10px 10px 7px rgba(0,0,0,.7);
   -webkit-box-shadow: 10px 10px 7px rgba(0,0,0,.7);
@@ -81,6 +81,10 @@ h2,p{
   position:relative;
   z-index:5;
 }
-ol{text-align:center;}
-ol li{display:inline;padding-right:1em;}
-ol li a{color:#fff;}
+
+.sticky_pin{
+  height: 36px;
+  width: 36px;
+  margin-left: 50px;
+  margin-top: -35px;
+}

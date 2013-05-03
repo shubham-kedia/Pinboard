@@ -13,8 +13,10 @@ $(function(){
     $.contextMenu({
         selector: '.context-menu-board', 
         callback: function(key, options) {
-            var m = "clicked: " + key;
-            window.console && console.log(m) || alert(m); 
+            var id =  options.$trigger.attr('id');
+            // alert("Clicked on " + key + " on element " + options.$trigger.attr('id'));
+            contextMenuAction(key,id);
+            // window.console && console.log(m) || alert(m); 
         },
         items: {
             "new": {name: "New note",icon: "add"},
@@ -29,8 +31,10 @@ $(function(){
 $.contextMenu({
         selector: '.context-menu-note', 
         callback: function(key, options) {
-            var m = "clicked: " + key;
-            window.console && console.log(m) || alert(m); 
+            var id =  options.$trigger.attr('id');
+            // alert("Clicked on " + key + " on element " + options.$trigger.attr('id'));
+            contextMenuAction(key,id);
+            // window.console && console.log(m) || alert(m); 
         },
         items: {
             "share": {name: "Share with your team", icon: "shareteam"},
@@ -43,27 +47,59 @@ $.contextMenu({
     });
 
 
-    $('.context-menu-one').on('click', function(e){
-        console.log('clicked', this);
-    })
-
 
 });
 
 
-$(function () {
-    var $modal = $('#modal');
-    $('#clicker').on('click', function (e) { /** Call the modal manually */
-        e.preventDefault();
-        var url = $(this).attr('href');
-        $modal.html('<iframe width="100%" height="100%" frameborder="0" scrolling="no" allowtransparency="true" src="' + url + '"></iframe>');
-        $modal.modal({
-            show: true
-        });
-    });
+// $(function () {
+//     var $modal = $('#modal');
+//     $('#clicker').on('click', function (e) { /** Call the modal manually */
+//         alert();
+//         // e.preventDefault();
+//         var url = $(this).attr('href');
+//         $modal.html('<iframe width="100%" height="100%" frameborder="0" scrolling="no" allowtransparency="true" src="' + url + '"></iframe>');
+//         $modal.modal({
+//             show: true
+//         });
+//     });
 
 
-    $modal.on('hide', function () {
-        $modal.empty() /** Clean up */
-    });
-});
+//     $modal.on('hide', function () {
+//         $modal.empty() /** Clean up */
+//     });
+// });
+
+
+function contextMenuAction(key,id)
+{
+   switch(key){
+      case 'new': $("#new_modal_link").trigger('click');
+                  break;
+      case 'search': alert("search");
+                  break;
+      case 'settings': alert("settings");
+                  break;
+      case 'share': alert("share");
+                  break;
+      case 'mail': alert("mail");
+                  break;
+      case 'delete': alert(id);
+                    $.ajax({
+                      url: "/notices/" + id,
+                      type: "post",
+                      dataType: "json",
+                      method:'delete',
+                      data: {},   // for query string
+                      success: function(data){
+                        if (data.status == 1){
+                            alert("deleted");
+                            window.location.reload();
+                        }else{
+                             alert("not deleted");
+                        }
+                      }
+                    });        
+                    alert(id);
+                  break;
+   }
+}

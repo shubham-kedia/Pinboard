@@ -28,10 +28,15 @@ class NoticesController < ApplicationController
     redirect_to :controller => 'notices' , :action=> :index
   end
 
-  def delete
-  	@notice.find(params[:id])
-  	@notice.destroy
-
+  def destroy
+    begin
+    	notice = Notice.find(params[:id])
+    	notice.destroy
+      render :json => {:status => 1}
+    rescue
+      render :json => {:status => 0}
+    end
+    # redirect_to :controller => 'notices' , :action=> :index
   end
 
   def update
