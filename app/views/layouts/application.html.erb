@@ -7,13 +7,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<% if user_signed_in? %>
-	<%= render :partial => "layouts/header_after_login" %>
-	<% else %>
-	<%= render :partial => "layouts/header_before_login" %>
-	<% end %>
-	<%#= flash[:error] %>
+
+	<%= render :partial => "layouts/header" %>
+
 	<div class="alert" id="loading_div"><%#= flash[:message]%></div>
+
 	<div class="container">
 		<div class="row">
 			<div class="span1"></div>
@@ -21,8 +19,7 @@
 				<%= yield %>
 			</div>
 			<div class="span1"></div>
-		</div>	
-	
+		</div>
   </div>
   <div id="footer"></div>
 </body>
