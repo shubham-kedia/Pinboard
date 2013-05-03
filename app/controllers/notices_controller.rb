@@ -97,4 +97,17 @@ def load_notices
                       :private_notice => private_notices_array
                      }
   end
+
+  def search_by_keyword
+    if params[:type] == 'public'
+      notice = Notice.public_notices
+    else
+      notice = Notice.private_notices
+    end
+      notice = notice.where('content like ? or title like ?' , "%#{params[:keyword]}%","%#{params[:keyword]}%").select("id,author,title,content,updated_at")
+
+      notice.each do |note|
+          private_notices_array.push note
+        end
+  end
 end
