@@ -12,4 +12,9 @@ def new
   def update
     super
   end
+
+  def profile
+    @user = current_user
+  end
+
 end

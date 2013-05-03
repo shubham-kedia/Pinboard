@@ -7,12 +7,12 @@ class NoticesController < ApplicationController
     unless @user.noticeboard.nil?
    		@private_notices=@user.noticeboard.notices.private_notices
     end
-  
+
   	@public_notices=Notice.public_notices
   end
 
   def new
-   
+
   end
 
   def create

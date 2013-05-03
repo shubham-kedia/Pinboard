@@ -1,15 +1,21 @@
    <div class="row">
-     <div class="pull-right hide"><a id="new_modal_link" href="#myModal_new" role="button" class="btn btn-primary btn-large" data-toggle="modal">New</a> </div>
-          <div class="tabbable" style="margin-top:50px"> <!-- Only required for left/right tabs -->
+     <div class="pull-right hide">
+      <a id="new_modal_link" href="#myModal_new" role="button" class="btn btn-primary btn-large" data-toggle="modal">New</a>
+    </div>
+          <div class="tabbable" id="notes_tab" style="margin-top:50px"> <!-- Only required for left/right tabs -->
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#private_tab" data-toggle="tab">Private Notes</a></li>
-              <li><a href="#public_tab" data-toggle="tab">Public Notes</a></li>
+              <li class="active" >
+                <a href="#private_tab" data-toggle="tab" access-type="private">Private Notes</a>
+              </li>
+              <li>
+                <a href="#public_tab" data-toggle="tab" access-type="public">Public Notes</a>
+              </li>
             </ul>
             <div class="tab-content">
               <div class="tab-pane active" id="private_tab">
 
                 <div class="board_container context-menu-board" id="board">
-                 
+
                     <ul>
                       <% unless @private_notices.nil?%>
                        <%@private_notices.each do |notice| %>
@@ -28,7 +34,7 @@
 
               </div>
               <div class="tab-pane" id="public_tab">
-                
+
                 <div class="board_container context-menu-board">
                   <ul>
                      <%@public_notices.each do |notice| %>
@@ -40,7 +46,7 @@
                          </a>
                         </li>
                       <%end%>
-                   
+
                   </ul>
                 </div>
 
@@ -70,11 +76,11 @@
           </td>
         </tr>
         <tr>
-          <td>
+<!--           <td>
             <%= f.label :access_type %>
           </td>
-          <td>
-            <%= f.select :access_type, :collection=>["public","private"] %>
+ -->          <td>
+            <%= f.hidden_field :access_type %>
           </td>
         </tr>
         <tr>
@@ -94,9 +100,9 @@
         </tr>
       </table>
     <% end %>
-    
+
   </div>
   <div class="modal-footer">
-    
+
   </div>
 </div>
