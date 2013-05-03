@@ -15,11 +15,11 @@ h2,p{
   overflow:hidden;
   padding:3em;
 }
-.board_container ul li a{
+.board_container ul li span{
   text-decoration:none;
   color:#000;
   background:#ccf;
-  display:block;  
+  display:block;
   height:10em;
   width:10em;
   padding:1em;
@@ -44,12 +44,13 @@ h2,p{
   font-size:100%;
   word-wrap:break-word;
 }
-.board_container ul li a{
+.board_container ul li span{
   -webkit-transform: rotate(-6deg);
   -o-transform: rotate(-6deg);
   -moz-transform:rotate(-6deg);
+  cursor: pointer;
 }
-.board_container ul li:nth-child(even) a{
+.board_container ul li:nth-child(even) span{
   -o-transform:rotate(4deg);
   -webkit-transform:rotate(4deg);
   -moz-transform:rotate(4deg);
@@ -57,7 +58,7 @@ h2,p{
   top:5px;
   /*background:#cfc;*/
 }
-.board_container ul li:nth-child(3n) a{
+.board_container ul li:nth-child(3n) span{
   -o-transform:rotate(-3deg);
   -webkit-transform:rotate(-3deg);
   -moz-transform:rotate(-3deg);
@@ -65,14 +66,14 @@ h2,p{
   top:-5px;
   /*background:#ccf;*/
 }
-.board_container ul li:nth-child(5n) a{
+.board_container ul li:nth-child(5n) span{
   -o-transform:rotate(5deg);
   -webkit-transform:rotate(5deg);
   -moz-transform:rotate(5deg);
   position:relative;
   top:-10px;
 }
-.board_container ul li a:hover,.board_container ul li a:focus{
+.board_container ul li span:hover,.board_container ul li span:focus{
   box-shadow:5px 5px 7px #777;
   -moz-box-shadow:5px 5px 7px #777;
   -webkit-box-shadow: 5px 5px 7px #777;

@@ -154,11 +154,11 @@
 
 <script type="text/template" id="notice_template">
   <li class="<%%=element.className%>  notice" type="<%%=element.type%>" id="<%%=element.id%>">
-    <a  style="color:<%%=element.user_color%>;" href="#">
+    <span style="color:<%%=element.user_color%>;">
       <img src="assets/pin.png" class="sticky_pin">
-      <h4><%%=element.title%></h4>
-      <p><%%=element.content%></p>
-    </a>
+      <h4 class='notice_title'><%%=element.title%></h4>
+      <p> class='notice_content'<%%=element.content%></p>
+    </span>
   </li>
 </script>
 
