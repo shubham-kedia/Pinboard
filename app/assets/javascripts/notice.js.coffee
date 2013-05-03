@@ -10,4 +10,12 @@ $(document).ready ->
 		else
 			$("#myModal_new #notice_access_type").val 'public';
 		return
+
+	$("#notice_content").on 'keydown', (e) ->
+		$("#char_left").text( 256 - $(this).val().length + ' Char left')
+		if $(this).val().length > 255
+			$(this).val($(this).val().substring(0,255))
+			e.preventDefault
+			return false
+		true
 	return
