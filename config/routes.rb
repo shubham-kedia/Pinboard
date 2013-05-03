@@ -72,6 +72,7 @@
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
 
+    match '/notice/send_by_mail' => 'notices#sendemail' ,:via => [:post]
 
     root :to => "home#index"
 
