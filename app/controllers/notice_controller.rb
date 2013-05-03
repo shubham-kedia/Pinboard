@@ -1,5 +1,7 @@
 class NoticeController < ApplicationController
-	before_filter :require_login
+
+  before_filter :require_login
+
   def index
   	@user=current_user
   	@private_notices=@user.noticeboard.notices.private_notices

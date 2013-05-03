@@ -9,7 +9,7 @@
               <div class="tab-pane active" id="private_tab">
 
                 <div class="board context-menu-board" id="board">
-                 
+
                   <ul>
                      <%@private_notices.each do |notice| %>
                       <li class="context-menu-note" id="<%= notice.id %>">
@@ -19,17 +19,17 @@
                        </a>
                       </li>
                    <%end%>
-                    
+
 
                   </ul>
                 </div>
 
               </div>
               <div class="tab-pane" id="public_tab">
-                
+
                 <div class="board context-menu-board">
                   <ul>
-                    
+
                      <%@public_notices.each do |notice| %>
                       <li class="context-menu-note" id="<%= notice.id %>">
                        <a href="#">
@@ -38,7 +38,7 @@
                        </a>
                       </li>
                    <%end%>
-                   
+
                   </ul>
                 </div>
 
