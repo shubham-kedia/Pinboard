@@ -46,7 +46,7 @@
                         <% ownclass= "context-menu-note-public" %>
                        <% end %>
 
-                        <li class="<%=ownclass%>  notice" type="private" id="<%= notice.id %>">
+                        <li class="<%=ownclass%>  notice" type="public" id="<%= notice.id %>">
                          <a href="#">
                           <img src="assets/pin.png" class="sticky_pin">
                           <h4 class="notice_title"><%=notice.title%></h4>
@@ -117,7 +117,7 @@ loadnotices();
 </div>
 
 <script type="text/template" id="notice_template">
-  <li class="<%%=element.type%>" id="<%%=element.id%>">
+  <li class="<%%=element.className%>  notice" type="<%%=element.type%>" id="<%%=element.id%>">
     <a href="#">
       <img src="assets/pin.png" class="sticky_pin">
       <h4><%%=element.title%></h4>

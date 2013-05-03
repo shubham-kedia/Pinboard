@@ -24,16 +24,18 @@ function loadnotices()
                         $("#board_private ul").empty();
                         var t = _.template($('#notice_template').html());
                         $.each(data.private_notice, function(index, element) {
-                            element.type = 'context-menu-note-private';
+                            element.className = 'context-menu-note-private';
+                            element.type="private";
                             $("#board_private ul").append(t({element:element}));
                         });
                         $("#board_public ul").empty();
                         var t = _.template($('#notice_template').html());
                         $.each(data.public_notice, function(index, element) {
                             if(data.user_name == element.author)
-                                element.type = 'context-menu-note-public-own';
+                                element.className = 'context-menu-note-public-own';
                             else
-                                element.type = 'context-menu-note-public';
+                                element.className = 'context-menu-note-public';
+                            element.type="public";
                             $("#board_public ul").append(t({element:element}));
                         });
 
