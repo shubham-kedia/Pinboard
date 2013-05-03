@@ -108,6 +108,20 @@ def load_notices
 
       notice.each do |note|
           private_notices_array.push note
-        end
+      end
+
+
   end
+
+
+  def sendemail
+    begin
+      notice = Notice.find(params[:id])
+      NoticeMailer.send_notice_email(current_user.name , params[:email],notice.title,notice.created_at.strftime("%d-%m-%Y"),notice.content).deliver
+      render :json => {:status => 1}
+    rescue
+      render :json => {:status => 0}
+    end
+  end
+
 end

@@ -39,7 +39,7 @@ function loadnotices()
                             $("#board_public ul").append(t({element:element}));
                         });
 
-                       /* 
+                       /*
                         var listedItems="";
                        $.each(data.private_notices, function(index, element) {
                             listedItems += "<li class='context-menu-note-private' id='"+element.id+"'>";
@@ -141,6 +141,11 @@ function contextMenuAction(key,id,obj)
       case 'search': alert("search");
                   break;
       case 'settings': alert("settings");
+                  break;
+      case 'mail': (function(){
+                      $("#mail_noteid").val(id);
+                      $("#email_modal").modal('show');
+                  })();
                   break;
       case 'make_public':
                     $.ajax({

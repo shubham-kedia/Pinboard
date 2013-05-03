@@ -18,4 +18,17 @@ $(document).ready ->
 			e.preventDefault
 			return false
 		true
+
+	$("#send_email_btn").click ->
+		$.ajax '/notice/send_by_mail',
+			type:'post',
+			data:{id:$("#mail_noteid").val(),email:$("#email_send").val()},
+			success:(data) ->
+				if data.status == 1
+					alert('Mail Sent')
+					$("#email_modal").modal('hide')
+				else
+					alert('Error Occured. Try again')
+			error:()->
+				alert('error')
 	return

@@ -7,21 +7,20 @@ class UsersController < ApplicationController
   end
 
   def update
-		user = current_user
 
+  	user = current_user
 		if !params[:user][:password].nil? and params[:user][:password].empty?
 			params[:user].delete(:password)
 			params[:user].delete(:password_confirmation)
+
+			current_user.update_attributes(params[:user])
+			sign_in(user,:bypass => true)
+
+		else
+			 if current_user.update_with_password(params[:user])
+					sign_in(user,:bypass => true)
+			 end
 		end
-
-		user.update_attributes(params[:user])
-
-
-		puts user.errors.inspect
-
-		puts user.valid?
-
-		sign_in(user)
 
   	redirect_to notices_path
   end
