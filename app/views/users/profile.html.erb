@@ -30,9 +30,16 @@
 	  		</div>
 
 			  <div class="control-group">
+
 	   			<%= f.label :color , :class=> 'control-label'%>
 	    		<div class="controls">
-	    			<%= f.text_field :color ,:class=> 'input' %>
+	    			<div class="input-append color" data-color="<%=@user.color%>" data-color-format="rgb" id="cp3">
+		                <!-- <input type="text" class="span3" value="" readonly >
+		                <span class="add-on"><i style="background-color: rgb(0, 0, 0)"></i></span>
+		             -->
+	    			<%= f.text_field :color ,:class=> 'input', :readonly => true %>
+	    			<span class="add-on"><i style="background-color:<%=@user.color%>"></i></span>
+	    			</div>
 	    		</div>
 	  		</div>
 
