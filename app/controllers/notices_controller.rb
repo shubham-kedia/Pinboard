@@ -64,4 +64,36 @@ class NoticesController < ApplicationController
     end
   end
 
+def load_notices
+    @user=current_user
+    @color=@user.color
+    @private_notices=nil
+    unless @user.noticeboard.nil?
+      @private_notices=@user.noticeboard.notices.private_notices.select("id,author,title,content,updated_at")
+    end
+
+    @public_notices=Notice.public_notices.select("id,author,title,content,updated_at")
+
+    public_notices_array = Array.new
+
+      @public_notices.each do |notice| 
+        public_notices_array.push notice
+      end
+
+    private_notices_array = Array.new
+
+      unless @private_notices.nil?
+        @private_notices.each do |notice| 
+          private_notices_array.push notice
+        end
+      end
+
+    render :json => { :status => 1,
+                      :user_name => @user.name,
+                      :user_id => @user.id,
+                      :user_color => @user.color,
+                      :public_notice => public_notices_array,
+                      :private_notice => private_notices_array
+                     }
+  end
 end

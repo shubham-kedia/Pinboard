@@ -9,6 +9,22 @@
 //= require twitter/bootstrap
 //= require_tree .
 
+
+$(function(){
+    $.ajax({
+      url: "/notices/load_notices/",
+      type: "post",
+      dataType: "json",
+      data: {},   // for query string
+      success: function(data)
+                {
+                   /* if (data.status == 1)
+                        window.location.reload();
+                    else
+                        alert("error during make Private");*/
+                }
+        });  
+});
 $(function(){
     $.contextMenu({
         selector: '.context-menu-board',
@@ -42,8 +58,7 @@ $.contextMenu({
         selector: '.context-menu-note-public',
         callback: context_menu_callback ,
         items: {
-            "make_private": {name: "Make private", icon: "make_private"},
-             "sep1": "---------",
+
             "mail": {name: "Send by e-mail", icon: "mail"},
              "sep2": "---------",
             "edit": {name: "Edit", icon: "edit_notice"},
@@ -57,7 +72,7 @@ $.contextMenu({
         selector: '.context-menu-note-public-own',
         callback: context_menu_callback ,
         items: {
-            "share": {name: "Make private", icon: "private"},
+            "make_private": {name: "Make private", icon: "make_private"},
              "sep1": "---------",
             "mail": {name: "Send by e-mail", icon: "mail"},
              "sep2": "---------",
