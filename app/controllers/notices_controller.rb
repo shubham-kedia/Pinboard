@@ -40,7 +40,28 @@ class NoticesController < ApplicationController
   end
 
   def update
-  	@notice.find(params[:id])
+    @notice.find(params[:id])
     @notice=@notice.update_attributes(:title=>params[:title],:content=>[:content])
   end
+
+  def make_private
+    begin
+      notice = Notice.find(params[:id])
+      notice=notice.update_attributes(:access_type=>"private")
+      render :json => {:status => 1}
+    rescue
+      render :json => {:status => 0}
+    end
+  end
+
+  def make_public
+    begin
+      notice = Notice.find(params[:id])
+      notice=notice.update_attributes(:access_type=>"public")
+      render :json => {:status => 1}
+    rescue
+      render :json => {:status => 0}
+    end
+  end
+
 end

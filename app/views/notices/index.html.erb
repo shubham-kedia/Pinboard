@@ -19,7 +19,7 @@
                     <ul>
                       <% unless @private_notices.nil?%>
                        <%@private_notices.each do |notice| %>
-                        <li class="context-menu-note" id="<%= notice.id %>">
+                        <li class="context-menu-note-private" id="<%= notice.id %>">
                          <a href="#">
                           <img src="assets/pin.png" class="sticky_pin">
                           <h4><%=notice.title%></h4>
@@ -38,7 +38,7 @@
                 <div class="board_container context-menu-board">
                   <ul>
                      <%@public_notices.each do |notice| %>
-                        <li class="context-menu-note" id="<%= notice.id %>">
+                        <li class="context-menu-note-public" id="<%= notice.id %>">
                          <a href="#">
                           <img src="assets/pin.png" class="sticky_pin">
                           <h4><%=notice.title%></h4>

@@ -29,7 +29,7 @@ $(function(){
     });
     
 $.contextMenu({
-        selector: '.context-menu-note', 
+        selector: '.context-menu-note-private', 
         callback: function(key, options) {
             var id =  options.$trigger.attr('id');
             // alert("Clicked on " + key + " on element " + options.$trigger.attr('id'));
@@ -37,16 +37,56 @@ $.contextMenu({
             // window.console && console.log(m) || alert(m); 
         },
         items: {
-            "share": {name: "Share with your team", icon: "shareteam"},
+            "make_public": {name: "Share with your team", icon: "share_team"},
              "sep1": "---------",
             "mail": {name: "Send by e-mail", icon: "mail"},
              "sep2": "---------",
+            "edit": {name: "Edit", icon: "edit_note"},
+             "sep3": "---------",
             "delete": {name: "Delete", icon: "delete"}
 
         }
     });
 
+$.contextMenu({
+        selector: '.context-menu-note-public', 
+        callback: function(key, options) {
+            var id =  options.$trigger.attr('id');
+            // alert("Clicked on " + key + " on element " + options.$trigger.attr('id'));
+            contextMenuAction(key,id);
+            // window.console && console.log(m) || alert(m); 
+        },
+        items: {
+            "make_private": {name: "Make private", icon: "make_private"},
+             "sep1": "---------",
+            "mail": {name: "Send by e-mail", icon: "mail"},
+             "sep2": "---------",
+            "edit": {name: "Edit", icon: "edit_notice"},
+             "sep3": "---------",
+            "delete": {name: "Delete", icon: "delete"}
 
+        }
+    });
+
+$.contextMenu({
+        selector: '.context-menu-note-public-own', 
+        callback: function(key, options) {
+            var id =  options.$trigger.attr('id');
+            // alert("Clicked on " + key + " on element " + options.$trigger.attr('id'));
+            contextMenuAction(key,id);
+            // window.console && console.log(m) || alert(m); 
+        },
+        items: {
+            "share": {name: "Make private", icon: "private"},
+             "sep1": "---------",
+            "mail": {name: "Send by e-mail", icon: "mail"},
+             "sep2": "---------",
+            "edit": {name: "Edit", icon: "edit_notice"},
+             "sep3": "---------",
+            "delete": {name: "Delete", icon: "delete"}
+
+        }
+    });
 
 });
 
@@ -79,27 +119,56 @@ function contextMenuAction(key,id)
                   break;
       case 'settings': alert("settings");
                   break;
-      case 'share': alert("share");
+      case 'make_public':
+                    $.ajax({
+                      url: "/notices/makepublic/" + id,
+                      type: "post",
+                      dataType: "json",
+                      data: {},   // for query string
+                      success: function(data)
+                                {
+                                    if (data.status == 1)
+                                        window.location.reload();
+                                    else
+                                        alert("error during share with team");
+                                }
+                        });  
                   break;
+
+      case 'make_private':
+                    $.ajax({
+                      url: "/notices/makeprivate/" + id,
+                      type: "post",
+                      dataType: "json",
+                      data: {},   // for query string
+                      success: function(data)
+                                {
+                                    if (data.status == 1)
+                                        window.location.reload();
+                                    else
+                                        alert("error during make Private");
+                                }
+                        });  
+                  break;
+
       case 'mail': alert("mail");
                   break;
-      case 'delete': alert(id);
+
+      case 'delete':
                     $.ajax({
                       url: "/notices/" + id,
                       type: "post",
                       dataType: "json",
                       method:'delete',
                       data: {},   // for query string
-                      success: function(data){
-                        if (data.status == 1){
-                            alert("deleted");
-                            window.location.reload();
-                        }else{
-                             alert("not deleted");
-                        }
-                      }
-                    });        
-                    alert(id);
+                      success: function(data)
+                                {
+                                    if (data.status == 1)
+                                        window.location.reload();
+                                    else
+                                        alert("error during delete");
+                                }
+                        });        
                   break;
    }
 }

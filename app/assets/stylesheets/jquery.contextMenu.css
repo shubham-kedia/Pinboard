@@ -88,16 +88,23 @@
  */
 
 .context-menu-item.icon { min-height: 15px;background-repeat: no-repeat; background-position: 4px 2px; }
-
+/* board right click context menu styles */
 .context-menu-item.icon-add { background:#fff url(hand_note/note_add.png);background-size:16px 16px;background-repeat:no-repeat; }
 .context-menu-item.icon-searchbykey { background:#fff url(hand_note/note_search.png);background-size:16px 16px;background-repeat:no-repeat; }
 .context-menu-item.icon-settings { background:#fff url(hand_note/note_settings.png);background-size:16px 16px;background-repeat:no-repeat; }
 
-.context-menu-item.icon-shareteam { background:#fff url(hand_note/note_shareteam.png);background-size:16px 16px;background-repeat:no-repeat; }
+/* private notice right click context menu styles */
+.context-menu-item.icon-share_team { background:#fff url(hand_note/note_shareteam.png);background-size:16px 16px;background-repeat:no-repeat; }
 .context-menu-item.icon-mail { background:#fff url(hand_note/note_mail.png);background-size:16px 16px;background-repeat:no-repeat; }
+.context-menu-item.icon-edit_notice { background:#fff url(hand_note/note_edit.png);background-size:16px 16px;background-repeat:no-repeat; }
 .context-menu-item.icon-delete { background:#fff url(hand_note/note_delete.png);background-size:16px 16px;background-repeat:no-repeat; }
 
-.context-menu-item.icon-edit { background:#fff url(hand_note/note_edit.png);background-size:16px 16px;background-repeat:no-repeat; }
+/* private notice right click context menu styles */
+.context-menu-item.icon-make_private { background:#fff url(hand_note/note_private.png);background-size:16px 16px;background-repeat:no-repeat; }
+.context-menu-item.icon-mail { background:#fff url(hand_note/note_mail.png);background-size:16px 16px;background-repeat:no-repeat; }
+.context-menu-item.icon-edit_notice { background:#fff url(hand_note/note_edit.png);background-size:16px 16px;background-repeat:no-repeat; }
+.context-menu-item.icon-delete { background:#fff url(hand_note/note_delete.png);background-size:16px 16px;background-repeat:no-repeat; }
+
 
 .context-menu-item { display: block;}
 
