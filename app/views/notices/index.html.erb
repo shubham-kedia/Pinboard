@@ -1,6 +1,6 @@
    <div class="row">
      <div class="pull-right hide">
-      <a id="new_modal_link" href="#myModal_new" role="button" class="btn btn-primary btn-large" data-toggle="modal">New</a>
+      <a id="new_modal_link" href="#myModal_new" role="button" class="btn btn-primary btn-large">New</a>
     </div>
           <div class="tabbable" id="notes_tab" style="margin-top:50px"> <!-- Only required for left/right tabs -->
             <ul class="nav nav-tabs">
@@ -58,7 +58,7 @@
 
 
 
-        <!-- Modal -->
+<!-- Modal -->
 <div id="myModal_new" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -103,6 +103,13 @@
 
   </div>
   <div class="modal-footer">
-
-  </div>
+ </div>
 </div>
+
+<script>
+  window.new_notice_url = "<%=new_notice_url%>";
+  window.edit_notice_url = "<%=notices_url%>";
+</script>
+
+
+

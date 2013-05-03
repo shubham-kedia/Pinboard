@@ -14,8 +14,8 @@
                      <%@private_notices.each do |notice| %>
                       <li class="context-menu-note" id="<%= notice.id %>">
                        <a href="#">
-                        <h4><%=notice.title%></h4>
-                        <p><%=notice.content%></p>
+                        <h4 class="notice_title"><%=notice.title%></h4>
+                        <p class="notice_conten"><%=notice.content%></p>
                        </a>
                       </li>
                    <%end%>
