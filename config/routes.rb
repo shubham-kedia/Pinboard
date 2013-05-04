@@ -1,5 +1,15 @@
  Board::Application.routes.draw do
 
+  get "user_settings/index"
+
+  get "user_settings/show"
+
+  get "user_settings/edit"
+
+  get "user_settings/destroy"
+
+  get "user_settings/update"
+
   # get "notice/index"
 
   # get "notice/create"
