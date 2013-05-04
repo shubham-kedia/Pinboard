@@ -101,6 +101,6 @@ display:none;
 			}
 			}
 }
-.ui-dialog-titlebar-close{
-
+.ui-dialog-titlebar-close:before{
+ 		content:'X';
 }

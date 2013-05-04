@@ -1,6 +1,6 @@
 <h2></h2>
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+<%= form_for(resource, :as => resource_name,:html=>{:class=>"validate_reg"}, :url => registration_path(resource_name)) do |f| %>
+  <%#= devise_error_messages! %>
 
   <div><%= f.label :email %>
   <%= f.email_field :email, :autofocus => true %></div>
@@ -15,3 +15,53 @@
 <% end %>
 
 <%= render "users/shared/links" %>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    
+    $(".validate_reg").validate({
+        rules: {
+          "user[email]": {
+            email:true,
+            required: true,
+            remote: "/validate/email"
+          },
+          "user[password]": {
+            required: true,
+            minlength: 8
+          },
+          "user[password_confirmation]": {
+            required: true,
+            equalTo: ".password_user_check_match"
+          }
+         
+        },
+        messages: {
+         "user[email]": {
+           email: "Invalid Email",
+           remote: "Your Email is not available",
+           required: "Enter Your Email-ID"
+         },
+         "user[password]":{
+            required :"Enter the Password"
+         },
+         "user[password_confirmation]":{
+            required : "Enter the confirmation password",
+            equalTo : "Passwords do not match."
+         }
+         },
+        highlight: function(label) {
+          return $(label).closest(".control-group").addClass("error");
+        },
+        errorPlacement: function(error, element) {
+            if($(element).is(':checkbox')){
+                error.insertAfter(element.siblings("label"));
+            }
+            else {
+                error.insertAfter(element);
+            }
+        }
+    });
+  });
+</script>
