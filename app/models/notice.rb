@@ -22,4 +22,12 @@ class Notice < ActiveRecord::Base
   end
   scope :public_notices, where(:access_type => 'public')
   scope :private_notices, where(:access_type =>'private')
+
+  after_save do
+      return ApplicationController.publish(self.access_type,self.author)
+  end
+
+  after_destroy do
+      return ApplicationController.publish(self.access_type,self.author)
+  end
 end

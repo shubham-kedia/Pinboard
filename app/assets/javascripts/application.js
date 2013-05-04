@@ -9,7 +9,7 @@
 //= require twitter/bootstrap
 //= require_tree .
 
-function loadnotices()
+function sync_notices()
 {
     $.ajax({
       url: "/notices/load_notices/",
@@ -21,58 +21,56 @@ function loadnotices()
 
                     if (data.status == 1)
                     {
+                      //create the template
+                        var t = _.template($('#notice_template').html());
+
+                        //empty the board
                         $("#board_private ul").empty();
-                        var t = _.template($('#notice_template').html());
+
+
+
                         $.each(data.private_notice, function(index, element) {
-                            element.className = 'context-menu-note-private';
-                            element.type="private";
-                            element.user_color=data.user_color;
-                            $("#board_private ul").append(t({element:element}));
-                        });
-                        $("#board_public ul").empty();
-                        var t = _.template($('#notice_template').html());
-                        $.each(data.public_notice, function(index, element) {
-                            if(data.user_name == element.author)
-                            {
-                                element.user_color=data.user_color;
-                                element.className = 'context-menu-note-public-own';
-                            }
-                            else
-                            {
-                                element.className = 'context-menu-note-public';
-                            }
-                            element.type="public";
-                            $("#board_public ul").append(t({element:element}));
+                          load_notice(data.user_name,element,'private',t)
                         });
 
-                       /*
-                        var listedItems="";
-                       $.each(data.private_notices, function(index, element) {
-                            listedItems += "<li class='context-menu-note-private' id='"+element.id+"'>";
-                            listedItems += "<a href='#'><img src='assets/pin.png' class='sticky_pin'>";
-                            listedItems += "<h4>"+element.title+"</h4><p>"+element.content+"</p></a></li>"
+                        //empty the board
+                        $("#board_public ul").empty();
+
+                        $.each(data.public_notice, function(index, element) {
+                          load_notice(data.user_name,element,'public',t)
+                          // load public
                         });
-                        $("#board_private ul").append(listedItems);*/
-                        // window.location.reload();
+
                     }
                     else
-                        alert("error during make Private");
+                        alert("Some Error during Sync");
                 }
         });
 }
 
-function load_notice(data)
+function load_notice(username,data,type,template)
 {
-    if(data.length>0)
+    if(data)
     {
-                var t = _.template($('#notice_template').html());
-                if (data.type=="public")
-                   $("#board_public ul").append(t({element:data}));
-                else
-                   $("#board_private ul").append(t({element:data}));
+      //use template or create one
+      var t = template ||  _.template($('#notice_template').html());
+
+      //set data need for tmeplate
+      data.type=type;
+      data.className = 'context-menu-note-' + type;
+
+      if(username == data.author)
+      {
+          data.user_color=data.user_color;
+          data.className += '-own';
+      }
+
+      //render template
+      $("#board_"+ type +" ul").append(t({element:data}));
     }
 
 }
+
 $(function(){
     $.contextMenu({
         selector: '.context-menu-board',
@@ -181,7 +179,7 @@ function contextMenuAction(key,id,obj)
                       success: function(data)
                                 {
                                     if (data.status == 1)
-                                        loadnotices();
+                                        sync_notices();
                                     else
                                         alert("error during share with team");
                                 }
@@ -197,7 +195,7 @@ function contextMenuAction(key,id,obj)
                       success: function(data)
                                 {
                                     if (data.status == 1)
-                                        loadnotices();
+                                        sync_notices();
                                     else
                                         alert("error during make Private");
                                 }
@@ -216,10 +214,9 @@ function contextMenuAction(key,id,obj)
                       data: {},   // for query string
                       success: function(data)
                                 {
-                                    if (data.status == 1)
-                                        loadnotices();
-                                    else
-                                        alert("error during delete");
+                                    if (data.status != 1){
+                                     alert("error during delete");
+                                    }
                                 }
                         });
                   break;
@@ -227,7 +224,6 @@ function contextMenuAction(key,id,obj)
 }
 
 show_notice_modal = function(obj){
-  console.log(obj);
   //if empty show empty form
   var form = $("#new_notice");
   if (obj == null || typeof(obj) == 'undefined'){
