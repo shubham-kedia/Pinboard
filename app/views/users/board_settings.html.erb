@@ -1,8 +1,5 @@
 
-
-<h3>Settings</h3>
-
-<%= form_for setting  ,:class => 'form_horizontal' do |f| %>
+<%= form_for setting  ,:class => 'form_horizontal' ,:remote => true do |f| %>
 
 	  <div class="control-group">
 				<%= label_tag 'Which Notes? ' , nil , :class=> 'control-label' %>
@@ -27,7 +24,7 @@
 
 	  <div class="control-group">
 			<div class="controls">
-					<%=f.submit "Update Settings" %>
+					<%=f.submit "Update Settings" ,:class => 'btn btn-primary' %>
 			</div>
 		</div>
 

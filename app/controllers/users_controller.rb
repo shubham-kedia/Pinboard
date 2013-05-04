@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 			sign_in(user,:bypass => true)
 
 		else
-			 if current_user.update_with_password(params[:user])
+			 if current_user.update_attributes(params[:user])
 					sign_in(user,:bypass => true)
 			 end
 		end
