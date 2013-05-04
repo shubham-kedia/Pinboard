@@ -61,6 +61,18 @@ function loadnotices()
         });
 }
 
+function load_notice(data)
+{
+    if(data.length>0)
+    {
+                var t = _.template($('#notice_template').html());
+                if (data.type=="public")
+                   $("#board_public ul").append(t({element:data}));
+                else
+                   $("#board_private ul").append(t({element:data}));
+    }
+
+}
 $(function(){
     $.contextMenu({
         selector: '.context-menu-board',
