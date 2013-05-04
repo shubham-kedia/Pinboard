@@ -24,4 +24,12 @@ class UsersController < ApplicationController
 
   	redirect_to notices_path
   end
+
+  def board_settings
+
+  	@setting = current_user.setting
+
+  	render :layout => false
+
+  end
 end

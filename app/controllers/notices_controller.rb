@@ -106,9 +106,11 @@ def load_notices
     end
       notice = notice.where('content like ? or title like ?' , "%#{params[:keyword]}%","%#{params[:keyword]}%").select("id,author,title,content,updated_at")
 
-      notice.each do |note|
-          private_notices_array.push note
-      end
+      render :json => {:status => 1}
+
+      # notice.each do |note|
+      #     private_notices_array.push note
+      # end
 
 
   end

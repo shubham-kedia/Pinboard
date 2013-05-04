@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130502113522) do
+ActiveRecord::Schema.define(:version => 20130504062115) do
 
   create_table "noticeboards", :force => true do |t|
     t.string   "name"
@@ -29,6 +29,17 @@ ActiveRecord::Schema.define(:version => 20130502113522) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
   end
+
+  create_table "user_settings", :force => true do |t|
+    t.string   "notice_visibility"
+    t.string   "date_visibility"
+    t.string   "auto_delete"
+    t.integer  "user_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "user_settings", ["user_id"], :name => "index_user_settings_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

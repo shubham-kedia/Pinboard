@@ -144,10 +144,17 @@ function contextMenuAction(key,id,obj)
                   break;
       case 'edit': show_notice_modal(obj);
                    break;
-      case 'search': alert("search");
-                  break;
-      case 'settings': alert("settings");
-                  break;
+      case 'search': (function(){
+                      if (id == 'board_public'){
+                        $("#search_board").val('public');
+                      }else{
+                        $("#search_board").val('private');
+                      }
+                      $("#search_modal").modal('show');
+                    })();
+                    break;
+      case 'settings': $("#setting_modal").modal('show');
+                      break;
       case 'mail': (function(){
                       $("#mail_noteid").val(id);
                       $("#email_modal").modal('show');

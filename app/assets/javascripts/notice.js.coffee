@@ -23,6 +23,7 @@ $(document).ready ->
 		$.ajax '/notice/send_by_mail',
 			type:'post',
 			data:{id:$("#mail_noteid").val(),email:$("#email_send").val()},
+			dataType:'json'
 			success:(data) ->
 				if data.status == 1
 					alert('Mail Sent')
@@ -31,4 +32,22 @@ $(document).ready ->
 					alert('Error Occured. Try again')
 			error:()->
 				alert('error')
+
+	$("#search_btn").click ->
+		$.ajax
+			url: '/notice/search/' + $("#search_board").val() + '/' + $('#search_keyword').val()
+			type:'get'
+			dataType:'json'
+			success: (data) ->
+				if data.status == 1
+					alert('searched')
+					$("#search_modal").modal('hide')
+					true
+				else
+					alert('Error Occured. Try again')
+					true
+			error:()->
+				alert('error')
+				true
+		true
 	return

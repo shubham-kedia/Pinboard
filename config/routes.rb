@@ -63,16 +63,21 @@
   #   end
    resources :notices
 
+   resources :user_settings
+
    match '/notices/load_notices/' => 'notices#load_notices' ,:via => [:post]
 
    match '/notices/makeprivate/:id' => 'notices#make_private' ,:via => [:post]
 
    match '/notices/makepublic/:id' => 'notices#make_public' ,:via => [:post]
+
+   match '/users/board_settings' => 'users#board_settings' ,:via => [:get]
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
 
     match '/notice/send_by_mail' => 'notices#sendemail' ,:via => [:post]
+    match '/notice/search/:type/:keyword' => 'notices#search_by_keyword' ,:via => [:get]
 
     root :to => "home#index"
 

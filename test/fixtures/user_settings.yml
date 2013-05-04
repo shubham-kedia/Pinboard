@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  notice_visibility: MyString
+  date_visibility: 
+  auto_delete: MyString
+  user: 
+
+two:
+  notice_visibility: MyString
+  date_visibility: 
+  auto_delete: MyString
+  user: 

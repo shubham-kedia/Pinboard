@@ -1,0 +1,35 @@
+
+
+<h3>Settings</h3>
+
+<%= form_for setting  ,:class => 'form_horizontal' do |f| %>
+
+	  <div class="control-group">
+				<%= label_tag 'Which Notes? ' , nil , :class=> 'control-label' %>
+			<div class="controls">
+				<%= f.select :notice_visibility ,options_for_select([['Show only own notes',0],['Show notes of all team members',1]]) %>
+			</div>
+		</div>
+
+	  <div class="control-group">
+				<%= label_tag 'Date Settings ' , nil , :class=> 'control-label'%>
+			<div class="controls">
+				<%= f.select :date_visibility ,options_for_select([['Show notes from today only',0],['Show notes of past 5 days',5],['Show notes of past 30 days',30]]) %>
+			</div>
+		</div>
+
+	  <div class="control-group">
+				<%= label_tag 'Delete ' , nil , :class=> 'control-label'%>
+			<div class="controls">
+				<%= f.select :auto_delete ,options_for_select([['Delete notes after 30 days automatically',30],['Notes shall be deleted manually',0]]) %>
+			</div>
+		</div>
+
+	  <div class="control-group">
+			<div class="controls">
+					<%=f.submit "Update Settings" %>
+			</div>
+		</div>
+
+
+<% end %>

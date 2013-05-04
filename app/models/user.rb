@@ -12,4 +12,11 @@ class User < ActiveRecord::Base
   # validates_presence_of :password ,:if => :new_record?
   #associations
   has_one :noticeboard
+
+  has_one :setting ,:class_name => 'UserSettings'
+
+  after_create do
+    self.setting = UserSettings.new
+  end
+
 end
