@@ -1,0 +1,44 @@
+<h2></h2>
+<%= form_for(resource,:html=>{:id=>"user_sign"}, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+  <div><%= f.label :email %>
+  <%= f.email_field :email, :autofocus => true %></div>
+
+  <div><%= f.label :password %>
+  <%= f.password_field :password %></div>
+
+  <% if devise_mapping.rememberable? -%>
+    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+  <% end -%>
+
+  <div><%= f.submit "Login",:class=>"btn btn-primary"%></div>
+<% end %>
+<%= render "users/shared/links" %>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $("#user_sign").validate({
+      rules: {
+        "user[email]": {
+          email:true,
+          required: true
+        },
+        "user[password]": {
+          required: true,
+          minlength: 8
+        }
+      },
+      messages: {
+         "user[email]": {
+           email: "Invalid Email",
+           required: "Enter Your Email-ID"
+         },
+         "user[password]":{
+            required :"Enter the Password"
+         }
+        },
+      highlight: function(label) {
+        return $(label).closest(".control-group").addClass("error");
+      }
+  });
+});
+</script>

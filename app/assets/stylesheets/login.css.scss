@@ -1,0 +1,106 @@
+
+#login_box
+{
+	width:580px;
+	.login_error_msg{
+		color:red;
+		padding: 0px;
+		font-size:12px;
+		margin: 0px;
+		text-align:center;
+	}
+	.forgot_error{
+		color:green;
+		padding: 0px;
+		font-size:12px;
+		margin: 0px;
+		text-align:center;
+	}
+	#login_box_left{
+		width:96%;
+		float: left;
+
+		#login_box_left_login{
+			height: 100%;
+			margin-left: 3%;
+		}
+		#login_box_left_signup,#login_box_left_password,#login_box_left_confirm{
+			display: none;
+		}
+	}
+/*	#login_box_right{
+		width: 48%;
+		float: right;
+		.fb_big_logi {
+			background: url("/assets/global/facebook_login.png") no-repeat transparent;
+			display: block;
+			height: 59px;
+			width: 210px;
+			margin:90px auto;
+		}
+	}*/
+}
+#registration_msg,#confirmation_form_msg{
+color: #008000;
+font-size: 14px;
+text-align: justify;
+padding: 5px;
+background: #DDD;
+border-radius: 5px;
+display:none;
+}
+.devise_pages{
+	margin:5px;
+	margin-left: 010%;
+	h2{
+		font-size:14px;
+		font-weight: bold;
+	}
+	a{
+		font-size: 12px;
+		padding-right: 20px;
+		display: block;
+	}
+	.new_user, .validate_reg, .forgot_password_form{
+			.inline{
+				display: inline;
+			}
+			div{
+				clear:both;
+				label{
+					font-size: 12px;
+					display: block;
+					margin: 10px 0px 0px 0px;
+				}
+				label.error{
+					color:red;
+					padding: 0px;
+					margin: 0px;
+				}
+				input[type=text], input[type=email], input[type=password]{
+					font-size: 12px;
+					padding: 1px;
+					width:80%;
+					margin-bottom: 0px;
+					margin-top: 5px;
+				}
+				select{
+					font-size: 12px;
+					padding: 1px;
+					margin-bottom: 0px;
+					margin-top: 5px;
+					height: 24px;
+				}
+				input[type=checkbox]{
+					width:20px;
+					float:left;
+				}
+				input[type=submit]{
+				margin-top:4px;
+				}
+			}
+			}
+}
+.ui-dialog-titlebar-close:before{
+ 		content:'X';
+}
