@@ -79,8 +79,8 @@ $(function(){
         e.preventDefault();
         var obj ={
           id:  $(this).attr('id'),
-          content: $(this).find('.notice_title').html(),
-          title: $(this).find('.notice_content').html(),
+          content: $(this).find('.notice_content').html(),
+          title: $(this).find('.notice_title').html(),
           type: $(this).attr('access_type')
         }
 
@@ -169,7 +169,7 @@ function contextMenuAction(key,id,obj)
                       success: function(data)
                                 {
                                     if (data.status == 1)
-                                        window.location.reload();
+                                        loadnotices();
                                     else
                                         alert("error during share with team");
                                 }
@@ -185,7 +185,7 @@ function contextMenuAction(key,id,obj)
                       success: function(data)
                                 {
                                     if (data.status == 1)
-                                        window.location.reload();
+                                        loadnotices();
                                     else
                                         alert("error during make Private");
                                 }
@@ -205,7 +205,7 @@ function contextMenuAction(key,id,obj)
                       success: function(data)
                                 {
                                     if (data.status == 1)
-                                        window.location.reload();
+                                        loadnotices();
                                     else
                                         alert("error during delete");
                                 }
@@ -215,6 +215,7 @@ function contextMenuAction(key,id,obj)
 }
 
 show_notice_modal = function(obj){
+  console.log(obj);
   //if empty show empty form
   var form = $("#new_notice");
   if (obj == null || typeof(obj) == 'undefined'){
@@ -250,8 +251,8 @@ context_menu_callback  =function(key, options) {
             if (options.$trigger.hasClass('notice')){
               obj ={
                 id: options.$trigger.attr('id'),
-                content:options.$trigger.find('.notice_title').html(),
-                title:options.$trigger.find('.notice_content').html(),
+                content:options.$trigger.find('.notice_content').html(),
+                title:options.$trigger.find('.notice_title').html(),
                 type:options.$trigger.attr('access_type')
               }
             }

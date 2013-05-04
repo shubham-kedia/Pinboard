@@ -25,7 +25,8 @@ class NoticesController < ApplicationController
     params[:notice]["author"] = @user.name
     puts params.inspect
     @notice=@board.notices.create(params[:notice])
-    redirect_to :controller => 'notices' , :action=> :index
+    render :js => '$("#myModal_new").modal("hide");loadnotices();'
+    #redirect_to :controller => 'notices' , :action=> :index
   end
 
   def destroy
@@ -42,7 +43,7 @@ class NoticesController < ApplicationController
   def update
     @notice = Notice.find(params[:id])
     @notice=@notice.update_attributes(params[:notice])
-    redirect_to notices_url
+    render :js => '$("#myModal_new").modal("hide");loadnotices();'
   end
 
   def make_private

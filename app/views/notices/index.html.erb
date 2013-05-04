@@ -75,7 +75,7 @@
     <h3 id="myModalLabel">Create Notice</h3>
   </div>
   <div class="modal-body">
-    <%= form_for(Notice.new) do |f| %>
+    <%= form_for(Notice.new, :remote=>true) do |f| %>
       <table cell-padding="5" cell-spacing="5">
         <tr>
           <td>
@@ -110,7 +110,6 @@
         </tr>
       </table>
     <% end %>
-
   </div>
   <div class="modal-footer">
  </div>
@@ -169,7 +168,7 @@
     <span style="color:<%%=element.user_color%>;">
       <img src="assets/pin.png" class="sticky_pin">
       <h4 class='notice_title'><%%=element.title%></h4>
-      <p> class='notice_content'<%%=element.content%></p>
+      <p class='notice_content'><%%=element.content%></p>
     </span>
   </li>
 </script>

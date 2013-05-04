@@ -12,11 +12,17 @@ class User < ActiveRecord::Base
   # validates_presence_of :password ,:if => :new_record?
   #associations
   has_one :noticeboard
-
+  validates_uniqueness_of :email
   has_one :setting ,:class_name => 'UserSettings'
 
   after_create do
     self.setting = UserSettings.new
   end
 
+  def self.current_id
+    Thread.current[:user]
+  end
+  def self.current_id=(user)
+    Thread.current[:user] = user.id
+  end
 end

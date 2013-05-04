@@ -13,7 +13,7 @@ class UserSettingsController < ApplicationController
 
   def update
     if current_user.setting.update_attributes(params[:user_settings])
-      render :js => "alert('Settings Updated'); $('#setting_modal').modal('hide');"
+      render :js => "loadnotices(); $('#setting_modal').modal('hide');"
     else
       render :js => "alert('Updation Failed');"
     end
