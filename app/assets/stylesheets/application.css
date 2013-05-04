@@ -11,3 +11,27 @@
  *= require_self
  *= require_tree .
  */
+
+#user_color{
+	width: 180px;
+}
+
+.form_container{
+	padding-top: 35px;
+}
+
+.bg-design{
+	margin-top: 26px;
+border: 2px solid rgba(111, 144, 146, 0.31);
+border-radius: 33px;
+background-color: rgb(243, 240, 248);
+-moz-box-shadow: 5px 5px 18px #000000;
+-webkit-box-shadow: 5px 5px 18px #000000;
+box-shadow: 5px 5px 18px #000000;
+}
+
+.edit_user .control-label{
+	font-size: 1.2em;
+ font-style: italic;
+  /*color: #0060cc;*/
+}
