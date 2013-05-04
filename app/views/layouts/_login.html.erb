@@ -1,0 +1,21 @@
+<div id="login_box" class="font-dialog">
+	<div id="login_box_left">
+		<div id="login_box_left_login" class="boxes">
+			<div class="login_error_msg"></div>
+			<div class="devise_pages">
+			<%= render :template => "users/sessions/new" %>
+			</div>
+		</div>
+		<div id="login_box_left_password" class="boxes">
+			<div class="devise_pages">
+				<%= render :template => "users/passwords/new" %>
+			</div>
+		</div>
+		<div id="login_box_left_signup" class="boxes">
+			<div class="devise_pages">
+				<%= render :template => "users/registrations/new" %>
+			</div>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>

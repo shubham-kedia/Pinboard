@@ -33,8 +33,9 @@
 		          <% else %>
 
                 <ul class="nav pull-right">
-		              <li><%= link_to "Register", new_registration_path(User.new) %></li>
-		              <li><%= link_to 'Login' , user_session_path%></li>
+<li id="login"><a href="#" class="open_login_popup"><span></span><p>Login</p></a></li>
+
+					<li id="register"><a href="#" class="open_signup_popup"><span></span><p>Register</p></a></li>
 		              <!-- <li ><a href="/users/sign_in">Login</a></li> -->
 		            </ul>
 
