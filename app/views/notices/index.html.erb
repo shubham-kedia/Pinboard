@@ -123,8 +123,10 @@
     <h3 id="myModalLabel">Send By Email</h3>
   </div>
   <div class="modal-body">
+  <form id="send_by_email">
     <input type="hidden" id="mail_noteid" value="">
-    <label >Email: </label> <input id="email_send" type="email" placeholder="Enter the email">
+    <label >Email: </label> <input id="email_send" type="email" placeholder="Enter the email" name="email-send" required>
+  </form>
 
   </div>
   <div class="modal-footer">
@@ -140,8 +142,9 @@
     <h3 id="myModalLabel">Search</h3>
   </div>
   <div class="modal-body">
+    <form id="search_by_keyword">
     <input type="hidden" id="search_board" value="">
-    <label >Search: </label> <input id="search_keyword" type="text" placeholder="Enter the search">
+    <label >Search: </label> <input name="search_keyword" id="search_keyword" type="text" placeholder="Enter the search"></form>
 
   </div>
   <div class="modal-footer">
@@ -177,5 +180,7 @@
   window.new_notice_url = "<%=notices_url%>";
   window.edit_notice_url = "<%=notices_url%>";
 </script>
+<!-- validations -->
+
 
 
