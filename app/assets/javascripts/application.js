@@ -11,7 +11,14 @@
 
 //= require twitter/bootstrap
 //= require_tree .
+$(document).ready(function(){
+   window.notice=function(header,body){
+      $('#notice_header').html(header);
+      $('#notice_body').html(body);
+      $('#notice').modal("show");
+    }
 
+});
 function sync_notices()
 {
     $.ajax({
@@ -79,10 +86,12 @@ $(function(){
         selector: '.context-menu-board',
         callback: context_menu_callback ,
         items: {
+
+            "sep1": "---------",
             "new": {name: "New note",icon: "add"},
-              "sep1": "---------",
-            "search": {name: "Search by keyword",icon: "searchbykey"},
               "sep2": "---------",
+            "search": {name: "Search by keyword",icon: "searchbykey"},
+              "sep3": "---------",
             "settings": {name: "Settings", icon: "settings"}
 
         }
@@ -105,12 +114,13 @@ $.contextMenu({
         selector: '.context-menu-note-private',
         callback: context_menu_callback ,
         items: {
+            "sep1": "---------",
             "make_public": {name: "Share with your team", icon: "share_team"},
-             "sep1": "---------",
-            "mail": {name: "Send by e-mail", icon: "mail"},
              "sep2": "---------",
-            "edit": {name: "Edit", icon: "edit_notice"},
+            "mail": {name: "Send by e-mail", icon: "mail"},
              "sep3": "---------",
+            "edit": {name: "Edit", icon: "edit_notice"},
+             "sep4": "---------",
             "delete": {name: "Delete", icon: "delete"}
 
         }
@@ -120,7 +130,7 @@ $.contextMenu({
         selector: '.context-menu-note-public',
         callback: context_menu_callback ,
         items: {
-
+            "sep1": "---------",
             "mail": {name: "Send by e-mail", icon: "mail"},
              "sep2": "---------",
             "edit": {name: "Edit", icon: "edit_notice"},
@@ -134,12 +144,13 @@ $.contextMenu({
         selector: '.context-menu-note-public-own',
         callback: context_menu_callback ,
         items: {
+            "sep1": "---------",
             "make_private": {name: "Make private", icon: "make_private"},
-             "sep1": "---------",
-            "mail": {name: "Send by e-mail", icon: "mail"},
              "sep2": "---------",
-            "edit": {name: "Edit", icon: "edit_notice"},
+            "mail": {name: "Send by e-mail", icon: "mail"},
              "sep3": "---------",
+            "edit": {name: "Edit", icon: "edit_notice"},
+             "sep4": "---------",
             "delete": {name: "Delete", icon: "delete"}
 
         }

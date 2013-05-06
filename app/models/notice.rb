@@ -3,23 +3,22 @@ class Notice < ActiveRecord::Base
   #associations
   belongs_to :noticeboard
 
-  def self.default_scope
-  	begin
-  	puts User.current_id
-		settings = UserSettings.find_by_user_id(User.current_id)
-		if settings
-			where = []
-			if settings.notice_visibility == "0"
-				where << "noticeboard_id=#{settings.user.noticeboard.id}"
-			end
-			where << "DATEDIFF( DATE( created_at ) , CURDATE( ) ) <= #{settings.date_visibility}"
-			where(where.join(" and "))
-
-		end
-	 rescue
-  	where("")
-  end
-  end
+  scope :notice_with_settings , lambda { |user| 
+    begin
+    	settings = user.settings
+  		if settings
+  			whr = []
+  			if settings.notice_visibility == "0"
+  				whr << "noticeboard_id=#{user.noticeboard.id}"
+  			end
+  			whr << "DATEDIFF( DATE( created_at ) , CURDATE( ) ) <= #{settings.date_visibility}"
+  			return where(whr.join(" and "))
+        #return whr.join(" and ")
+  		end
+	  rescue
+  	 return where("")
+    end
+  }
   scope :public_notices, where(:access_type => 'public')
   scope :private_notices, where(:access_type =>'private')
 
