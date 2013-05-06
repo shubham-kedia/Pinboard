@@ -6,7 +6,7 @@ module MyPublish
 		if board_type == 'public'
 			puts 'public '
 
-    	public_notices=::Notice.public_notices.select("id,author,title,content,updated_at")
+    	public_notices=::Notice.public_notices
 
     	notices = []
 

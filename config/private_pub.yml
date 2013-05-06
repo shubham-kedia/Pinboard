@@ -1,5 +1,5 @@
 development:
-  server: "http://192.168.2.10:9292/faye"
+  server: "http://localhost:9292/faye"
   secret_token: "secret"
 test:
   server: "http://codingmart.com:9293/faye"

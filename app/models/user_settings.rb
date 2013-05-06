@@ -6,7 +6,7 @@ class UserSettings < ActiveRecord::Base
   def default_settings
   	self.auto_delete = 30
   	self.date_visibility = 5
-  	self.notice_visibility = 0
+  	self.notice_visibility = 1
   end
 
   after_create do

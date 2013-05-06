@@ -15,40 +15,66 @@ class NoticesController < ApplicationController
   end
 
   def create
-  	@user=current_user
-  	if @user.noticeboard.nil?
-  		@board=@user.create_noticeboard(:name=>"board")
+  	user=current_user
+  	if user.noticeboard.nil?
+  		board=user.create_noticeboard(:name=>"board")
     else
-    	@board=@user.noticeboard
+    	board = user.noticeboard
     end
-    params[:notice]["author"] = @user.name
-    puts params.inspect
-    @notice=@board.notices.create(params[:notice])
+    params[:notice][:user_id] = current_user.id
+    notice = board.notices.create(params[:notice])
+
+    begin
+      publish(notice.access_type)
+    rescue
+    end
     render :js => '$("#myModal_new").modal("hide");'
     #redirect_to :controller => 'notices' , :action=> :index
   end
 
   def destroy
+    type = ""
     begin
     	notice = Notice.find(params[:id])
+      type = notice.access_type
     	notice.destroy
+
+    begin
+      publish(type)
+    rescue
+    end
+
       render :json => {:status => 1}
     rescue
       render :json => {:status => 0}
     end
+
     # redirect_to :controller => 'notices' , :action=> :index
   end
 
   def update
-    @notice = Notice.find(params[:id])
-    @notice=@notice.update_attributes(params[:notice])
+    notice = Notice.find(params[:id])
+    # params[:notice][:user_id] = current_user.id
+    notice.update_attributes(params[:notice])
+
+    begin
+      publish(notice.access_type)
+    rescue
+    end
+
     render :js => '$("#myModal_new").modal("hide");'
   end
 
   def make_private
     begin
       notice = Notice.find(params[:id])
-      notice=notice.update_attributes(:access_type=>"private")
+      notice.update_attributes(:access_type=>"private")
+
+      begin
+      publish(notice.access_type)
+      rescue
+      end
+
       render :json => {:status => 1}
     rescue
       render :json => {:status => 0}
@@ -58,7 +84,13 @@ class NoticesController < ApplicationController
   def make_public
     begin
       notice = Notice.find(params[:id])
-      notice=notice.update_attributes(:access_type=>"public")
+      notice.update_attributes(:access_type=>"public")
+
+      begin
+        publish(notice.access_type)
+      rescue
+      end
+
       render :json => {:status => 1}
     rescue
       render :json => {:status => 0}
@@ -66,21 +98,22 @@ class NoticesController < ApplicationController
   end
 
 def load_notices
-    @user=current_user
-    @color=@user.color
-    @private_notices=nil
-    unless @user.noticeboard.nil?
-      @private_notices=@user.noticeboard.notices.notice_with_settings(@user).private_notices.select("id,author,title,content,updated_at")
+    user=current_user
+    color=user.color
+    private_notices = nil
+    unless user.noticeboard.nil?
+      private_notices = user.noticeboard.notices.notice_with_settings(user).private_notices
     end
 
-    @public_notices=Notice.notice_with_settings(@user).public_notices.select("id,author,title,content,updated_at")
+    # public_notices=Notice.notice_with_settings(user).public_notices.select("id,author,title,content,updated_at")
+    public_notices=Notice.notice_with_settings(user).public_notices
 
     render :json => { :status => 1,
-                      :user_name => @user.name,
-                      :user_id => @user.id,
-                      :user_color => @user.color,
-                      :public_notice => @public_notices,
-                      :private_notice => @private_notices
+                      :user_name => user.name,
+                      :user_id => user.id,
+                      :user_color => user.color,
+                      :public_notice => public_notices.as_json,
+                      :private_notice => private_notices.as_json
                      }
   end
 
@@ -93,7 +126,7 @@ def load_notices
       notices = Notice.notice_with_settings(@user).private_notices
     end
     if notices
-      notices = notices.where('content like ? or title like ?' , "%#{params[:keyword]}%","%#{params[:keyword]}%").select("id,author,title,content,updated_at")
+      notices = notices.where('content like ? or title like ?' , "%#{params[:keyword]}%","%#{params[:keyword]}%")
     end
     render :json => { :status => 1,
                       :user_name => @user.name,

@@ -20,7 +20,7 @@
 
 
   devise_for :users, :controllers => {:registrations => "users/registrations"}   #:path_names => {:sign_in => 'login' }
-  
+
   match '/users/settings' => 'users#profile' ,:via => [:get] ,:as => :user_profile
   match '/users/update' => 'users#update' ,:via => [:put] ,:as => :user_update
   match "validate/:type" => "home#validate"
@@ -72,11 +72,11 @@
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-   resources :notices
+
 
    resources :user_settings
 
-   match '/notices/load_notices/' => 'notices#load_notices' ,:via => [:post]
+   match '/notices/load_notices/' => 'notices#load_notices' ,:via => [:post,:get]
 
    match '/notices/makeprivate/:id' => 'notices#make_private' ,:via => [:post]
 
@@ -86,6 +86,8 @@
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
+
+   resources :notices
 
     match '/notice/send_by_mail' => 'notices#sendemail' ,:via => [:post]
     match '/notice/search/:type/:keyword' => 'notices#search_by_keyword' ,:via => [:get]

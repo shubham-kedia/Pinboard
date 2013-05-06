@@ -1,9 +1,14 @@
 class Notice < ActiveRecord::Base
-  attr_accessible :access_type, :author, :content, :title
+  attr_accessible :access_type, :content, :title ,:user_id
+
+  attr_accessor :color ,:author
   #associations
   belongs_to :noticeboard
+  belongs_to :user
 
-  scope :notice_with_settings , lambda { |user| 
+  delegate :color , :name ,:to => :user ,:prefix => true
+
+  scope :notice_with_settings , lambda { |user|
     begin
     	settings = user.setting
   		if settings
@@ -22,11 +27,36 @@ class Notice < ActiveRecord::Base
   scope :public_notices, where(:access_type => 'public')
   scope :private_notices, where(:access_type =>'private')
 
-  after_save do
-      return ApplicationController.publish(self.access_type,self.author)
+  # after_save do
+  #     return ApplicationController.publish(self.access_type,self.user_name)
+  # end
+
+  # after_destroy do
+  #     return ApplicationController.publish(self.access_type,self.user_name)
+  # end
+
+  attr_accessible :access_type, :content, :title ,:user_id
+
+  attr_accessor :color ,:author
+
+  def as_json(options = { })
+    h = super(options)
+    h['user_color'] =  self.user_color
+    h['author'] = self.user_name
+    h
   end
 
-  after_destroy do
-      return ApplicationController.publish(self.access_type,self.author)
-  end
+  alias to_json as_json
+
+  # def to_json
+  #   return {
+  #     :access_type => self.access_type,
+  #     :content => self.content,
+  #     :title => self.content,
+  #     :color => self.user_color,
+  #     :author => self.user_name,
+  #     :updated_at => self.updated_at
+  #     }.to_json
+  # end
+
 end

@@ -110,6 +110,9 @@ h2,p{
   position: fixed;
   font-size: 12px;
   font-style: italic;
+  width:48%;
+  display: block;
+  overflow: hidden;
 }
 
 .notice .notice_author{

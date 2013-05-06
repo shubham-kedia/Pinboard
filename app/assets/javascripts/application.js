@@ -110,7 +110,7 @@ $(function(){
     });
 
 $.contextMenu({
-        selector: '.context-menu-note-private',
+        selector: '.context-menu-note-private-own',
         callback: context_menu_callback ,
         items: {
             "sep1": "---------",

@@ -21,8 +21,8 @@
                     <ul>
                       <% unless @private_notices.nil?%>
                        <%@private_notices.each do |notice| %>
-                        <li class="context-menu-note-private notice" type="private" id="<%= notice.id %>">
-                         <span class="notice" style="color:<%=@user.color%>">
+                        <li class="context-menu-note-private-own notice" type="private" id="<%= notice.id %>">
+                         <span class="notice" style="color:<%=notice.user_color%>">
                           <img src="assets/pin.png" class="sticky_pin">
                           <h4 class="notice_title"><%=notice.title%></h4>
                           <p class="notice_content"><%=notice.content%></p>
@@ -44,13 +44,13 @@
                 <div class="board_container context-menu-board" id="board_public">
                   <ul>
                      <%@public_notices.each do |notice| %>
-                       <% if(notice.author == @user.name) %>
+                       <% if(notice.user_id == @user.id) %>
                         <% ownclass= "context-menu-note-public-own" %>
                        <% else %>
                         <% ownclass= "context-menu-note-public" %>
                        <% end %>
                         <li class="<%=ownclass%>  notice" type="public" id="<%= notice.id %>">
-                         <span class="notice"  style="color:<%=User.find_by_name(notice.author).color%>">
+                         <span class="notice"  style="color:<%=notice.user_color%>">
                           <img src="assets/pin.png" class="sticky_pin">
                           <h4 class="notice_title"><%=notice.title%></h4>
                           <p class="notice_content"><%=notice.content%></p>

@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email
   has_one :setting ,:class_name => 'UserSettings'
 
+  has_many :notices
+
   after_create do
     self.setting = UserSettings.new
   end

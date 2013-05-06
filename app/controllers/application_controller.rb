@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  
+
   def require_login
     if !user_signed_in?
       if(params[:controller]!="home")
@@ -30,20 +30,21 @@ class ApplicationController < ActionController::Base
   end
 
   # publis to author
-  def self.publish(board_type,username)
+  def publish(board_type)
 
     if board_type == 'public'
       puts 'public '
 
-      public_notices=::Notice.public_notices.select("id,author,title,content,updated_at")
+      public_notices=Notice.public_notices
 
       notices = []
 
       public_notices.each do |notice|
                 notices.push({:id =>  notice.id ,
                       :title => notice.title,
-                      :user_color => User.find_by_name(notice.author).color,
-                      :content => notice.content
+                      :user_color => notice.user_color,
+                      :content => notice.content,
+                      :author => notice.user_name
                     })
 
       end
@@ -54,7 +55,7 @@ class ApplicationController < ActionController::Base
                 $('#board_public ul').empty();
                 var a =JSON.parse('#{notices.to_json}');
               $.each(a, function(index, element) {
-                load_notice('#{username}',element,'public');
+                load_notice('#{current_user.name}',element,'public');
               });
             "
 
@@ -70,7 +71,7 @@ class ApplicationController < ActionController::Base
 
       puts 'Private '
 
-      private_notices=user.noticeboard.notices.private_notices.select("id,author,title,content,updated_at")
+      private_notices=user.noticeboard.notices.private_notices
 
       puts private_notices.inspect
 
@@ -80,7 +81,8 @@ class ApplicationController < ActionController::Base
         notices.push({:id =>  notice.id ,
                       :title => notice.title,
                       :user_color => user.color,
-                      :content => notice.content
+                      :content => notice.content,
+                      :author => notice.user_name
                     })
 
       end

@@ -10,8 +10,13 @@
                 <div class="board context-menu-board" id="board">
 
                   <ul>
+                    <% private_menu_class = 'context-menu-note-private' %>
+                     <%if notice.user_id == @user.id %>
+                      <% private_menu_class += '-own' %>
+                    <% end %>
+
                      <%@private_notices.each do |notice| %>
-                      <li class="context-menu-note notice" type="private" id="<%= notice.id %>">
+                      <li class="context-menu-note notice <%=private_menu_class%>" type="private" id="<%= notice.id %>">
                         <h4 class="notice_title"><%=notice.title%></h4>
                         <p class="notice_conten"><%=notice.content%></p>
                       </li>
@@ -26,9 +31,14 @@
 
                 <div class="board context-menu-board">
                   <ul>
-
+                    <% private_menu_class = 'context-menu-note-public' %>
                      <%@public_notices.each do |notice| %>
-                      <li class="context-menu-note notice"  type="public" id="<%= notice.id %>">
+
+                     <%if notice.user_id == @user.id %>
+                      <% private_menu_class += '-own' %>
+                    <% end %>
+
+                      <li class="context-menu-note notice <%=private_menu_class%>"  type="public" id="<%= notice.id %>">
                         <h4 class="notice_title"><%=notice.title%></h4>
                         <p class="notice_conten"><%=notice.content%></p>
                       </li>
