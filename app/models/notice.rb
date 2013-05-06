@@ -5,7 +5,7 @@ class Notice < ActiveRecord::Base
 
   scope :notice_with_settings , lambda { |user| 
     begin
-    	settings = user.settings
+    	settings = user.setting
   		if settings
   			whr = []
   			if settings.notice_visibility == "0"

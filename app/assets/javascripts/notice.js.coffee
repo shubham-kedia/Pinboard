@@ -20,34 +20,66 @@ $(document).ready ->
 		true
 
 	$("#send_email_btn").click ->
-		$.ajax '/notice/send_by_mail',
-			type:'post',
-			data:{id:$("#mail_noteid").val(),email:$("#email_send").val()},
-			dataType:'json'
-			success:(data) ->
-				if data.status == 1
-					alert('Mail Sent')
+		if($("#send_by_email").valid())
+			$("#send_email_btn").val("Sending Email..")
+			$.ajax '/notice/send_by_mail',
+				type:'post',
+				data:{id:$("#mail_noteid").val(),email:$("#email_send").val()},
+				dataType:'json'
+				success:(data) ->
+					$("#send_email_btn").val("Send Mail")
+					if data.status == 1
+						$("#email_modal").modal('hide')
+						notice("Mail ", "Mail successfully sent")
+					else
+						$("#email_modal").modal('hide')
+						notice("Mail", "Sending Failed , Try again")
+				error:()->
+					$("#send_email_btn").val("Send Mail")
 					$("#email_modal").modal('hide')
-				else
-					alert('Error Occured. Try again')
-			error:()->
-				alert('error')
+					notice("Mail", "Sending Failed , Try again")
+		false
 
 	$("#search_btn").click ->
-		$.ajax
-			url: '/notice/search/' + $("#search_board").val() + '/' + $('#search_keyword').val()
-			type:'get'
-			dataType:'json'
-			success: (data) ->
-				if data.status == 1
-					alert('searched')
-					$("#search_modal").modal('hide')
+		if($("#search_by_keyword").valid())
+			search_type = $("#search_board").val() 
+			$.ajax
+				url: '/notice/search/' + search_type + '/' + $('#search_keyword').val()
+				type:'get'
+				dataType:'json'
+				success: (data) ->
+					if data.status == 1
+						$("#search_modal").modal('hide')
+						$("#board_"+search_type+" ul").empty();
+						t = _.template($('#notice_template').html())
+						$.each data.notices, (index, element) ->
+							load_notice(data.user_name,element,search_type ,t)
+							return
+					else
+						alert('Error Occured. Try again')
+						return
+				error:()->
+					alert('error')
 					true
-				else
-					alert('Error Occured. Try again')
-					true
-			error:()->
-				alert('error')
-				true
-		true
+		false
+		
+	$("#send_by_email").validate
+		rules:
+			"email-send":
+				email: true
+				required: true
+
+		messages:
+			"email-send":
+				email: "Invalid Email"
+				required: "Enter Your Email-ID"
+
+		highlight: (label) ->
+			$(label).closest(".control-group").addClass "error"
+	$("#search_by_keyword").validate
+		rules:
+			"search_keyword":
+				required:true
+		highlight: (label) ->
+			$(label).closest(".control-group").addClass "error"
 	return
