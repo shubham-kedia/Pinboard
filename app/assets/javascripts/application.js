@@ -155,7 +155,9 @@ $.contextMenu({
         }
     });
 
-
+   $("#myModal_new").on ('show',function(){
+    $("#notice_content").trigger('keydown');
+   });
 
 });
 

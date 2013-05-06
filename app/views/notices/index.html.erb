@@ -78,17 +78,17 @@
       <table cell-padding="5" cell-spacing="5">
         <tr>
           <td>
-            <%= f.label :title %>
+            <%= f.label :title  %>
           </td>
           <td>
-            <%= f.text_field :title %><br />
+            <%= f.text_field :title ,:required => true ,:maxlength => 20 %><br />
           </td>
         </tr>
         <tr>
 <!--           <td>
             <%= f.label :access_type %>
           </td>
- -->          <td>
+ -->     <td>
             <%= f.hidden_field :access_type %>
           </td>
         </tr>
@@ -97,7 +97,7 @@
             <%= f.label :content %>
           </td>
           <td>
-            <%= f.text_area :content, :rows => 5 %> <span id="char_left"></span><br />
+            <%= f.text_area :content, :rows => 5 ,:cols => 10 ,:required => true %> <span id="char_left"></span><br />
           </td>
         </tr>
         <tr>
@@ -124,7 +124,7 @@
   </div>
   <div class="modal-body">
     <input type="hidden" id="mail_noteid" value="">
-    <label >Email: </label> <input id="email_send" type="email" placeholder="Enter the email">
+    <label >Email: </label> <input id="email_send" type="email" placeholder="Enter the email" required>
 
   </div>
   <div class="modal-footer">
