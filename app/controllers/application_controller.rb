@@ -32,6 +32,7 @@ class ApplicationController < ActionController::Base
   # publis to author
   def publish(board_type)
 
+    puts board_type + ' asdfdsfsdf sadfsd'
     if board_type == 'public'
       puts 'public '
 
@@ -67,11 +68,9 @@ class ApplicationController < ActionController::Base
       true
     else
 
-      user = User.find_by_name(username)
-
       puts 'Private '
 
-      private_notices=user.noticeboard.notices.private_notices
+      private_notices=current_user.noticeboard.notices.private_notices
 
       puts private_notices.inspect
 
@@ -80,7 +79,7 @@ class ApplicationController < ActionController::Base
       private_notices.each do |notice|
         notices.push({:id =>  notice.id ,
                       :title => notice.title,
-                      :user_color => user.color,
+                      :user_color => current_user.color,
                       :content => notice.content,
                       :author => notice.user_name
                     })
@@ -93,12 +92,12 @@ class ApplicationController < ActionController::Base
                 $('#board_private ul').empty();
                 var a =JSON.parse('#{notices.to_json}');
                 $.each(a, function(index, element) {
-                  load_notice('#{username}',element,'private');
+                  load_notice('#{current_user.name}',element,'private');
                 });
               "
 
-              puts "/user_#{username}";
-      PrivatePub.publish_to("/user_#{username}",exec_js)
+              puts "/user_#{current_user.name}";
+      PrivatePub.publish_to("/user_#{current_user.name}",exec_js)
 
       puts 'published'
 

@@ -100,8 +100,8 @@ $(function(){
         e.preventDefault();
         var obj ={
           id:  $(this).attr('id'),
-          content: $(this).find('.notice_content').html(),
-          title: $(this).find('.notice_title').html(),
+          content: $(this).find('.notice_content').html().replace(/<br>/g , '\n'),
+          title: $(this).find('.notice_title').html().replace(/<br>/g , '\n'),
           type: $(this).attr('access_type')
         }
 
@@ -274,8 +274,8 @@ context_menu_callback  =function(key, options) {
             if (options.$trigger.hasClass('notice')){
               obj ={
                 id: options.$trigger.attr('id'),
-                content:options.$trigger.find('.notice_content').text().replace(/<br>/,'\r\n'),
-                title:options.$trigger.find('.notice_title').text(),
+                content:options.$trigger.find('.notice_content').html().replace(/<br>/g , '\n'),
+                title:options.$trigger.find('.notice_title').html().replace(/<br>/g , '\n'),
                 type:options.$trigger.attr('access_type')
               }
             }
