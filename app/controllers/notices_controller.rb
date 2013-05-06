@@ -75,44 +75,32 @@ def load_notices
 
     @public_notices=Notice.notice_with_settings(@user).public_notices.select("id,author,title,content,updated_at")
 
-    public_notices_array = Array.new
-
-      @public_notices.each do |notice|
-        public_notices_array.push notice
-      end
-
-    private_notices_array = Array.new
-
-      unless @private_notices.nil?
-        @private_notices.each do |notice|
-          private_notices_array.push notice
-        end
-      end
-
     render :json => { :status => 1,
                       :user_name => @user.name,
                       :user_id => @user.id,
                       :user_color => @user.color,
-                      :public_notice => public_notices_array,
-                      :private_notice => private_notices_array
+                      :public_notice => @public_notices,
+                      :private_notice => @private_notices
                      }
   end
 
   def search_by_keyword
+    @user=current_user
+    @color=@user.color
     if params[:type] == 'public'
-      notice = Notice.public_notices
+      notices = Notice.notice_with_settings(@user).public_notices
     else
-      notice = Notice.notice_with_settings(@user).private_notices
+      notices = Notice.notice_with_settings(@user).private_notices
     end
-      notice = notice.where('content like ? or title like ?' , "%#{params[:keyword]}%","%#{params[:keyword]}%").select("id,author,title,content,updated_at")
-
-      render :json => {:status => 1}
-
-      # notice.each do |note|
-      #     private_notices_array.push note
-      # end
-
-
+    if notices
+      notices = notices.where('content like ? or title like ?' , "%#{params[:keyword]}%","%#{params[:keyword]}%").select("id,author,title,content,updated_at")
+    end
+    render :json => { :status => 1,
+                      :user_name => @user.name,
+                      :user_id => @user.id,
+                      :user_color => @user.color,
+                      :notices => notices
+                     }
   end
 
 
