@@ -1,13 +1,16 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-	def require_login
-   if !user_signed_in?
-			redirect_to "/", :flash => { :notice => "Please Login" }
+  
+  def require_login
+    if !user_signed_in?
+      if(params[:controller]!="home")
+			   redirect_to "/", :flash => { :notice => "Please Login" }
+      end
 			return false
-		elsif (current_user.name.nil? or current_user.name.empty? ) and !(request[:controller] = 'Users'  and ( request[:action] == 'update'  or request[:action] ==  'profile' ) )
+		elsif (current_user.name.nil? or current_user.name.empty? ) && ( params[:action]!="settings" && params[:controller]!="users")
 			redirect_to user_profile_path ,:flash => {:notice => 'Update your Name'}
 			return false
-		end
+    end
     session[:channel] = "/public_board"
 		true
   end
@@ -22,7 +25,7 @@ class ApplicationController < ActionController::Base
     	user_profile_path
     else
 			set_current_user_id
-    	root_url
+    	notices_url
     end
   end
 

@@ -5,10 +5,9 @@ class NoticesController < ApplicationController
   	@color=@user.color
   	@private_notices=nil
     unless @user.noticeboard.nil?
-   		@private_notices=@user.noticeboard.notices.private_notices
+   		@private_notices=@user.noticeboard.notices.notice_with_settings(@user).private_notices
     end
-
-  	@public_notices=Notice.public_notices
+  	@public_notices=Notice.notice_with_settings(@user).public_notices
   end
 
   def new
@@ -71,10 +70,10 @@ def load_notices
     @color=@user.color
     @private_notices=nil
     unless @user.noticeboard.nil?
-      @private_notices=@user.noticeboard.notices.private_notices.select("id,author,title,content,updated_at")
+      @private_notices=@user.noticeboard.notices.notice_with_settings(@user).private_notices.select("id,author,title,content,updated_at")
     end
 
-    @public_notices=Notice.public_notices.select("id,author,title,content,updated_at")
+    @public_notices=Notice.notice_with_settings(@user).public_notices.select("id,author,title,content,updated_at")
 
     public_notices_array = Array.new
 
@@ -103,7 +102,7 @@ def load_notices
     if params[:type] == 'public'
       notice = Notice.public_notices
     else
-      notice = Notice.private_notices
+      notice = Notice.notice_with_settings(@user).private_notices
     end
       notice = notice.where('content like ? or title like ?' , "%#{params[:keyword]}%","%#{params[:keyword]}%").select("id,author,title,content,updated_at")
 
