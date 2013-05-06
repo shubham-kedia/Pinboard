@@ -274,8 +274,8 @@ context_menu_callback  =function(key, options) {
             if (options.$trigger.hasClass('notice')){
               obj ={
                 id: options.$trigger.attr('id'),
-                content:options.$trigger.find('.notice_content').html(),
-                title:options.$trigger.find('.notice_title').html(),
+                content:options.$trigger.find('.notice_content').text().replace(/<br>/,'\r\n'),
+                title:options.$trigger.find('.notice_title').text(),
                 type:options.$trigger.attr('access_type')
               }
             }

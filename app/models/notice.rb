@@ -39,6 +39,10 @@ class Notice < ActiveRecord::Base
 
   attr_accessor :color ,:author
 
+  after_find do
+    self.content = self.content.gsub(/\r/,'').gsub(/\n/,'<br>'.html_safe)
+  end
+
   def as_json(options = { })
     h = super(options)
     h['user_color'] =  self.user_color

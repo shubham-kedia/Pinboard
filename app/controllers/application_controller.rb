@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
                 notices.push({:id =>  notice.id ,
                       :title => notice.title,
                       :user_color => notice.user_color,
-                      :content => notice.content,
+                      :content => notice.content.html_safe,
                       :author => notice.user_name
                     })
 

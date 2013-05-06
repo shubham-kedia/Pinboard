@@ -25,9 +25,9 @@
                          <span class="notice" style="color:<%=notice.user_color%>">
                           <img src="assets/pin.png" class="sticky_pin">
                           <h4 class="notice_title"><%=notice.title%></h4>
-                          <p class="notice_content"><%=notice.content%></p>
+                          <p class="notice_content"><%=notice.content.html_safe%></p>
 
-                          <span class='notice_author '><%= notice.author %></span>
+                          <span class='notice_author '><%= notice.user_name %></span>
                           <span class='notice_time '><%= notice.updated_at.strftime("%d-%m-%Y") %></span>
 
                          </span>
@@ -53,9 +53,9 @@
                          <span class="notice"  style="color:<%=notice.user_color%>">
                           <img src="assets/pin.png" class="sticky_pin">
                           <h4 class="notice_title"><%=notice.title%></h4>
-                          <p class="notice_content"><%=notice.content%></p>
+                          <p class="notice_content"><%=notice.content.html_safe%></p>
 
-                          <span class='notice_author '><%= notice.author %></span>
+                          <span class='notice_author '><%= notice.user_name %></span>
                           <span class='notice_time '><%= notice.updated_at.strftime("%d-%m-%Y") %></span>
 
                          </span>
@@ -179,8 +179,8 @@
       <h4 class='notice_title'><%%=element.title%></h4>
       <p class='notice_content'><%%=element.content%></p>
 
-      <p class='notice_author'><%%=element.content%></p>
-      <p class='notice_time '><%%=element.content%></p>
+      <p class='notice_author'><%%=element.user_name%></p>
+      <p class='notice_time '><%%=element.updated_at%></p>
 
 
     </span>
