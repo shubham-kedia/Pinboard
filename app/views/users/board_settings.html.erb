@@ -4,21 +4,21 @@
 	  <div class="control-group">
 				<%= label_tag 'Which Notes? ' , nil , :class=> 'control-label' %>
 			<div class="controls">
-				<%= f.select :notice_visibility ,options_for_select([['Show only own notes',0],['Show notes of all team members',1]]) %>
+				<%= f.select :notice_visibility ,options_for_select([['Show only own notes','0'],['Show notes of all team members','1']] , setting.notice_visibility )  %>
 			</div>
 		</div>
 
 	  <div class="control-group">
 				<%= label_tag 'Date Settings ' , nil , :class=> 'control-label'%>
 			<div class="controls">
-				<%= f.select :date_visibility ,options_for_select([['Show notes from today only',0],['Show notes of past 5 days',5],['Show notes of past 30 days',30]]) %>
+				<%= f.select :date_visibility ,options_for_select([['Show notes from today only',0],['Show notes of past 5 days',5],['Show notes of past 30 days',30]] , setting.date_visibility) %>
 			</div>
 		</div>
 
 	  <div class="control-group">
 				<%= label_tag 'Delete ' , nil , :class=> 'control-label'%>
 			<div class="controls">
-				<%= f.select :auto_delete ,options_for_select([['Delete notes after 30 days automatically',30],['Notes shall be deleted manually',0]]) %>
+				<%= f.select :auto_delete ,options_for_select([['Delete notes after 30 days automatically',30],['Notes shall be deleted manually',0]],setting.auto_delete) %>
 			</div>
 		</div>
 
