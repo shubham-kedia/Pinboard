@@ -99,5 +99,5 @@ h2,p{
   font-size:16px;
   font-weight:bold;
   margin-top:-20px;
-
+  word-wrap: break-word;
 }
