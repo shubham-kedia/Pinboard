@@ -12,7 +12,9 @@
  *= require jquery.ui.all
  *= require_tree .
  */
-
+textarea {
+	resize:none;
+}
 #user_color{
 	width: 180px;
 }
