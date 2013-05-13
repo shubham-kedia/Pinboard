@@ -1,9 +1,9 @@
 .board_container{
   font-family:arial,sans-serif;
   font-size:100%;
-  background:rgba(255, 255, 0, 0.16);
-  color:#fff;
-  min-height: 500px;
+  /*background:rgba(255, 255, 0, 0.16);
+  color:#fff;*/
+ min-height: 500px;
 }
 h2,p{
   font-size:80%;
