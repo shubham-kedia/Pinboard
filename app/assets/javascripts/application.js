@@ -70,7 +70,8 @@ function load_notice(username,data,type,template)
 
       if(username == data.author)
       {
-          data.user_color=data.user_color;
+          data.notice_color=data.user_color;
+          data.text_color=inverseColor(data.user_color);
           data.className += '-own';
       }
 
@@ -80,12 +81,31 @@ function load_notice(username,data,type,template)
 
 }
 
+function inverseColor(theString)
+{
+  var theString = theString.substring(0,theString.length-1);
+  var numbers = theString.split(',');
+  a= parseInt(numbers[0]);
+  b= parseInt(numbers[1]);
+  c= parseInt(numbers[2]);
+  
+  newColor='#'+DecToHex(255-a)+""+DecToHex(255-b)+""+DecToHex(255-c);
+  return newColor;
+}
+var hexbase="0123456789ABCDEF";
+function DecToHex(number) 
+{
+  return hexbase.charAt((number>> 4)& 0xf)+ hexbase.charAt(number& 0xf);
+}
+
+
+
+
 $(function(){
     $.contextMenu({
         selector: '.context-menu-board',
         callback: context_menu_callback ,
         items: {
-
             "sep1": "---------",
             "new": {name: "New note",icon: "add"},
               "sep2": "---------",
