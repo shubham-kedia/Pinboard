@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
 
   has_many :notices
   belongs_to :team
+
   after_create do
     self.setting = UserSettings.new
   end
