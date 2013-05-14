@@ -4,9 +4,10 @@ def new
   end
 
   def create
-    user = User.create(params[:user])
+    #user = User.create(params[:user])
+    #id=Team.select(:id).where("name=?",params[:team_id])
 
-    #user.create_detail(:name=>params[:user_name],:gender=>params[:user_gender])
+    User.create(params[:user])
     redirect_to new_user_session_url
     #sign_in_and_redirect user
   end

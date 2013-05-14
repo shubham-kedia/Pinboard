@@ -11,6 +11,10 @@
   <div><%= f.label :password_confirmation %>
   <%= f.password_field :password_confirmation %></div>
 
+
+<div><%= f.label :team_id %>
+  <%#= f.select :team_id, :collection =>[teams] %></div>
+  <%= select("user", "team_id", Team.all.collect {|p| [ p.name, p.id ] }, { :include_blank => false }) %>
   <div><%= f.submit "Sign up",:class=>"btn btn-primary" %></div>
 <% end %>
 
@@ -19,7 +23,7 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-    
+
     $(".validate_reg").validate({
         rules: {
           "user[email]": {
@@ -35,7 +39,7 @@
             required: true,
             equalTo: ".validate_reg #user_password"
           }
-         
+
         },
         messages: {
          "user[email]": {
