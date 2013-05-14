@@ -1,0 +1,50 @@
+#photo_stack li {
+	position: absolute;
+	/*border: 10px solid #FFF;*/
+	box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+	-moz-box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+	z-index: 999;
+
+	/* setup transition speed and easing */
+	-moz-transition: all 0.2s ease; /* Firefox */
+	-webkit-transition: all 0.2s ease; /* WebKit */
+	-o-transition: all 0.2s ease; /* Opera */
+	transition: all 0.2s ease; /* Standard */
+
+}
+#photo_stack #photo1 {
+	top: 0;
+	left: 100px;
+}
+#photo_stack #photo2 {
+	top: 12px;
+	left: 55px;
+}
+#photo_stack #photo3 {
+	top: 27px;
+	left: 50px;
+}
+
+@-webkit-keyframes shuffle {
+	0% {
+		margin-left: 0px;
+	}
+	50% {
+		margin-left: 450px;
+		-webkit-transform: scale(0.9);
+		-moz-transform: scale(0.9);
+		transform: scale(0.9);
+	}
+	100% {
+		margin-left: 0px;
+		-webkit-transform: scale(1);
+		-moz-transform: scale(1);
+		transform: scale(1);
+	}
+}
+#photo_stack .animate {
+	-webkit-animation-name: shuffle;
+	-webkit-animation-duration: 1s;
+	-webkit-animation-iteration-count: 1;
+}

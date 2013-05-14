@@ -4,9 +4,12 @@
 // It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
 // the compiled file.
 //
+
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.all
+//= require jquery.remotipart
+//= require jquery.iframe-transport
 //= require twitter/bootstrap
 //= require_tree .
 
@@ -17,7 +20,31 @@ $(document).ready(function(){
       $('#notice').modal("show");
     }
 
+    // $(document).on("click",".notice_list",function() {
+    //   $(this).siblings().css("z-index","0");
+    //   $(this).css("z-index","1");
+    // });
+
+    $(document).on("mouseover",".img_icon",function(){
+        var not_ele = $(this).closest(".notice");
+        $(".images_popup").hide();
+        not_ele.find(".images_popup").show();
+    });
+    $(document).on("mouseover",".images_popup",function(){
+        $(this).show();
+    });
+    $(document).on("mouseout",".images_popup",function(){
+        $(".images_popup").hide();
+    });
+     $(document).on("mouseout",".img_icon",function(){
+        $(".images_popup").hide();
+    });
+
 });
+
+
+var user_id_notices=0,first="yes",marginTop=0,marginLeft=0,column=0;
+sync_notices();
 function sync_notices()
 {
     $.ajax({
@@ -31,33 +58,67 @@ function sync_notices()
                     if (data.status == 1)
                     {
                       //create the template
-                        var t = _.template($('#notice_template').html());
+                      var t = _.template($('#notice_template').html());
 
-                        //empty the board
-                        $("#board_private ul").empty();
+                      //empty the board private
+                      $("#board_private ul").empty();
+
+                      $.each(data.private_notice, function(index, element) {
+                        just_text=load_notice(data.user_id,element,'private',t,'');
+                      });
 
 
+                      //empty the board public
+                      $("#board_public").empty();
 
-                        $.each(data.private_notice, function(index, element) {
-                          load_notice(data.user_name,element,'private',t)
-                        });
+                      var total_string = '<div class="row">';
+            
+                        
+                      $.each(data.public_notice, function(index, element) {
 
-                        //empty the board
-                        $("#board_public ul").empty();
+                        marginTop+=30;
+                        marginLeft+=25;
+                        if(user_id_notices!=element.user_id)
+                        {
 
-                        $.each(data.public_notice, function(index, element) {
-                          load_notice(data.user_name,element,'public',t)
-                          // load public
-                        });
+                          user_id_notices=element.user_id;
+                          var evens = _.countBy(data.public_notice, function(ele){ return ele.user_id == user_id_notices ? 'this_user_count' : 'other_user_count'; });
+                          current_user_notices=evens.this_user_count;
+                          // alert((data.public_notice).length);
+                          height=(current_user_notices * 30)+200;
 
+                          if(first=="yes") 
+                            first="no";
+                          else
+                            total_string +='</ul></div>';
+
+                          if(column%3==0) 
+                            total_string +='</div><div class="row">';
+
+                          column =column+1
+                          total_string += '<div class="span3" style="height:'+height+'px">';
+                          total_string +='<ul class="inner_list">';
+                          marginTop = 0;
+                          marginLeft = 0;
+                        }
+                        // set margin to notice
+                        set_margin="margin-left:"+marginLeft+"px;margin-top:"+marginTop+"px;";
+                        total_string +=load_notice(data.user_id,element,'public',t,set_margin);
+                         // load public
+                      });
+
+                      total_string +='</ul>';
+                      total_string +='</div>';
+                      total_string += '</div>';
+                      $("#board_public").html(total_string);
                     }
                     else
                         alert("Some Error during Sync");
                 }
         });
 }
-
-function load_notice(username,data,type,template)
+var i=0;
+function load_notice(userid,data,type,template,set_margin)
 {
     if(data)
     {
@@ -66,29 +127,46 @@ function load_notice(username,data,type,template)
 
       //set data need for tmeplate
       data.type=type;
+      data.set_margin=set_margin;
       data.className = 'context-menu-note-' + type;
-
-      if(username == data.author)
+      data.z_index=i;
+      data.images_popup = "";  
+      data.img_count="";
+      data.hidden_class="hide";
+      if (data.images){
+        data.img_count = (data.images.length>0) ? "("+data.images.length+")" : "";
+        data.hidden_class = (data.images.length>0) ? "" : "hide";
+        for(j=0;j<data.images.length;j++)
+        {
+          data.images_popup += '<img src="'+data.images[j]+'">';
+        }
+      }
+      data.notice_color=data.user_color;
+      data.text_color=inverseColor(data.user_color);
+      if(userid == data.user_id)
       {
-          data.notice_color=data.user_color;
-          data.text_color=inverseColor(data.user_color);
           data.className += '-own';
       }
 
       //render template
-      $("#board_"+ type +" ul").append(t({element:data}));
+      if(type=='private')
+        $("#board_"+ type +" ul").append(t({element:data}));
+      else
+        return t({element:data});
+      return "";
     }
 
 }
 
 function inverseColor(theString)
 {
-  var theString = theString.substring(0,theString.length-1);
+    var theString = theString.substring(4,theString.length-1);
   var numbers = theString.split(',');
   a= parseInt(numbers[0]);
   b= parseInt(numbers[1]);
   c= parseInt(numbers[2]);
-  
+
+  return ((0.2126 *a) + (0.7152 * b) + (0.0722 * c)) >= 165 ? 'black' : 'white';
   newColor='#'+DecToHex(255-a)+""+DecToHex(255-b)+""+DecToHex(255-c);
   return newColor;
 }
@@ -252,6 +330,7 @@ function contextMenuAction(key,id,obj)
                                     if (data.status != 1){
                                      alert("error during delete");
                                     }
+                                    sync_notices();
                                 }
                         });
                   break;
