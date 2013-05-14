@@ -38,9 +38,9 @@ box-shadow: 5px 5px 18px #000000;
  font-style: italic;
   /*color: #0060cc;*/
 }
-.tab-content .active{
+.wood .active{
   display: block;
- /* background: url(/assets/bg.jpg);*/
+  background: url(/assets/bg.jpg);
 }
 
 .center_align{
