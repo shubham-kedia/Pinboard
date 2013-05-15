@@ -116,9 +116,6 @@
 
         </div>
 
-<script type="text/javascript">
-// loadnotices();
-</script>
 
 <!-- Modal -->
 <div id="myModal_new" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -127,7 +124,7 @@
     <h3 id="myModalLabel">Create Notice</h3>
   </div>
   <div class="modal-body">
-    <%= form_for Notice.new, :html => { :multipart => true }, :remote => true do |f| %>
+    <%= form_for Notice.new,:url=>notices_url, :format=>"js",:html => { :multipart => true }, :remote => true do |f| %>
       <table cell-padding="5" cell-spacing="5">
         <tr>
           <td>
@@ -153,13 +150,13 @@
             <%= f.text_area :content, :rows => 5 ,:cols => 10 ,:required => true %> <span id="char_left"></span><br />
           </td>
         </tr>
-                <tr>
+        
+        <tr class="file_row">
           <td>
-            <%= f.label :img %>
+            Images
           </td>
           <td>
-          <%= f.file_field :img, multiple: true %>
-                  
+            <%= f.file_field :img, multiple: true, :accept=>"image/*" %>
           </td>
         </tr>
         <tr>
@@ -192,7 +189,7 @@
   </div>
   <div class="modal-footer">
       <input type="button" id="send_email_btn" value="Send Mail" data-loading-text="Sending..."  class="btn btn-primary">
-      <input type="button"  value="Cancel" class="btn">
+      <input type="button" id="cancel_email" value="Cancel" class="btn">
  </div>
 </div>
 
@@ -205,12 +202,12 @@
   <div class="modal-body">
     <form id="search_by_keyword">
     <input type="hidden" id="search_board" value="">
-    <label >Search: </label> <input name="search_keyword" id="search_keyword" type="text" placeholder="Enter the search"></form>
+    <label >Search: </label> <input name="search_keyword" id="search_keyword" type="text" placeholder="Enter the keyword"></form>
 
   </div>
   <div class="modal-footer">
       <button data-loading-text="searching..! Please Wait..!" data-toggle="button"  id="search_btn" class="btn btn-primary">Search</button>
-      <input type="button"  value="Cancel" class="btn">
+      <input type="button" id="cancel_search" value="Cancel" class="btn">
  </div>
 </div>
 
@@ -227,7 +224,7 @@
 
 
 <script type="text/template" id="notice_template">
-  <li class="<%%=element.className%>" style="<%%=element.set_margin%>" type="<%%=element.type%>" id="<%%=element.id%>">
+  <li class="<%%=element.className%> obj_class" style="<%%=element.set_margin%>" type="<%%=element.type%>" id="<%%=element.id%>">
 
 
       <span class="notice" style="position:relative;color:<%%=element.text_color%>;background:<%%=element.notice_color%>;">
@@ -246,7 +243,6 @@
 </script>
       <!-- <span class="notice" style="position:relative;color:<%%=element.text_color%>;background:<%%=element.notice_color%>;z-index:<%%=element.z_index%>"> -->
 <script>
-// sync_notices();
   window.new_notice_url = "<%=notices_url%>";
   window.edit_notice_url = "<%=notices_url%>";
 </script>

@@ -15,7 +15,8 @@ module MyPublish
       end
 
 			# PrivatePub.publish_to(session[:channel],"load_notice(#{notices.to_json},'public')")
-			PrivatePub.publish_to("/public_board","load_notice(#{notices.to_json},'public')")
+			PrivatePub.publish_to("/public_board","sync_notices();")
+			# PrivatePub.publish_to("/public_board","load_notice(#{notices.to_json},'public')")
 
 
 		end

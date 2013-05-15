@@ -49,11 +49,15 @@ $(document).ready ->
 				dataType:'json'
 				success: (data) ->
 					if data.status == 1
-						$("#search_modal").modal('hide')
-						$("#board_"+search_type+" ul").empty();
+						$("#search_modal").modal('hide');
 						t = _.template($('#notice_template').html())
-						$.each data.notices, (index, element) ->
-							load_notice(data.user_name,element,search_type ,t)
+						if search_type == 'private'
+							$("#board_"+search_type+" ul").empty();
+							$.each data.notices, (index, element) ->
+								load_notice(data.user_id,element,search_type ,t,'')
+								return
+						else
+							load_public_notices(data,t,"no")
 							return
 					else
 						alert('Error Occured. Try again')

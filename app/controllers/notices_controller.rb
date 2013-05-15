@@ -59,9 +59,12 @@ class NoticesController < ApplicationController
 
   def update
     notice = Notice.find(params[:id])
+    if params[:notice][:img]
+      params[:notice][:img] = nil
+    end
     # params[:notice][:user_id] = current_user.id
     notice.update_attributes(params[:notice])
-
+    # if 
     begin
       publish(notice.access_type)
     rescue
@@ -76,7 +79,7 @@ class NoticesController < ApplicationController
       notice.update_attributes(:access_type=>"private")
 
       begin
-      publish(notice.access_type)
+        publish("private")
       rescue
       end
 
@@ -92,7 +95,7 @@ class NoticesController < ApplicationController
       notice.update_attributes(:access_type=>"public")
 
       begin
-        publish(notice.access_type)
+        publish("public")
       rescue
       end
 
