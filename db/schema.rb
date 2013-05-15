@@ -11,8 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130513153459) do
+ActiveRecord::Schema.define(:version => 20130514143304) do
 
+  create_table "images", :force => true do |t|
+    t.string   "img_file_name"
+    t.string   "img_content_type"
+    t.integer  "img_file_size"
+    t.datetime "img_updated_at"
+    t.integer  "notice_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
   create_table "noticeboards", :force => true do |t|
     t.string   "name"
     t.integer  "user_id"

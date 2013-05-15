@@ -198,7 +198,7 @@ var // currently active contextMenu trigger
             }
         }
         
-        return 5000;
+        return 2000;
     },
     // event handlers
     handle = {

@@ -7,7 +7,7 @@ class NoticesController < ApplicationController
     unless @user.noticeboard.nil?
    		@private_notices=@user.noticeboard.notices.notice_with_settings(@user).private_notices
     end
-  	@public_notices=Notice.notice_with_settings(@user).public_notices
+  	@public_notices=Notice.notice_with_settings(@user).public_notices.order(:user_id)
   end
 
   def new
@@ -22,13 +22,18 @@ class NoticesController < ApplicationController
     	board = user.noticeboard
     end
     params[:notice][:user_id] = current_user.id
-    notice = board.notices.create(params[:notice])
-
+    notice = board.notices.create(params[:notice].except(:img))
+    if params[:notice][:img]
+      notice_image = params[:notice][:img]
+      notice_image.each do |img|
+        notice.images.create(:img=>img)
+      end
+    end
     begin
       publish(notice.access_type)
     rescue
     end
-    render :js => '$("#myModal_new").modal("hide");'
+    render :js => '$("#myModal_new").modal("hide"); sync_notices();'
     #redirect_to :controller => 'notices' , :action=> :index
   end
 
@@ -62,7 +67,7 @@ class NoticesController < ApplicationController
     rescue
     end
 
-    render :js => '$("#myModal_new").modal("hide");'
+    render :js => '$("#myModal_new").modal("hide");sync_notices();'
   end
 
   def make_private
@@ -106,7 +111,7 @@ def load_notices
     end
 
     # public_notices=Notice.notice_with_settings(user).public_notices.select("id,author,title,content,updated_at")
-    public_notices=Notice.notice_with_settings(user).public_notices
+    public_notices=Notice.notice_with_settings(user).public_notices.order(:user_id)
 
     render :json => { :status => 1,
                       :user_name => user.name,
