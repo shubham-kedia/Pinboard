@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me ,:name, :color, :gender, :contact_no
+  attr_accessible :email, :password, :password_confirmation, :remember_me ,:name, :color, :gender, :contact_no, :team_id
   # attr_accessible :title, :body
 
   # validates_presence_of :password ,:if => :new_record?
@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   has_one :setting ,:class_name => 'UserSettings'
 
   has_many :notices
+  belongs_to :team
 
   after_create do
     self.setting = UserSettings.new

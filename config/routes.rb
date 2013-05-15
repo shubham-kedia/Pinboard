@@ -19,7 +19,7 @@
   # get "notice/update"
 
 
-  devise_for :users, :controllers => {:registrations => "users/registrations"}   #:path_names => {:sign_in => 'login' }
+  devise_for :users, :controllers => {:registrations => "users/registrations", :sessions=>"users/sessions"}   #:path_names => {:sign_in => 'login' }
 
   match '/users/settings' => 'users#profile' ,:via => [:get] ,:as => :user_profile
   match '/users/update' => 'users#update' ,:via => [:put] ,:as => :user_update

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130506112633) do
+ActiveRecord::Schema.define(:version => 20130513153459) do
 
   create_table "noticeboards", :force => true do |t|
     t.string   "name"
@@ -31,6 +31,12 @@ ActiveRecord::Schema.define(:version => 20130506112633) do
   end
 
   add_index "notices", ["user_id"], :name => "index_notices_on_user_id"
+
+  create_table "teams", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "user_settings", :force => true do |t|
     t.string   "notice_visibility"
@@ -60,6 +66,7 @@ ActiveRecord::Schema.define(:version => 20130506112633) do
     t.string   "color"
     t.string   "gender"
     t.string   "contact_no"
+    t.integer  "team_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
