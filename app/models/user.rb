@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   has_one :setting ,:class_name => 'UserSettings'
 
   has_many :notices
+  has_many :comments
   belongs_to :team
 
   after_create do

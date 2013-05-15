@@ -174,6 +174,41 @@
 </div>
 
 
+<!-- Modal -->
+<div id="myModal_comment" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Add Comment</h3>
+  </div>
+  <div class="modal-body">
+    <%= form_for Comment.new,:html => { :multipart => true }, :remote => true do |f| %>
+            <%= f.hidden_field :user_id, :value => @user.id %>
+            <%= f.hidden_field :notice_id %>
+      <table cell-padding="5" cell-spacing="5">
+        <tr>
+          <td>
+            <%= f.label :comment %>&nbsp;&nbsp;&nbsp;
+          </td>
+          <td>
+            <%= f.text_area :comment, :rows => 5 ,:cols => 10 ,:required => true, :maxlength => 100 %> <span id="char_left"></span><br />
+          </td>
+        </tr>
+
+        <tr>
+          <td></td>
+          <td>
+            <%= f.submit :class => 'btn btn-primary' ,:disable_with => "Saving Comment..."  %>
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+          </td>
+        </tr>
+      </table>
+    <% end %>
+  </div>
+  <div class="modal-footer">
+ </div>
+</div>
+
+
 
 <!-- Modal -->
 <div id="email_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -230,7 +265,9 @@
       <span class="notice" style="position:relative;color:<%%=element.text_color%>;background:<%%=element.notice_color%>;">
 
           <img src="assets/pin.png" class="sticky_pin">
-          <img src="assets/img_icon.png" class="img_icon <%%=element.hidden_class%>"><h6 class="img_count"><%%=element.img_count%></h6>
+          <img src="assets/comment_icon.png" class="comment_icon <%%=element.hidden_class_comment%>"><h6 class="comment_count"><%%=element.comment_count%></h6>
+          <img src="assets/comment_add.png" class="add_comment_icon">
+          <img src="assets/img_icon.png" class="img_icon <%%=element.hidden_class_img%>"><h6 class="img_count"><%%=element.img_count%></h6>
           <h4 class='notice_title'><%%=element.title%></h4>
           <p class='notice_content'><%%=element.content%></p>
 
@@ -238,6 +275,7 @@
           <p class='notice_time '><%%=element.updated_at%></p>
 
       <div class="images_popup hide"><%%=element.images_popup%></div>
+      <div class="comments_popup hide" ><%%=element.comments_popup%></div>
       </span>
   </li>
 </script>
