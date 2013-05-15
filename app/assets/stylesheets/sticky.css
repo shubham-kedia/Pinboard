@@ -107,18 +107,7 @@ h2,p{
   box-shadow: 0px 0px 10px rgba(0,0,0,1);
 }
 
-.sticky_pin{
-  height: 30px;
-  width: 30px;
-  margin-left: 50px;
-  margin-top: -50px;
-}
-.img_icon{
-  height: 20px;
-  width: 20px;
-  margin-left: -99px;
-  margin-top: -30px;
-}
+
 .notice h4{
   text-align: center;
   font-size:14px;
@@ -147,9 +136,9 @@ h2,p{
   right:1px;
 }
 .img_count{
-position: absolute;
-top: -10px;
-left: 20px;
+  position: absolute;
+  top: -10px;
+  left: 20px;
 }
 .images_popup{
 background: #EEE;
@@ -169,4 +158,79 @@ overflow:auto;
   width:80px;
   padding:10px;
   text-align: center;
+}
+
+.sticky_pin{
+  height: 30px;
+  width: 30px;
+  margin-left: 50px;
+  margin-top: -50px;
+}
+.img_icon{
+  height: 20px;
+  width: 20px;
+  left: 0px;
+  top: 0px;
+  position: absolute;
+}
+.comment_icon{
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+        
+  width: 15px;
+  right: 20px;
+  top: 0px;
+  position: absolute;
+}
+.comment_count{
+  position: absolute;
+  top: -13px;
+  right: 35px;
+}
+
+.add_comment_icon{
+  width: 15px;
+  right: 2px;
+  top: 2px;
+  position: absolute;
+}
+/*.comments_popup{
+  background: #EEE;
+  color: black;
+  padding: 7px;
+  border-radius: 5px;
+  border: 1px solid #555;
+  position: absolute;
+  top: 14px;
+  left: 50px;
+  max-width: 321px;
+  max-height:200px;
+  overflow:auto;
+}*/
+.comments_popup{
+  background: #EEE;
+  color: black;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #555;
+  position: absolute;
+  top: 14px;
+  left: 40px;
+  max-width: 200px;
+  max-height: 200px;
+  overflow: auto;
+  line-height: 13px;
+  word-wrap: break-word;
+}
+.comments_popup div p{
+  padding-left:15px;
+  font-size: 10px !important;
+  font-style: normal !important;
+}
+.comments_popup div h5{
+  font-size:11px;
 }

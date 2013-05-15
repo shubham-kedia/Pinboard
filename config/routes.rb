@@ -87,7 +87,7 @@
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
 
-   resources :notices
+   resources :notices,:comments
 
     match '/notice/send_by_mail' => 'notices#sendemail' ,:via => [:post]
     match '/notice/search/:type/:keyword' => 'notices#search_by_keyword' ,:via => [:get]

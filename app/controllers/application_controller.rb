@@ -28,9 +28,13 @@ class ApplicationController < ActionController::Base
     	notices_url
     end
   end
-
-  # publis to author
   def publish(board_type)
+     exec_js = "sync_notices();"
+      PrivatePub.publish_to("/public_board",exec_js)
+      #PrivatePub.publish_to("/user_#{current_user.name}",exec_js)
+  end
+  # publis to author
+  def pubdlish(board_type)
 
     puts board_type + ' asdfdsfsdf sadfsd'
     if board_type == 'public'
@@ -58,6 +62,8 @@ class ApplicationController < ActionController::Base
               $.each(a, function(index, element) {
                 load_notice('#{current_user.name}',element,'public');
               });
+            " 
+     exec_js = "sync_notices();
             "
 
 
@@ -95,7 +101,8 @@ class ApplicationController < ActionController::Base
                   load_notice('#{current_user.name}',element,'private');
                 });
               "
-
+     exec_js = "sync_notices();
+            "
               puts "/user_#{current_user.name}";
       PrivatePub.publish_to("/user_#{current_user.name}",exec_js)
 

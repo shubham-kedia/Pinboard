@@ -24,7 +24,21 @@ $(document).ready(function(){
     //   $(this).siblings().css("z-index","0");
     //   $(this).css("z-index","1");
     // });
+// modal comment show
+$(document).on("click",".add_comment_icon",function(){
+      var form = $("#new_comment");
+      // $("#comment_user_id").val('1');
+      $("#comment_notice_id").val($(this).closest("li").attr("id"));
+      $("#comment_comment").val('');
+      form.attr({'action': window.new_comment_url });
+      form.find('input[name="_method"]').remove();
+      form.find('input[type="submit"]').val('Add Comment');
+      $("#myModal_comment").modal('show');
+      $("#myModalLabel").text('Add Comment');
+});
 
+
+//    show hide image popup
     $(document).on("mouseover",".img_icon",function(){
         var not_ele = $(this).closest(".notice");
         $(".images_popup").hide();
@@ -40,12 +54,41 @@ $(document).ready(function(){
         $(".images_popup").hide();
     });
 
-});
+//    show hide comment popup
+    $(document).on("mouseover",".comment_icon",function(){
+        var not_ele = $(this).closest(".notice");
+        $(".comments_popup").hide();
+        not_ele.find(".comments_popup").show();
+    });
+    $(document).on("mouseover",".comments_popup",function(){
+        $(this).show();
+    });
+    $(document).on("mouseout",".comments_popup",function(){
+        $(".comments_popup").hide();
+    });
+     $(document).on("mouseout",".comment_icon",function(){
+        $(".comments_popup").hide();
+    });
 
+
+    $("#new_notice").bind("ajax:complete", function(){
+      $("#myModal_new").modal("hide");
+      var file_input =  $("#notice_img");
+      file_input.replaceWith(file_input = file_input.clone( true ));
+      sync_notices();
+    });
+
+    // close the modal popup when click cancel button
+    $(document).on("click","#cancel_search",function() {
+            $("#search_modal").modal('hide');
+    });
+
+    $(document).on("click","#cancel_email",function() {
+            $("#email_modal").modal('hide');
+    });
 
 var user_id_notices=0,first="yes",marginTop=0,marginLeft=0,column=0;
-sync_notices();
-function sync_notices()
+window.sync_notices = function()
 {
     $.ajax({
       url: "/notices/load_notices/",
@@ -67,59 +110,77 @@ function sync_notices()
                         just_text=load_notice(data.user_id,element,'private',t,'');
                       });
 
+                      load_public_notices(data,t,"yes");
 
-                      //empty the board public
-                      $("#board_public").empty();
 
-                      var total_string = '<div class="row">';
-            
-                        
-                      $.each(data.public_notice, function(index, element) {
-
-                        marginTop+=30;
-                        marginLeft+=25;
-                        if(user_id_notices!=element.user_id)
-                        {
-
-                          user_id_notices=element.user_id;
-                          var evens = _.countBy(data.public_notice, function(ele){ return ele.user_id == user_id_notices ? 'this_user_count' : 'other_user_count'; });
-                          current_user_notices=evens.this_user_count;
-                          // alert((data.public_notice).length);
-                          height=(current_user_notices * 30)+200;
-
-                          if(first=="yes") 
-                            first="no";
-                          else
-                            total_string +='</ul></div>';
-
-                          if(column%3==0) 
-                            total_string +='</div><div class="row">';
-
-                          column =column+1
-                          total_string += '<div class="span3" style="height:'+height+'px">';
-                          total_string +='<ul class="inner_list">';
-                          marginTop = 0;
-                          marginLeft = 0;
-                        }
-                        // set margin to notice
-                        set_margin="margin-left:"+marginLeft+"px;margin-top:"+marginTop+"px;";
-                        total_string +=load_notice(data.user_id,element,'public',t,set_margin);
-                         // load public
-                      });
-
-                      total_string +='</ul>';
-                      total_string +='</div>';
-                      total_string += '</div>';
-                      $("#board_public").html(total_string);
                     }
                     else
                         alert("Some Error during Sync");
                 }
         });
 }
+sync_notices();
+
 var i=0;
-function load_notice(userid,data,type,template,set_margin)
+window.load_public_notices = function (data,t,from_sync)
 {
+  var notice_array=null;
+  if(from_sync=="yes")
+    notice_array=data.public_notice;
+  else
+    notice_array=data.notices;
+
+    //empty the board public
+  $("#board_public").empty();
+
+  var total_string = '<div class="row">';
+
+    user_id_notices=0;
+    first="yes";
+    marginTop=0;
+    marginLeft=0;
+    column=0;
+    $.each(notice_array, function(index, element) {
+
+      marginTop+=30;
+      marginLeft+=25;
+      if(user_id_notices!=element.user_id)
+      {
+
+        user_id_notices=element.user_id;
+        var evens = _.countBy(notice_array, function(ele){ return ele.user_id == user_id_notices ? 'this_user_count' : 'other_user_count'; });
+        current_user_notices=evens.this_user_count;
+        // alert((data.public_notice).length);
+        height=(current_user_notices * 30)+200;
+
+        if(first=="yes") 
+          first="no";
+        else
+          total_string +='</ul></div>';
+
+        if(column%3==0) 
+          total_string +='</div><div class="row">';
+
+        column =column+1
+        total_string += '<div class="span3" style="height:'+height+'px">';
+        total_string +='<ul class="inner_list">';
+        marginTop = 0;
+        marginLeft = 0;
+      }
+      // set margin to notice
+      set_margin="margin-left:"+marginLeft+"px;margin-top:"+marginTop+"px;";
+      total_string +=load_notice(data.user_id,element,'public',t,set_margin);
+       // load public
+    });
+
+  total_string +='</ul>';
+  total_string +='</div>';
+  total_string += '</div>';
+  $("#board_public").html(total_string);
+}
+window.load_notice = function (userid,data,type,template,set_margin)
+{
+  // alert();
     if(data)
     {
       //use template or create one
@@ -132,13 +193,26 @@ function load_notice(userid,data,type,template,set_margin)
       data.z_index=i;
       data.images_popup = "";  
       data.img_count="";
-      data.hidden_class="hide";
+      data.hidden_class_img="hide";
+
+      data.comments_popup = "";  
+      data.comment_count="";
+      data.hidden_class_comment="hide";
+
       if (data.images){
         data.img_count = (data.images.length>0) ? "("+data.images.length+")" : "";
-        data.hidden_class = (data.images.length>0) ? "" : "hide";
+        data.hidden_class_img = (data.images.length>0) ? "" : "hide";
         for(j=0;j<data.images.length;j++)
         {
           data.images_popup += '<img src="'+data.images[j]+'">';
+        }
+      }
+      if (data.comments){
+        data.comment_count = (data.comments.length>0) ? "("+data.comments.length+")" : "";
+        data.hidden_class_comment = (data.comments.length>0) ? "" : "hide";
+        for(j=0;j<data.comments.length;j++)
+        {
+          data.comments_popup += '<div><h5>'+data.comments[j].user_name+': </h5><p>'+data.comments[j].comment+'</p></div>';
         }
       }
       data.notice_color=data.user_color;
@@ -194,7 +268,7 @@ $(function(){
         }
     });
 
-    $(document).on('dblclick','.notice',function(e){
+    $(document).on('dblclick','.obj_class',function(e){
         e.preventDefault();
         var obj ={
           id:  $(this).attr('id'),
@@ -263,7 +337,9 @@ $.contextMenu({
 function contextMenuAction(key,id,obj)
 {
    switch(key){
-      case 'new': show_notice_modal();
+      case 'new': //$(".file_row").show();
+                  show_notice_modal();
+                   // $(".file_row").hide();
                   break;
       case 'edit': show_notice_modal(obj);
                    break;
@@ -330,7 +406,7 @@ function contextMenuAction(key,id,obj)
                                     if (data.status != 1){
                                      alert("error during delete");
                                     }
-                                    sync_notices();
+                                     sync_notices();
                                 }
                         });
                   break;
@@ -338,12 +414,14 @@ function contextMenuAction(key,id,obj)
 }
 
 show_notice_modal = function(obj){
+  // console.log(obj);
   //if empty show empty form
   var form = $("#new_notice");
   if (obj == null || typeof(obj) == 'undefined'){
       $("#notice_title").val('');
       $("#notice_access_type").val('private');
       $("#notice_content").val('');
+      $(".file_row").show();
       form.attr({'action': window.new_notice_url });
       form.find('input[name="_method"]').remove();
       form.find('input[type="submit"]').val('Create Notice');
@@ -354,6 +432,7 @@ show_notice_modal = function(obj){
       $("#notice_title").val(obj.title);
       $("#notice_access_type").val(obj.type);
       $("#notice_content").val(obj.content);
+      $(".file_row").hide();
       form.attr({'action': window.edit_notice_url + '/' + obj.id });
       form.find('input[type="submit"]').val('Update Notice');
       form.find('input[name="_method"]').remove();
@@ -364,21 +443,25 @@ show_notice_modal = function(obj){
   return true;
 }
 
+
+
 context_menu_callback  =function(key, options) {
             var id =  options.$trigger.attr('id');
+
             // alert("Clicked on " + key + " on element " + options.$trigger.attr('id'));
 
             //for edit modal
             var obj = {}
-            if (options.$trigger.hasClass('notice')){
+            if (options.$trigger.hasClass('obj_class')){
               obj ={
                 id: options.$trigger.attr('id'),
                 content:options.$trigger.find('.notice_content').html().replace(/<br>/g , '\n'),
                 title:options.$trigger.find('.notice_title').html().replace(/<br>/g , '\n'),
-                type:options.$trigger.attr('access_type')
+                type:options.$trigger.attr('type')
               }
             }
-
             contextMenuAction(key,id,obj);
             // window.console && console.log(m) || alert(m);
 }
+
+});

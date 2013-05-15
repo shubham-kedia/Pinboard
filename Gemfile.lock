@@ -144,7 +144,6 @@ GEM
     rake (10.0.4)
     rdoc (3.12.2)
       json (~> 1.4)
-    remotipart (1.0.5)
     sass (3.2.8)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -184,7 +183,6 @@ DEPENDENCIES
   paperclip!
   private_pub
   rails (= 3.2.9)
-  remotipart
   sass-rails (~> 3.2.3)
   thin
   twitter-bootstrap-rails!

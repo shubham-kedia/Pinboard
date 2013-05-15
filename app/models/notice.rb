@@ -6,6 +6,7 @@ class Notice < ActiveRecord::Base
   belongs_to :noticeboard
   belongs_to :user
   has_many :images 
+  has_many :comments
   delegate :color , :name ,:to => :user ,:prefix => true
 
   scope :notice_with_settings , lambda { |user|
@@ -46,6 +47,7 @@ class Notice < ActiveRecord::Base
   def as_json(options = { })
     h = super(options)
     image_ar = []
+    comment_ar = []
     h['user_color'] =  self.user_color
     h['author'] = self.user_name
     h['updated_at']=self.updated_at.strftime("%d-%m-%Y")
@@ -54,7 +56,13 @@ class Notice < ActiveRecord::Base
         image_ar << img.img(:thumb)
       end
     end
+   if self.comments.count>0
+      self.comments.each do |comment|
+        comment_ar << { :comment=>comment.comment,:user_name=>comment.user.name,:comment_color=>comment.user.color}
+      end
+    end
     h['images'] = image_ar.as_json
+    h['comments'] = comment_ar.as_json
     h
   end
 
