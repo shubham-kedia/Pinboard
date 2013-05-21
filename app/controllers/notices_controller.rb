@@ -76,6 +76,21 @@ class NoticesController < ApplicationController
     render :js => '$("#myModal_new").modal("hide");sync_notices();'
   end
 
+  def deleteImage
+    begin
+      image = Image.find(params[:id])
+      image.destroy
+      begin
+        publish("")
+      rescue
+      end
+
+      render :json => {:status => 1}
+    rescue
+      render :json => {:status => 0}
+    end
+  end
+
   def make_private
     begin
       notice = Notice.find(params[:id])

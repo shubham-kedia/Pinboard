@@ -80,6 +80,8 @@
 
    match '/notices/makeprivate/:id' => 'notices#make_private' ,:via => [:post]
 
+   match '/notices/deleteImage/:id' => 'notices#deleteImage' ,:via => [:post]
+
    match '/notices/makepublic/:id' => 'notices#make_public' ,:via => [:post]
 
    match '/users/board_settings' => 'users#board_settings' ,:via => [:get]

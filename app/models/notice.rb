@@ -53,12 +53,12 @@ class Notice < ActiveRecord::Base
     h['updated_at']=self.updated_at.strftime("%d-%m-%Y")
     if self.images.count>0
       self.images.each do |img|
-        image_ar << img.img(:thumb)
+        image_ar << { :img_path => img.img(:thumb), :img_id => img.id } 
       end
     end
    if self.comments.count>0
       self.comments.each do |comment|
-        comment_ar << { :comment=>comment.comment,:user_name=>comment.user.name,:comment_color=>comment.user.color}
+        comment_ar << { :comment=>comment.comment,:comment_id=>comment.id,:user_name=>comment.user.name,:comment_color=>comment.user.color}
       end
     end
     h['images'] = image_ar.as_json

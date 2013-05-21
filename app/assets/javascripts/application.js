@@ -25,18 +25,17 @@ $(document).ready(function(){
     //   $(this).css("z-index","1");
     // });
 // modal comment show
-$(document).on("click",".add_comment_icon",function(){
-      var form = $("#new_comment");
-      // $("#comment_user_id").val('1');
-      $("#comment_notice_id").val($(this).closest("li").attr("id"));
-      $("#comment_comment").val('');
-      form.attr({'action': window.new_comment_url });
-      form.find('input[name="_method"]').remove();
-      form.find('input[type="submit"]').val('Add Comment');
-      $("#myModal_comment").modal('show');
-      $("#myModalLabel").text('Add Comment');
-});
-
+  $(document).on("click",".add_comment_icon",function(){
+        var form = $("#new_comment");
+        // $("#comment_user_id").val('1');
+        $("#comment_notice_id").val($(this).closest("li").attr("id"));
+        $("#comment_comment").val('');
+        form.attr({'action': window.new_comment_url });
+        form.find('input[name="_method"]').remove();
+        form.find('input[type="submit"]').val('Add Comment');
+        $("#myModal_comment").modal('show');
+        $("#myModalLabel").text('Add Comment');
+  });
 
 //    show hide image popup
     $(document).on("mouseover",".img_icon",function(){
@@ -78,7 +77,7 @@ $(document).on("click",".add_comment_icon",function(){
       sync_notices();
     });
 
-    // close the modal popup when click cancel button
+// close the modal popup when click cancel button
     $(document).on("click","#cancel_search",function() {
             $("#search_modal").modal('hide');
     });
@@ -86,6 +85,45 @@ $(document).on("click",".add_comment_icon",function(){
     $(document).on("click","#cancel_email",function() {
             $("#email_modal").modal('hide');
     });
+
+// delete images and comments
+    $(document).on("click",".This_comment",function() {
+            var id = $(this).attr("id");
+            // alert(id);
+            $.ajax({
+                      url: "/comments/" + id,
+                      type: "post",
+                      dataType: "json",
+                      method:'delete',
+                      data: {},   // for query string
+                      success: function(data)
+                                {
+                                    if (data.status != 1){
+                                     alert("error during delete");
+                                    }
+                                     sync_notices();
+                                }
+                        });
+    });
+
+     $(document).on("click",".This_image",function() {
+            var id = $(this).attr("id");
+            // alert(id);
+            $.ajax({
+                      url: "/notices/deleteImage/" + id,
+                      type: "post",
+                      dataType: "json",
+                      data: {},   // for query string
+                      success: function(data)
+                                {
+                                    if (data.status != 1){
+                                     alert("error during delete");
+                                    }
+                                     sync_notices();
+                                }
+                        });
+    });
+
 
 var user_id_notices=0,first="yes",marginTop=0,marginLeft=0,column=0;
 window.sync_notices = function()
@@ -204,7 +242,7 @@ window.load_notice = function (userid,data,type,template,set_margin)
         data.hidden_class_img = (data.images.length>0) ? "" : "hide";
         for(j=0;j<data.images.length;j++)
         {
-          data.images_popup += '<img src="'+data.images[j]+'">';
+          data.images_popup += '<div class="image_list"><a class="This_image" id="'+data.images[j].img_id+'">x</a><img src="'+data.images[j].img_path+'"></div>';
         }
       }
       if (data.comments){
@@ -212,7 +250,7 @@ window.load_notice = function (userid,data,type,template,set_margin)
         data.hidden_class_comment = (data.comments.length>0) ? "" : "hide";
         for(j=0;j<data.comments.length;j++)
         {
-          data.comments_popup += '<div><h5>'+data.comments[j].user_name+': </h5><p>'+data.comments[j].comment+'</p></div>';
+          data.comments_popup += '<div><h5>'+data.comments[j].user_name+': </h5><p>'+data.comments[j].comment+' <a id="'+data.comments[j].comment_id+'" class="This_comment">Remove</a></p></div>';
         }
       }
       data.notice_color=data.user_color;
