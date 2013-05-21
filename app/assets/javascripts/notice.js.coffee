@@ -42,6 +42,7 @@ $(document).ready ->
 
 	$("#search_btn").click ->
 		if($("#search_by_keyword").valid())
+            $(".refresh_notices").show()
 			search_type = $("#search_board").val() 
 			$.ajax
 				url: '/notice/search/' + search_type + '/' + $('#search_keyword').val()

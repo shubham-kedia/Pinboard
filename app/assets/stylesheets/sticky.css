@@ -1,3 +1,7 @@
+a
+{
+  cursor: pointer;
+}
 .board_container{
   font-family:arial,sans-serif;
   font-size:100%;
@@ -23,7 +27,7 @@ h2,p{
 .board_container ul li .notice{
   text-decoration:none;
   color:#000;
-  background:#ccf;
+  background:#ffc;
   border:1px #000 solid;
   display:block;
   height:12em;
@@ -221,6 +225,7 @@ overflow:auto;
   top: 14px;
   left: 40px;
   max-width: 200px;
+  min-width: 100px;
   max-height: 200px;
   overflow: auto;
   line-height: 13px;
@@ -233,4 +238,30 @@ overflow:auto;
 }
 .comments_popup div h5{
   font-size:11px;
+}
+.image_list{
+  position: relative;
+  border:1px solid #ddd;
+  border-radius:5px;
+  margin-bottom:10px;
+  }
+  .image_list img{
+    text-align: center;
+    margin:0px;
+    padding:0px;}
+
+.image_list .This_image{
+  text-decoration: none;
+  position: absolute;
+  top: -10px;
+  right: -8px;
+  font-weight: bold;
+  text-shadow: 0px 0px 5px;
+  color: white;
+  font-size: 13px;
+  background: #000;
+  width: 16px;
+  height: 19px;
+  text-align: center;
+  border-radius: 15px;
 }
