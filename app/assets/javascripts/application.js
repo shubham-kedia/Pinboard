@@ -80,12 +80,18 @@ $(document).ready(function(){
 // close the modal popup when click cancel button
     $(document).on("click","#cancel_search",function() {
             $("#search_modal").modal('hide');
+            // $(".refresh_notices").show();
     });
 
-    $(document).on("click","#cancel_email",function() {
+    $(document).on("click","#refresh_notices",function() {
             $("#email_modal").modal('hide');
     });
 
+    $(document).on("click",".refresh_notices",function() {
+            sync_notices();
+            $(".refresh_notices").hide();
+    });
+    
 // delete images and comments
     $(document).on("click",".This_comment",function() {
             var id = $(this).attr("id");

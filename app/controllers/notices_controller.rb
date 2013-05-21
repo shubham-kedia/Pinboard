@@ -149,7 +149,8 @@ def load_notices
     if params[:type] == 'public'
       notices = Notice.notice_with_settings(@user).public_notices
     else
-      notices = Notice.notice_with_settings(@user).private_notices
+      # notices = Notice.notice_with_settings(@user).private_notices
+      notices = @user.noticeboard.notices.notice_with_settings(@user).private_notices
     end
     if notices
       notices = notices.where('content like ? or title like ?' , "%#{params[:keyword]}%","%#{params[:keyword]}%")
