@@ -421,7 +421,7 @@ show_notice_modal = function(obj){
       $("#notice_title").val('');
       $("#notice_access_type").val('private');
       $("#notice_content").val('');
-      $(".file_row").show();
+      // $(".file_row td").show();
       form.attr({'action': window.new_notice_url });
       form.find('input[name="_method"]').remove();
       form.find('input[type="submit"]').val('Create Notice');
@@ -432,7 +432,7 @@ show_notice_modal = function(obj){
       $("#notice_title").val(obj.title);
       $("#notice_access_type").val(obj.type);
       $("#notice_content").val(obj.content);
-      $(".file_row").hide();
+      // $(".file_row").hide();
       form.attr({'action': window.edit_notice_url + '/' + obj.id });
       form.find('input[type="submit"]').val('Update Notice');
       form.find('input[name="_method"]').remove();

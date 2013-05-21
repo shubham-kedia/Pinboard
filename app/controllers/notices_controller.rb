@@ -59,11 +59,14 @@ class NoticesController < ApplicationController
 
   def update
     notice = Notice.find(params[:id])
+    notice.update_attributes(params[:notice].except(:img))
     if params[:notice][:img]
-      params[:notice][:img] = nil
+      notice_image = params[:notice][:img]
+      notice_image.each do |img|
+        notice.images.create(:img=>img)
+      end
     end
     # params[:notice][:user_id] = current_user.id
-    notice.update_attributes(params[:notice])
     # if 
     begin
       publish(notice.access_type)
