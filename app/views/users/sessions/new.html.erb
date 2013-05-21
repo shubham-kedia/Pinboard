@@ -10,8 +10,10 @@
   <div><%= f.label :password %>
   <%= f.password_field :password %></div>
 
-  <div><%= f.label :team_id %>
-  <%=select("user", "team_id", Team.all.collect {|p| [ p.name, p.id ] }, { :include_blank => false }) %></div>
+  <div><%= f.label :team %>
+  <%=select("user", "team", Team.all.collect {|p| [ p.name, p.id ] }, { :include_blank => false }) %>
+  <!--  <input name="user[team]" id="team_name" style="width: 279px;"> -->
+   </div>
 
   <% if devise_mapping.rememberable? -%>
     <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
@@ -47,5 +49,23 @@ $(document).ready(function(){
         return $(label).closest(".control-group").addClass("error");
       }
   });
+
+   // var availableTags = <%= raw Team.all.collect {|p| p.name } %>;
+   // var options = {
+   //      callback: function (value) {
+   //          console.log(value);
+   //      $("#team_name").autocomplete({
+   //        source: availableTags
+   //      });
+   //     },
+   //      wait: 500,
+   //      highlight: true,
+   //      captureLength: 2
+   //  };
+
+   // $('#team_name').typeWatch(options);
+
+
+
 });
 </script>

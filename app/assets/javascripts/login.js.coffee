@@ -14,15 +14,22 @@ $("document").ready ->
 			$.ajax
 				url: "/users/sign_in"
 				type: "post"
+				dataType :"json"
 				data: $("#login_box_left_login form").serialize()
-				complete: (jqxhr, txt_status) ->
-					if jqxhr.status is 200 or jqxhr.status is 302 or jqxhr.status is 304
+				success: (data) ->
+					if(data.status == true)
 						window.location.href= "/notices"
-						true
 					else
+						console.log(data.text)
 						$(form).find("input[type='submit']").val("Login");
-						$(".login_error_msg").html jqxhr.responseText
-
+						$(".login_error_msg").html(data.text);
+						false
+				error: (xhr,status,str) ->
+					console.log(xhr.responseText.text)
+					$(form).find("input[type='submit']").val("Login")
+					$(".login_error_msg").html(xhr.responseText.text)
+					false
+			false
 		false
 	$(".devise_pages .validate_reg").on "submit", ->
 		form = $(this)
@@ -31,14 +38,18 @@ $("document").ready ->
 			$.ajax
 				url:$(form).attr("action")
 				type:"post"
+				dataType:"json"
 				data: $(form).serialize()
-				complete:(jqxhr,txt_status) ->
-					$(form).find("input[name='commit']").val("Sign up")
-					if jqxhr.status is 200 or jqxhr.status is 401 or jqxhr.status is 302 or jqxhr.status is 304
-						#$("#registration_msg").html("An email has been sent to you. Please click on the link in the email to activate your account").fadeIn(100).delay(4000).fadeOut(500,()->
+				success: (data) ->
+					if data.status == true
+						$(form).find("input[name='commit']").val("Sign up")
 						$("#login_box").dialog( "close" )
+						console.log(data.team);
+						window.availableTags = data.team
+						$("#user_team").append("<option value='"+data.team_id+"'>"+data.team_name+"</option>");
 						notice("Registration Successful","You have Successfully registered to PinBoard<br>Please Login to Continue")
-					#)
+					else
+						notice("Error in Registration","Error Occured during registration")
 		false
 
 	$(".forgot_password_form").on "submit", ->
@@ -107,23 +118,6 @@ $("document").ready ->
 		resizable: false
 		modal: true
 	$(".login_error_msg").html ""
-	$("#login_box_left_login form").on "submit", ->
-		form = $(this);
-		if $(this).valid()
-			$(form).find("input[type='submit']").val("Logging in..");
-			$.ajax
-				url: "/users/sign_in"
-				type: "post"
-				data: $("#login_box_left_login form").serialize()
-				complete: (jqxhr, txt_status) ->
-					if jqxhr.status is 200 or jqxhr.status is 302 or jqxhr.status is 304
-						window.location.href= "/"
-						true
-					else
-						$(form).find("input[type='submit']").val("Login");
-						$(".login_error_msg").html jqxhr.responseText
-
-		false
 	$(".devise_pages .validate_reg").on "submit", ->
 		form = $(this)
 		$(this).find("input[name='commit']").val("Signing Up...")
