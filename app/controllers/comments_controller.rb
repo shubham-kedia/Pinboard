@@ -19,4 +19,20 @@ class CommentsController < ApplicationController
 		#redirect_to :controller => 'notices' , :action=> :index
 	end
 
+	def destroy
+		begin
+			comment = Comment.find(params[:id])
+			comment.destroy
+		begin
+		  publish("")
+		rescue
+		end
+
+		  render :json => {:status => 1}
+		rescue
+		  render :json => {:status => 0}
+		end
+
+		# redirect_to :controller => 'notices' , :action=> :index
+	end
 end
