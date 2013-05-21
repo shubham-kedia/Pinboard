@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(:version => 20130515120208) do
     t.string   "img_content_type"
     t.integer  "img_file_size"
     t.datetime "img_updated_at"
-    t.integer  "images"
     t.integer  "notice_id"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
