@@ -59,11 +59,14 @@ class NoticesController < ApplicationController
 
   def update
     notice = Notice.find(params[:id])
+    notice.update_attributes(params[:notice].except(:img))
     if params[:notice][:img]
-      params[:notice][:img] = nil
+      notice_image = params[:notice][:img]
+      notice_image.each do |img|
+        notice.images.create(:img=>img)
+      end
     end
     # params[:notice][:user_id] = current_user.id
-    notice.update_attributes(params[:notice])
     # if 
     begin
       publish(notice.access_type)
@@ -71,6 +74,21 @@ class NoticesController < ApplicationController
     end
 
     render :js => '$("#myModal_new").modal("hide");sync_notices();'
+  end
+
+  def deleteImage
+    begin
+      image = Image.find(params[:id])
+      image.destroy
+      begin
+        publish("")
+      rescue
+      end
+
+      render :json => {:status => 1}
+    rescue
+      render :json => {:status => 0}
+    end
   end
 
   def make_private
@@ -131,7 +149,8 @@ def load_notices
     if params[:type] == 'public'
       notices = Notice.notice_with_settings(@user).public_notices
     else
-      notices = Notice.notice_with_settings(@user).private_notices
+      # notices = Notice.notice_with_settings(@user).private_notices
+      notices = @user.noticeboard.notices.notice_with_settings(@user).private_notices
     end
     if notices
       notices = notices.where('content like ? or title like ?' , "%#{params[:keyword]}%","%#{params[:keyword]}%")

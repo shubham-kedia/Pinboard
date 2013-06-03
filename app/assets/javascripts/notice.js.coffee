@@ -21,6 +21,7 @@ $(document).ready ->
 
 	$("#send_email_btn").click ->
 		if($("#send_by_email").valid())
+			$("#send_email_btn").prop("disabled", true);
 			$("#send_email_btn").val("Sending Email..")
 			$.ajax '/notice/send_by_mail',
 				type:'post',
@@ -31,18 +32,27 @@ $(document).ready ->
 					if data.status == 1
 						$("#email_modal").modal('hide')
 						notice("Mail ", "Mail successfully sent")
+						$('#email_send').val("")
+						$("#send_email_btn").removeAttr("disabled")
 					else
 						$("#email_modal").modal('hide')
 						notice("Mail", "Sending Failed , Try again")
+						$('#email_send').val("")
+						$("#send_email_btn").removeAttr("disabled")
 				error:()->
 					$("#send_email_btn").val("Send Mail")
+					$('#email_send').val("")
+					$("#send_email_btn").removeAttr("disabled")
 					$("#email_modal").modal('hide')
 					notice("Mail", "Sending Failed , Try again")
 		false
 
 	$("#search_btn").click ->
 		if($("#search_by_keyword").valid())
-			search_type = $("#search_board").val() 
+
+			$(".refresh_notices").show()
+			search_type = $("#search_board").val()
+
 			$.ajax
 				url: '/notice/search/' + search_type + '/' + $('#search_keyword').val()
 				type:'get'
@@ -66,7 +76,7 @@ $(document).ready ->
 					alert('error')
 					true
 		false
-		
+
 	$("#send_by_email").validate
 		rules:
 			"email-send":

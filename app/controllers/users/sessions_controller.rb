@@ -2,15 +2,29 @@ class Users::SessionsController < Devise::SessionsController
   def new
     super
   end
+
   def create
-      team_id = Team.find(params[:user][:team_id]).id
-      user = User.find_by_email(params[:user][:email])
-      if team_id == user.team_id
-        resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#new")
-     	  sign_in_and_redirect(resource_name, resource)
+    team_id = Team.find(params[:user][:team]).id
+    text= ""
+    status = false
+    user = User.find_by_email(params[:user][:email])
+    if user
+      if user.valid_password?(params[:user][:password])
+        if team_id == user.team_id
+          status = true
+          resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#new")
+          sign_in(resource_name, resource)
+          redirect_to notices_path unless request.xhr?
+        else
+          text="Selected team is invalid"
+          redirect_to root_url unless request.xhr?
+  	     end
       else
-        redirect_to root_url
-		  end
-     #respond_with resource, :location => redirect_location(resource_name, resource)
-   end
+        text="Invalid Password"
+      end
+    else
+      text="Invalid username"
+    end
+    render :text=>{"status"=>status,"text"=>text}.to_json()  if request.xhr?
+  end
 end
