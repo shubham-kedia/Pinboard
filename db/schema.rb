@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130515120208) do
+ActiveRecord::Schema.define(:version => 20130603064626) do
 
   create_table "comments", :force => true do |t|
     t.text     "comment"
@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(:version => 20130515120208) do
     t.string   "img_content_type"
     t.integer  "img_file_size"
     t.datetime "img_updated_at"
-    t.integer  "images"
     t.integer  "notice_id"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
@@ -38,9 +37,10 @@ ActiveRecord::Schema.define(:version => 20130515120208) do
 
   create_table "noticeboards", :force => true do |t|
     t.string   "name"
-    t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "board_id"
+    t.string   "board_type"
   end
 
   create_table "notices", :force => true do |t|
@@ -59,6 +59,11 @@ ActiveRecord::Schema.define(:version => 20130515120208) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "teams_users", :force => true do |t|
+    t.integer "team_id"
+    t.integer "user_id"
   end
 
   create_table "user_settings", :force => true do |t|
@@ -89,7 +94,6 @@ ActiveRecord::Schema.define(:version => 20130515120208) do
     t.string   "color"
     t.string   "gender"
     t.string   "contact_no"
-    t.integer  "team_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
