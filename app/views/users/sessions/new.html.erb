@@ -11,7 +11,7 @@
   <%= f.password_field :password %></div>
 
   <div><%= f.label :team %>
-  <%=select("user", "team", Team.all.collect {|p| [ p.name, p.id ] }, { :include_blank => false }) %>
+  <input name="user[team]" id="team_name" type="text">
   <!--  <input name="user[team]" id="team_name" style="width: 279px;"> -->
    </div>
 
@@ -50,22 +50,9 @@ $(document).ready(function(){
       }
   });
 
-   // var availableTags = <%= raw Team.all.collect {|p| p.name } %>;
-   // var options = {
-   //      callback: function (value) {
-   //          console.log(value);
-   //      $("#team_name").autocomplete({
-   //        source: availableTags
-   //      });
-   //     },
-   //      wait: 500,
-   //      highlight: true,
-   //      captureLength: 2
-   //  };
-
-   // $('#team_name').typeWatch(options);
-
-
-
+  window.availableTags = <%= raw Team.all.collect {|p| p.name } %>;
+  $("#team_name").autocomplete({
+    source: availableTags
+  });
 });
 </script>

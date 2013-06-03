@@ -7,7 +7,15 @@
 
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.all
+//= require jquery.ui.core
+//= require jquery.ui.widget
+//= require jquery.ui.menu
+//= require jquery.ui.position
+//= require jquery.ui.autocomplete
+//= require jquery.ui.dialog
+//= require chosen-jquery
+
+
 //= require jquery.remotipart
 //= require jquery.iframe-transport
 //= require twitter/bootstrap
@@ -405,7 +413,7 @@ function contextMenuAction(key,id,obj)
                   break;
       case 'make_public':
                     $.ajax({
-                      url: "/notices/makepublic/" + id,
+                      url: "/notices/public/" + id,
                       type: "post",
                       dataType: "json",
                       data: {},   // for query string
@@ -421,7 +429,7 @@ function contextMenuAction(key,id,obj)
 
       case 'make_private':
                     $.ajax({
-                      url: "/notices/makeprivate/" + id,
+                      url: "/notices/private/" + id,
                       type: "post",
                       dataType: "json",
                       data: {},   // for query string

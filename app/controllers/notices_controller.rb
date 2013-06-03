@@ -1,6 +1,7 @@
 class NoticesController < ApplicationController
 	before_filter :require_login
   def index
+    session[:channel] = "/team_#{current_team.id}"
   	@user=current_user
   	@color=@user.color
   	@private_notices=nil
@@ -15,12 +16,9 @@ class NoticesController < ApplicationController
   end
 
   def create
+
   	user=current_user
-  	if user.noticeboard.nil?
-  		board=user.create_noticeboard(:name=>"board")
-    else
-    	board = user.noticeboard
-    end
+    board = get_board(params[:notice][:access_type])
     params[:notice][:user_id] = current_user.id
     notice = board.notices.create(params[:notice].except(:img))
     if params[:notice][:img]
@@ -91,11 +89,11 @@ class NoticesController < ApplicationController
     end
   end
 
-  def make_private
+  def change_access
     begin
       notice = Notice.find(params[:id])
-      notice.update_attributes(:access_type=>"private")
-
+      board = get_board(params[:access_type])
+      notice.update_attributes(:access_type=>params[:access_type],:noticeboard_id=>board.id)
       begin
         publish("private")
       rescue
@@ -110,7 +108,7 @@ class NoticesController < ApplicationController
   def make_public
     begin
       notice = Notice.find(params[:id])
-      notice.update_attributes(:access_type=>"public")
+      notice.update_attributes(:access_type=>params[:access_type])
 
       begin
         publish("public")
@@ -125,14 +123,17 @@ class NoticesController < ApplicationController
 
 def load_notices
     user=current_user
+    private_board = get_board("private")
     color=user.color
     private_notices = nil
-    unless user.noticeboard.nil?
-      private_notices = user.noticeboard.notices.notice_with_settings(user).private_notices
-    end
-
+    private_notices = private_board.notices.notice_with_settings(user).includes(:comments,:images) unless private_board.nil?
+    public_board = get_board("public")
+    puts session[:team_id]
+    puts "=============="
+    puts public_board.inspect
+    puts "==========="
     # public_notices=Notice.notice_with_settings(user).public_notices.select("id,author,title,content,updated_at")
-    public_notices=Notice.notice_with_settings(user).public_notices.order(:user_id)
+    public_notices=public_board.notices.notice_with_settings(user).includes(:comments,:images).order(:user_id) unless public_board.nil?
 
     render :json => { :status => 1,
                       :user_name => user.name,

@@ -77,7 +77,7 @@ display:none;
 					padding: 0px;
 					margin: 0px;
 				}
-				input[type=text], input[type=email], input[type=password]{
+				input[type=text],  input[type=email], input[type=password]{
 					font-size: 12px;
 					padding: 1px;
 					width:80%;
@@ -103,4 +103,8 @@ display:none;
 }
 .ui-dialog-titlebar-close:before{
  		content:'X';
+}
+.disabled{
+	color:#ccc;
+
 }
