@@ -1,15 +1,10 @@
 #notes_tab{
 	margin-top:25px;
 }
-.tab-content {
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    border:20px solid rgb(122, 83, 46)
-}
 
 .nav-tabs {
-    margin-bottom: 0;
+    margin-bottom: 20px;
+    border-bottom: none;
 }
 
 
@@ -24,6 +19,7 @@ background-color: rgb(122, 83, 46);
 border-bottom-color: transparent;
 cursor: default;
 	border:1px solid rgb(122, 83, 46);
+	border-radius: 10px;
 }
 .nav-tabs>.active>a:hover, .nav-tabs li a:hover
 {
@@ -31,7 +27,7 @@ cursor: default;
 background-color: rgb(170, 118, 69);
 border-bottom-color: transparent;
 cursor: default;
-	border:1px solid rgb(170, 118, 69);
+	border-radius: 10px;
 }
 
 .error{

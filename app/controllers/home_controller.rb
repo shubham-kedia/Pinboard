@@ -2,6 +2,7 @@ class HomeController < ApplicationController
 	before_filter :require_login
   def index
   	@public_notices=Notice.public_notices
+  	redirect_to "/notices" if user_signed_in?
   end
 	def validate
 	  res=false

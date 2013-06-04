@@ -20,7 +20,10 @@
 //= require jquery.iframe-transport
 //= require twitter/bootstrap
 //= require_tree .
-
+window.reset = function (e) {
+    e.wrap('<form>').closest('form').get(0).reset();
+    e.unwrap();
+}
 $(document).ready(function(){
    window.notice=function(header,body){
       $('#notice_header').html(header);
@@ -80,10 +83,10 @@ $(document).ready(function(){
 
     $("#new_notice").bind("ajax:complete", function(){
       $("#myModal_new").modal("hide");
-      var file_input =  $("#notice_img");
-      file_input.replaceWith(file_input = file_input.clone( true ));
+      reset( $("#notice_img"));
       sync_notices();
     });
+    reset( $("#notice_img"));
 
 // close the modal popup when click cancel button
     $(document).on("click","#cancel_search",function() {

@@ -5,7 +5,6 @@ a
 .board_container{
   font-family:arial,sans-serif;
   font-size:100%;
-  background:url(wood.png);
   color:#fff;
   min-height: 500px;
   overflow: hidden;
@@ -159,7 +158,7 @@ overflow:auto;
 }
 .images_popup img{
   display: inline-block;
-  width:80px;
+  width:135px;
   padding:10px;
   text-align: center;
 }
@@ -264,4 +263,27 @@ overflow:auto;
   height: 19px;
   text-align: center;
   border-radius: 15px;
+}
+.tabbg_first{
+min-height:750px;
+width:1%;
+display: block;
+float:left;
+background: url(bg_tabs/left.png) no-repeat;
+background-position: -7px 0px;
+}
+.tabbg_middle{
+min-height:750px;
+float:left;
+width:98%;
+background: url(bg_tabs/center_3.png);
+
+}
+.tabbg_last{
+  width:1%;
+min-height:750px;
+float:left;
+background: url(bg_tabs/right.png) no-repeat;
+background-position: -7px 0px;
+
 }
