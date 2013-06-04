@@ -12,12 +12,18 @@
   <%= f.password_field :password_confirmation %></div>
 
 
-<div><%= f.label :team_id %>
-  <%#= f.select :team_id, :collection =>[teams] %>
-<input name="user[team]" id="team_name_sign_up" style="width: 288px;">
+<div>
+  <label for="team_ids">Teams</label>
+  <%= select_tag "team_ids", options_from_collection_for_select(Team.all, "id", "name"),:multiple=>true,:class=>"chosen" %>
 </div>
-  <%#= select("user", "team_id", Team.all.collect {|p| [ p.name, p.id ] }, { :include_blank => false }) %>
-
+<div>
+  <input type="checkbox" id="new_team_check">
+  <label for="new_team_check">Create New Team</label>
+</div>  
+<div class="disabled">
+  <label for="new_team">Team Name</label>
+  <input id="new_team" disabled="disabled" type="text" name="new_team">
+</div> 
 
   <div><%= f.submit "Sign up",:class=>"btn btn-primary" %></div>
 <% end %>
@@ -27,7 +33,37 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
+       $.validator.setDefaults({
+        ignore: ':hidden:not(.chzn-done)',
+        errorPlacement: function(error, element) {
+          console.log(error);
+            if(element.hasClass('chzn-done')) {
+                var id = element.attr("id");
+                $("#"+id+"_chzn").addClass("error");
+                error.insertAfter(element.siblings("div"));
+            }
+            else
+              error.insertAfter(element);
 
+        }
+    });
+    $('.chosen').chosen()
+        .change(function () {
+            var id = $(this).attr("id");
+            console.log(id);
+            if($(this).valid()){
+                $("#"+id+"_chzn").removeClass("error");
+                            console.log("tred");
+
+              }
+            else{
+                $("#"+id+"_chzn").addClass("error");
+                                            console.log("fas");}
+
+    });
+    $.validator.addMethod("checkteam",function(){
+        return !($("#new_team").val()=="" && $("#team_ids").val()==null)
+  },"Select or create team" );
     $(".validate_reg").validate({
         rules: {
           "user[email]": {
@@ -42,8 +78,13 @@
           "user[password_confirmation]": {
             required: true,
             equalTo: ".validate_reg #user_password"
+          },
+          "team_ids[]":{
+            "checkteam":true
+          },
+          "new_team":{
+            required:function(ele){ return $("#new_team_check").is(":checked")}
           }
-
         },
         messages: {
          "user[email]": {
@@ -73,22 +114,9 @@
     });
 
    window.availableTags = <%= raw Team.all.collect {|p| p.name } %>;
-   var options = {
-        callback: function (value) {
-            console.log(value);
-        $("#team_name_sign_up").autocomplete({
+       $("#team_name_sign_up").autocomplete({
           source: availableTags
         });
-       },
-        wait: 500,
-        highlight: true,
-        captureLength: 2
-    };
-
-   $('#team_name_sign_up').typeWatch(options);
-
-
-
 
 
   });

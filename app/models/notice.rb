@@ -1,5 +1,5 @@
 class Notice < ActiveRecord::Base
-  attr_accessible :access_type, :content, :title ,:user_id
+  attr_accessible :access_type, :content, :title ,:user_id, :noticeboard_id
 
   attr_accessor :color ,:author
   #associations
@@ -15,7 +15,7 @@ class Notice < ActiveRecord::Base
   		if settings
   			whr = []
   			if settings.notice_visibility == "0"
-  				whr << "noticeboard_id=#{user.noticeboard.id}"
+  				whr << "user_id=#{user.id}"
   			end
   			whr << "DATEDIFF( DATE( created_at ) , CURDATE( ) ) <= #{settings.date_visibility}"
   			return where(whr.join(" and "))

@@ -78,11 +78,9 @@
 
    match '/notices/load_notices/' => 'notices#load_notices' ,:via => [:post,:get]
 
-   match '/notices/makeprivate/:id' => 'notices#make_private' ,:via => [:post]
+   match '/notices/:access_type/:id' => 'notices#change_access' ,:via => [:post]
 
    match '/notices/deleteImage/:id' => 'notices#deleteImage' ,:via => [:post]
-
-   match '/notices/makepublic/:id' => 'notices#make_public' ,:via => [:post]
 
    match '/users/board_settings' => 'users#board_settings' ,:via => [:get]
   # You can have the root of your site routed with "root"

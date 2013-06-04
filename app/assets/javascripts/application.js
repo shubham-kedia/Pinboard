@@ -7,12 +7,23 @@
 
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.all
+//= require jquery.ui.core
+//= require jquery.ui.widget
+//= require jquery.ui.menu
+//= require jquery.ui.position
+//= require jquery.ui.autocomplete
+//= require jquery.ui.dialog
+//= require chosen-jquery
+
+
 //= require jquery.remotipart
 //= require jquery.iframe-transport
 //= require twitter/bootstrap
 //= require_tree .
-
+window.reset = function (e) {
+    e.wrap('<form>').closest('form').get(0).reset();
+    e.unwrap();
+}
 $(document).ready(function(){
    window.notice=function(header,body){
       $('#notice_header').html(header);
@@ -72,10 +83,10 @@ $(document).ready(function(){
 
     $("#new_notice").bind("ajax:complete", function(){
       $("#myModal_new").modal("hide");
-      var file_input =  $("#notice_img");
-      file_input.replaceWith(file_input = file_input.clone( true ));
+      reset( $("#notice_img"));
       sync_notices();
     });
+    reset( $("#notice_img"));
 
 // close the modal popup when click cancel button
     $(document).on("click","#cancel_search",function() {
@@ -405,7 +416,7 @@ function contextMenuAction(key,id,obj)
                   break;
       case 'make_public':
                     $.ajax({
-                      url: "/notices/makepublic/" + id,
+                      url: "/notices/public/" + id,
                       type: "post",
                       dataType: "json",
                       data: {},   // for query string
@@ -421,7 +432,7 @@ function contextMenuAction(key,id,obj)
 
       case 'make_private':
                     $.ajax({
-                      url: "/notices/makeprivate/" + id,
+                      url: "/notices/private/" + id,
                       type: "post",
                       dataType: "json",
                       data: {},   // for query string

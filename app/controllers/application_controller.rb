@@ -11,7 +11,6 @@ class ApplicationController < ActionController::Base
 			redirect_to user_profile_path ,:flash => {:notice => 'Update your Name'}
 			return false
     end
-    session[:channel] = "/public_board"
 		true
   end
 
@@ -20,8 +19,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    session[:channel] = "/public_board"
-  	if (resource.name.nil? or resource.name.empty? )
+   	if (resource.name.nil? or resource.name.empty? )
     	user_profile_path
     else
 			set_current_user_id
@@ -30,8 +28,24 @@ class ApplicationController < ActionController::Base
   end
   def publish(board_type)
      exec_js = "sync_notices();"
-      PrivatePub.publish_to("/public_board",exec_js)
+      PrivatePub.publish_to(session[:channel],exec_js)
       #PrivatePub.publish_to("/user_#{current_user.name}",exec_js)
+  end
+
+  def current_team
+    Team.find(session[:team_id])
+  end
+
+
+  def get_board(access_type)
+    user=current_user
+    if access_type == "private"
+      board = user.noticeboard.nil? ? user.create_noticeboard(:name=>"board") : user.noticeboard
+    else
+      team = current_team
+      board = team.noticeboard.nil? ? team.create_noticeboard(:name=>"board") : team.noticeboard
+    end
+    board
   end
   # publis to author
   def pubdlish(board_type)

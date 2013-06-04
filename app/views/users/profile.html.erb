@@ -6,7 +6,7 @@
             <div class="tab-content">
               <div class="tab-pane active" id="profile_tab">
 
-                <div class="board context-menu-board" id="board">
+                <div class="board " id="board">
                   <% unless flash[:notice].nil? %>
                  <div class="alert"><%= flash[:notice] %></div>
                   <% end %>
@@ -20,6 +20,20 @@
                           <div class="controls">
                             <%= f.text_field :name,:class=> 'input' %>
                           </div>
+                        </div>
+                        <div>
+                        <div class="control-group">
+                          <label for="team_ids" class="control-label">Teams</label>
+                          <%= select_tag "team_ids", options_for_select(Team.all.map {|t| [t.name, t.id]},@user.teams.map(&:id)),:multiple=>true,:class=>"chosen" %>
+                          </div>
+                          <div>
+                          <input type="checkbox" id="new_team_check">
+                          <label for="new_team_check" class="control-label" >Create New Team</label>
+                          </div>  
+                          <div class="disabled">
+                          <label for="new_team" class="control-label">Team Name</label>
+                          <input id="new_team" disabled="disabled" type="text" name="new_team">
+                          </div> 
                         </div>
 
                         <div class="control-group">
