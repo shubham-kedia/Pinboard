@@ -29,9 +29,11 @@
 	  <%= javascript_include_tag "private_pub" %>
   	<%= subscribe_to session[:channel] %>
   	<%= subscribe_to "/user_#{current_user.name}" %>
+  <% else %>
+   	<%= render :partial => "layouts/login" %>
 	<% end %>
 
- 	<%= render :partial => "layouts/login" %>
+
 <div id="notice" class="modal hide fade in" style="display: none; ">
 	<div  class="modal-header">
 		<a class="close" data-dismiss="modal">×</a>
