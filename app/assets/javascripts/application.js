@@ -145,6 +145,7 @@ $(document).ready(function(){
 var user_id_notices=0,first="yes",marginTop=0,marginLeft=0,column=0;
 window.sync_notices = function()
 {
+    console.log('called');
     $.ajax({
       url: "/notices/load_notices/",
       type: "post",
@@ -195,41 +196,42 @@ window.load_public_notices = function (data,t,from_sync)
     marginTop=0;
     marginLeft=0;
     column=0;
-    $.each(notice_array, function(index, element) {
+    if(notice_array.length>0){
+      $.each(notice_array, function(index, element) {
 
-      marginTop+=30;
-      marginLeft+=25;
-      if(user_id_notices!=element.user_id)
-      {
+        marginTop+=30;
+        marginLeft+=25;
+        if(user_id_notices!=element.user_id)
+        {
 
-        user_id_notices=element.user_id;
-        var evens = _.countBy(notice_array, function(ele){ return ele.user_id == user_id_notices ? 'this_user_count' : 'other_user_count'; });
-        current_user_notices=evens.this_user_count;
-        // alert((data.public_notice).length);
-        height=(current_user_notices * 30)+200;
+          user_id_notices=element.user_id;
+          var evens = _.countBy(notice_array, function(ele){ return ele.user_id == user_id_notices ? 'this_user_count' : 'other_user_count'; });
+          current_user_notices=evens.this_user_count;
+          // alert((data.public_notice).length);
+          height=(current_user_notices * 30)+200;
 
-        if(first=="yes") 
-          first="no";
-        else
-          total_string +='</ul></div>';
+          if(first=="yes") 
+            first="no";
+          else
+            total_string +='</ul></div>';
 
-        if(column%3==0) 
-          total_string +='</div><div class="row">';
+          if(column%3==0) 
+            total_string +='</div><div class="row">';
 
-        column =column+1
-        total_string += '<div class="span3" style="height:'+height+'px">';
-        total_string +='<ul class="inner_list">';
-        marginTop = 0;
-        marginLeft = 0;
-      }
-      // set margin to notice
-      set_margin="margin-left:"+marginLeft+"px;margin-top:"+marginTop+"px;";
-      total_string +=load_notice(data.user_id,element,'public',t,set_margin);
-       // load public
-    });
-
-  total_string +='</ul>';
-  total_string +='</div>';
+          column =column+1
+          total_string += '<div class="span3" style="height:'+height+'px">';
+          total_string +='<ul class="inner_list">';
+          marginTop = 0;
+          marginLeft = 0;
+        }
+        // set margin to notice
+        set_margin="margin-left:"+marginLeft+"px;margin-top:"+marginTop+"px;";
+        total_string +=load_notice(data.user_id,element,'public',t,set_margin);
+         // load public
+      });
+    total_string +='</ul>';
+    total_string +='</div>';
+    }
   total_string += '</div>';
   $("#board_public").html(total_string);
 }

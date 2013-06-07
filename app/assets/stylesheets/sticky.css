@@ -269,21 +269,19 @@ min-height:750px;
 width:1%;
 display: block;
 float:left;
-background: url(bg_tabs/left.png) no-repeat;
-background-position: -7px 0px;
+background: url(bg_tabs/border.png) no-repeat;
 }
 .tabbg_middle{
 min-height:750px;
 float:left;
 width:98%;
-background: url(bg_tabs/center_3.png);
+background: url(bg_tabs/half.png);
 
 }
 .tabbg_last{
   width:1%;
 min-height:750px;
 float:left;
-background: url(bg_tabs/right.png) no-repeat;
-background-position: -7px 0px;
+background: url(bg_tabs/border.png) no-repeat;
 
 }

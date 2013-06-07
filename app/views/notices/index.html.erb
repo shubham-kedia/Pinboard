@@ -1,127 +1,49 @@
 
-   <div class="row">
-     <div class="pull-right hide">
-      <a id="new_modal_link" href="#myModal_new" role="button" class="btn btn-primary btn-large">New</a>
-    </div>
-          <div class="tabbable" id="notes_tab"> <!-- Only required for left/right tabs -->
-            <ul class="nav nav-tabs">
-              <li class="active" >
-                <a href="#private_tab" data-toggle="tab" access-type="private">Private Notes</a>
-              </li>
-              <li>
-                <a href="#public_tab" data-toggle="tab" access-type="public">Public Notes</a>
-              </li>
-              <li class="refresh_notices hide">
-                <label class = "btn btn-danger">Reset Search</label>
-               </li>
-            </ul>
-            <div class="tabbg_first"></div>
-            <div class="tab-content tabbg_middle">
-              <div class="tab-pane active" id="private_tab">
-
-                <div class="board_container context-menu-board" id="board_private">
-
-                    <ul>
-                      <% unless @private_notices.nil?%>
-                       <%@private_notices.each do |notice| %>
-                        <li class="context-menu-note-private-own notice" type="private" id="<%= notice.id %>">
-                         <span class="notice" style="color:<%=notice.user_color%>">
-                          <img src="assets/pin.png" class="sticky_pin">
-                          <h4 class="notice_title"><%=notice.title%></h4>
-                          <p class="notice_content"><%=notice.content.html_safe%></p>
-
-                          <span class='notice_author '><%= notice.user_name %></span>
-                          <span class='notice_time '><%= notice.updated_at.strftime("%d-%m-%Y") %></span>
-
-                         </span>
-                        </li>
-                       <%end%>
-                      <%end%>
-
-                    </ul>
-                </div>
-
-              </div>
-              <div class="tab-pane" id="public_tab">
-
-                <div class="board_container context-menu-board" id="board_public">
-                  <!-- <ul class="main_ul"> -->
-                  <!-- <div class="container"> -->
-                  <div class="row">
-                  
-                     <%
-                     user_id_notices=0
-                     first="yes"
-                     marginTop=0
-                     marginLeft=0
-                     column=0
-
-                    @public_notices.each do |notice| 
-                          
-                          marginTop+=25
-                          marginLeft+=10
-                         if(user_id_notices!=notice.user_id)
-                              current_user_notices=@public_notices.where('user_id = ?', notice.user_id).count
-                              height=( current_user_notices * 20)+200
-                              user_id_notices=notice.user_id
-
-                               # marginTop=current_user_notices*25
-                               # marginLeft=current_user_notices*10
-
-                              if(first=="yes") 
-                                 first="no" 
-                              else %>
-                                </ul></div>
-                              <% end
-
-                              if(column%3==0) %>
-                                  </div><div class="row">
-                              <% end 
-                               
-                              column =column+1  %>
-
-                            <div class="span3" style="height:<%=height%>px">
-                            <ul class="inner_list">
-                              <% marginTop = 0 %>
-                              <% marginLeft = 0 %>
-
-                         <% end  %>
-
-                        <% if(notice.user_id == @user.id) %>
-                            <% ownclass= "context-menu-note-public-own" %>
-                        <% else %>
-                            <% ownclass= "context-menu-note-public" %>
-                        <% end %>
-                        
-                        <li  class="<%=ownclass%>  notice notice_list" style="margin-top:<%=marginTop%>px;margin-left:<%=marginLeft%>px;" type="public" id="<%= notice.id %>">
-                         <span class="notice"  style="color:<%=notice.user_color%>;">
-                          <img src="assets/pin.png" class="sticky_pin">
-                          <h4 class="notice_title"><%=notice.title%></h4>
-                          <p class="notice_content"><%=notice.content.html_safe%></p>
-
-                          <span class='notice_author '><%= notice.user_name %></span>
-                          <span class='notice_time '><%= notice.updated_at.strftime("%d-%m-%Y") %></span>
-                         </span>
-                        </li>
-
-
-                    <%end%>
-
-                  </ul>
-                </div>
-              </div>
-              <!-- </div> -->
-              <!-- </ul> -->
-                </div>
-
-              </div>
-
-            </div>              <div class="tabbg_last"></div>
-
-          </div>
-
+<div class="row">
+  <div class="pull-right hide">
+  <a id="new_modal_link" href="#myModal_new" role="button" class="btn btn-primary btn-large">New</a>
+  </div>
+  <div class="tabbable" id="notes_tab"> <!-- Only required for left/right tabs -->
+    <ul class="nav nav-tabs">
+      <li class="active" >
+        <a href="#private_tab" data-toggle="tab" access-type="private">Private Notes</a>
+      </li>
+      <li>
+        <a href="#public_tab" data-toggle="tab" access-type="public">Public Notes</a>
+      </li>
+      <li class="refresh_notices hide">
+        <label class = "btn btn-danger">Reset Search</label>
+      </li>
+    </ul>
+    <div class="tabbg_first"></div>
+    <div class="tab-content tabbg_middle">
+      <div class="tab-pane active" id="private_tab">
+        <div class="board_container context-menu-board" id="board_private">
+          <ul>
+            <% unless @private_notices.nil?%>
+              <%@private_notices.each do |notice| %>
+                <li class="context-menu-note-private-own notice" type="private" id="<%= notice.id %>">
+                  <span class="notice" style="color:<%=notice.user_color%>">
+                    <img src="assets/pin.png" class="sticky_pin">
+                    <h4 class="notice_title"><%=notice.title%></h4>
+                    <p class="notice_content"><%=notice.content.html_safe%></p>
+                    <span class='notice_author '><%= notice.user_name %></span>
+                    <span class='notice_time '><%= notice.updated_at.strftime("%d-%m-%Y") %></span>
+                  </span>
+                </li>
+              <%end%>
+            <%end%>
+          </ul>
         </div>
-
+      </div>
+      <div class="tab-pane" id="public_tab">
+        <div class="board_container context-menu-board" id="board_public">
+        </div>
+      </div>
+    </div>
+    <div class="tabbg_last"></div>
+  </div>
+</div>
 
 <!-- Modal -->
 <div id="myModal_new" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -266,11 +188,8 @@
 
 <script type="text/template" id="notice_template">
   <li class="<%%=element.className%> obj_class" style="<%%=element.set_margin%>" type="<%%=element.type%>" id="<%%=element.id%>">
-
-
-      <span class="notice" style="position:relative;color:<%%=element.notice_color%>;">
-
-          <img src="assets/pin.png" class="sticky_pin">
+    <span class="notice" style="position:relative;color:<%%=element.notice_color%>;">
+         <img src="assets/pin.png" class="sticky_pin">
           <img src="assets/comment_icon.png" class="comment_icon <%%=element.hidden_class_comment%>"><h6 class="comment_count"><%%=element.comment_count%></h6>
           <img src="assets/comment_add.png" class="add_comment_icon">
           <img src="assets/img_icon.png" class="img_icon <%%=element.hidden_class_img%>"><h6 class="img_count"><%%=element.img_count%></h6>

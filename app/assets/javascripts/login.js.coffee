@@ -31,6 +31,8 @@ $("document").ready ->
 					false
 			false
 		false
+	$("#team_name").autocomplete
+		source: data_ary
 	$(".devise_pages .validate_reg").on "submit", ->
 		form = $(this)
 		if $(this).valid()

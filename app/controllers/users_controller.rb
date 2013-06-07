@@ -29,7 +29,6 @@ class UsersController < ApplicationController
 			params[:user].delete(:password)
 			params[:user].delete(:password_confirmation)
 			current_user.update_attributes(params[:user])
-
 			sign_in(user,:bypass => true)
 		else
 			 if current_user.update_attributes(params[:user])

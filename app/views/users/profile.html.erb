@@ -51,11 +51,9 @@
                         <div class="control-group">
                           <%= f.label :gender , :class=> 'control-label'%>
                           <div class="controls">
-                            <%= f.select :gender ,options_for_select(['Male','Female']) , :class=> 'input' %>
+                            <%= f.select :gender ,options_for_select(['Male','Female'],@user.gender) , :class=> 'input' %>
                           </div>
                         </div>
-
-
                         <div class="control-group">
                           <%= f.label :contact_no, :class=> 'control-label'%>
                           <div class="controls">

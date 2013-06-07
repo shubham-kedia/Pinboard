@@ -17,7 +17,7 @@ class Notice < ActiveRecord::Base
   			if settings.notice_visibility == "0"
   				whr << "user_id=#{user.id}"
   			end
-  			whr << "DATEDIFF( DATE( created_at ) , CURDATE( ) ) <= #{settings.date_visibility}"
+  			whr << "DATEDIFF(CURDATE( ) ,DATE( created_at )) <= #{settings.date_visibility}"
   			return where(whr.join(" and "))
         #return whr.join(" and ")
   		end
