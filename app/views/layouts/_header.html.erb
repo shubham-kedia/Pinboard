@@ -1,3 +1,13 @@
+<% 
+lang = session['language'] || ""
+lang_en = ""
+lang_nl = ""
+if lang=="en"
+  lang_en = "active"
+else
+  lang_nl = "active"
+end
+%>
 <div class="navbar navbar-fixed-top navbar-inverse">
       <div class="navbar-inner">
         <div class="container">
@@ -12,9 +22,13 @@
 	              <li class="active"><a href="/notices"><i class="icon-home icon-white"></i> <%=I18n.translate(:home)%></a></li>
 	            </ul>
 
-	            <% if user_signed_in? %>
+	            
+              <ul class="nav pull-right">
+                <li class="<%= lang_en%>">
+                <a class="lang" rel="en">English</a></li><li class="<%= lang_nl%>"><a class="lang" rel="nl">Dutch</a></li>
+                <% if user_signed_in? %>
+								<li><div class="btn-group pull-right">
 
-								<div class="btn-group pull-right">
 									<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 										<i class="icon-user"></i> <%=current_user.name%>	<span class="caret"></span>
 									</a>
@@ -33,19 +47,15 @@
 										<li>
 											<%=link_to '<i class="icon-share"></i>'.html_safe+I18n.translate(:logout), destroy_user_session_path , :method => :delete %>
 									</ul>
-								</div>
+								</div></li></ul>
 
 		          <% else %>
-
-                <ul class="nav pull-right">
-
-          <li> <a class="lang" rel="en">English</a></li><li><a class="lang" rel="nl">Dutch</a></li>
 		              <!-- <li ><a href="/users/sign_in">Login</a></li> --><li id="login"><a href="#" class="open_login_popup"><%=I18n.translate(:login)%></a></li>
 
-          <li id="register"><a href="#" class="open_signup_popup"><%=I18n.translate(:register)%></a></li>
+          <li id="register"><a href="#" class="open_signup_popup"><%=I18n.translate(:register)%></a></li>             <% end %>
+
 		            </ul>
 
-							<% end %>
           </div><!-- /.nav-collapse -->
         </div><!-- /.container -->
       </div><!-- /.navbar-inner -->

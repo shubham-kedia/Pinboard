@@ -47,6 +47,8 @@ nl:
   create_new_team: "Create New Team"
   team_name: "Team Name"
   remember_me: "Remember Me"
+  search: "Search"
+  cancel: "Cancel"
   js:
     new_note: "New Note"
     search_by_keyword: "Search By Keyword"
