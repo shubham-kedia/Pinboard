@@ -1,18 +1,18 @@
 
 <div class="row">
   <div class="pull-right hide">
-  <a id="new_modal_link" href="#myModal_new" role="button" class="btn btn-primary btn-large">New</a>
+  <a id="new_modal_link" href="#myModal_new" role="button" class="btn btn-primary btn-large"><%=I18n.translate(:new)%></a>
   </div>
   <div class="tabbable" id="notes_tab"> <!-- Only required for left/right tabs -->
     <ul class="nav nav-tabs">
       <li class="active" >
-        <a href="#private_tab" data-toggle="tab" access-type="private">Private Notes</a>
+        <a href="#private_tab" data-toggle="tab" access-type="private"><%=I18n.translate(:private)%> <%=I18n.translate(:notes)%></a>
       </li>
       <li>
-        <a href="#public_tab" data-toggle="tab" access-type="public">Public Notes</a>
+        <a href="#public_tab" data-toggle="tab" access-type="public"><%=I18n.translate(:public)%> <%=I18n.translate(:notes)%></a>
       </li>
       <li class="refresh_notices hide">
-        <label class = "btn btn-danger">Reset Search</label>
+        <label class = "btn btn-danger"><%=I18n.translate(:reset_search)%></label>
       </li>
     </ul>
     <div class="tabbg_first"></div>
@@ -49,7 +49,7 @@
 <div id="myModal_new" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Create Notice</h3>
+    <h3 id="myModalLabel"><%=I18n.translate(:create)%> <%=I18n.translate(:notice)%></h3>
   </div>
   <div class="modal-body">
     <%= form_for Notice.new,:url=>notices_url, :format=>"js",:html => { :multipart => true }, :remote => true do |f| %>
@@ -81,7 +81,7 @@
         
         <tr>
           <td>
-            Add Images
+            <%=I18n.translate(:add)%> <%=I18n.translate(:images)%>
           </td>
           <td>
             <%= f.file_field :img, multiple: true, :accept=>"image/*" %>
@@ -106,7 +106,7 @@
 <div id="myModal_comment" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Add Comment</h3>
+    <h3 id="myModalLabel"><%=I18n.translate(:add)%> <%=I18n.translate(:comment)%></h3>
   </div>
   <div class="modal-body">
     <%= form_for Comment.new,:html => { :multipart => true }, :remote => true do |f| %>
@@ -125,8 +125,8 @@
         <tr>
           <td></td>
           <td>
-            <%= f.submit :class => 'btn btn-primary' ,:disable_with => "Saving Comment..."  %>
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+            <%= f.submit :class => 'btn btn-primary' ,:disable_with => " #{I18n.translate(:saving)}  #{I18n.translate(:comment)} ..."%>
+            <button class="btn" data-dismiss="modal" aria-hidden="true"> <%=I18n.translate(:cancel)%></button>
           </td>
         </tr>
       </table>
@@ -142,17 +142,17 @@
 <div id="email_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Send By Email</h3>
+    <h3 id="myModalLabel"> <%=I18n.translate(:send_by_email)%></h3>
   </div>
   <div class="modal-body">
   <form id="send_by_email">
     <input type="hidden" id="mail_noteid" value="">
-    <label >Email: </label> <input id="email_send" type="email" placeholder="Enter the email" name="email-send" required>
+    <label > <%=I18n.translate(:email)%>: </label> <input id="email_send" type="email" placeholder="Enter the email" name="email-send" required>
   </form>
   </div>
   <div class="modal-footer">
-      <input type="button" id="send_email_btn" value="Send Mail" data-loading-text="Sending..."  class="btn btn-primary">
-      <input type="button" id="cancel_email" value="Cancel" class="btn">
+      <input type="button" id="send_email_btn" value="Send Mail" data-loading-text="<%=I18n.translate(:sending)%>"  class="btn btn-primary">
+      <input type="button" id="cancel_email" value="<%=I18n.translate(:cancel)%>" class="btn">
  </div>
 </div>
 
@@ -160,17 +160,17 @@
 <div id="search_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Search</h3>
+    <h3 id="myModalLabel"><%=I18n.translate(:search)%></h3>
   </div>
   <div class="modal-body">
     <form id="search_by_keyword">
     <input type="hidden" id="search_board" value="">
-    <label >Search: </label> <input name="search_keyword" id="search_keyword" type="text" placeholder="Enter the keyword"></form>
+    <label ><%=I18n.translate(:search)%>: </label> <input name="search_keyword" id="search_keyword" type="text" placeholder="Enter the keyword"></form>
 
   </div>
   <div class="modal-footer">
-      <button data-loading-text="searching..! Please Wait..!" data-toggle="button"  id="search_btn" class="btn btn-primary">Search</button>
-      <input type="button" id="cancel_search" value="Cancel" class="btn">
+      <button data-loading-text="searching..! Please Wait..!" data-toggle="button"  id="search_btn" class="btn btn-primary"><%=I18n.translate(:search)%></button>
+      <input type="button" id="cancel_search" value="<%=I18n.translate(:cancel)%>" class="btn">
  </div>
 </div>
 
@@ -178,7 +178,7 @@
 <div id="setting_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Board Settings</h3>
+    <h3 id="myModalLabel"><%=I18n.translate(:board_settings)%></h3>
   </div>
   <div class="modal-body">
     <%= render :template =>  '/users/board_settings' , :locals => { :setting => current_user.setting }  %>

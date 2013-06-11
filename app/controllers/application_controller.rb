@@ -1,6 +1,16 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-
+before_filter :set_locale
+ 
+def set_locale
+  session[:language] = params[:locale] if params[:locale]
+  lang = session[:language] || params[:locale] || I18n.default_locale
+  I18n.locale = lang
+end
+def default_url_options(options={})
+  logger.debug "default_url_options is passed options: #{options.inspect}\n"
+  { :locale => I18n.locale }
+end
   def require_login
     if !user_signed_in?
       if(params[:controller]!="home")
@@ -47,84 +57,5 @@ class ApplicationController < ActionController::Base
     end
     board
   end
-  # publis to author
-  def pubdlish(board_type)
-
-    puts board_type + ' asdfdsfsdf sadfsd'
-    if board_type == 'public'
-      puts 'public '
-
-      public_notices=Notice.public_notices
-
-      notices = []
-
-      public_notices.each do |notice|
-                notices.push({:id =>  notice.id ,
-                      :title => notice.title,
-                      :user_color => notice.user_color,
-                      :content => notice.content.html_safe,
-                      :author => notice.user_name
-                    })
-
-      end
-      puts 'before'
-      # PrivatePub.publish_to(session[:channel],"load_notice(#{notices.to_json},'public')")
-
-      exec_js = "
-                $('#board_public ul').empty();
-                var a =JSON.parse('#{notices.to_json}');
-              $.each(a, function(index, element) {
-                load_notice('#{current_user.name}',element,'public');
-              });
-            " 
-     exec_js = "sync_notices();
-            "
-
-
-      PrivatePub.publish_to("/public_board",exec_js)
-
-      puts 'published'
-
-      true
-    else
-
-      puts 'Private '
-
-      private_notices=current_user.noticeboard.notices.private_notices
-
-      puts private_notices.inspect
-
-      notices = []
-
-      private_notices.each do |notice|
-        notices.push({:id =>  notice.id ,
-                      :title => notice.title,
-                      :user_color => current_user.color,
-                      :content => notice.content,
-                      :author => notice.user_name
-                    })
-
-      end
-      puts 'before'
-      # PrivatePub.publish_to(session[:channel],"load_notice(#{notices.to_json},'public')")
-
-      exec_js = "
-                $('#board_private ul').empty();
-                var a =JSON.parse('#{notices.to_json}');
-                $.each(a, function(index, element) {
-                  load_notice('#{current_user.name}',element,'private');
-                });
-              "
-     exec_js = "sync_notices();
-            "
-              puts "/user_#{current_user.name}";
-      PrivatePub.publish_to("/user_#{current_user.name}",exec_js)
-
-      puts 'published'
-
-      true
-
-    end
-  end
-
+  
 end

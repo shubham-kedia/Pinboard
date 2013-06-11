@@ -1,12 +1,12 @@
 # Sample localization file for English. Add more files in this directory for other locales.
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
-en:
-  pinboard: "Pin Board"  
-  please_login: "Please Login"
-  home: "Home"
-  login: "Login"
-  register: "Register"
+nl:
+  pinboard: "prikbord"  
+  please_login: "gelieve in te loggen"
+  home: "huis"
+  login: "inloggen"
+  register: "registreren"
   logout: "Logout"  
   upgrade_your_account: "Upgrade your Account"
   close: "Close"

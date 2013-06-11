@@ -15,6 +15,8 @@
 //= require jquery.ui.dialog
 //= require chosen-jquery
 
+//=require i18n
+//=require i18n/translations
 
 //= require jquery.remotipart
 //= require jquery.iframe-transport
@@ -43,9 +45,9 @@ $(document).ready(function(){
         $("#comment_comment").val('');
         form.attr({'action': window.new_comment_url });
         form.find('input[name="_method"]').remove();
-        form.find('input[type="submit"]').val('Add Comment');
+        form.find('input[type="submit"]').val(I18n.t("js.add_comment"));
         $("#myModal_comment").modal('show');
-        $("#myModalLabel").text('Add Comment');
+        $("#myModalLabel").text(I18n.t("js.add_comment"));
   });
 
 //    show hide image popup
@@ -86,7 +88,8 @@ $(document).ready(function(){
       reset( $("#notice_img"));
       sync_notices();
     });
-    reset( $("#notice_img"));
+    if($("#notice_img").length> 0)
+      reset( $("#notice_img"));
 
 // close the modal popup when click cancel button
     $(document).on("click","#cancel_search",function() {
@@ -116,7 +119,7 @@ $(document).ready(function(){
                       success: function(data)
                                 {
                                     if (data.status != 1){
-                                     alert("error during delete");
+                                     alert(I18n.t("js.error_during_delete"));
                                     }
                                      sync_notices();
                                 }
@@ -134,7 +137,7 @@ $(document).ready(function(){
                       success: function(data)
                                 {
                                     if (data.status != 1){
-                                     alert("error during delete");
+                                     alert(I18n.t("js.error_during_delete"));
                                     }
                                      sync_notices();
                                 }
@@ -171,7 +174,7 @@ window.sync_notices = function()
 
                     }
                     else
-                        alert("Some Error during Sync");
+                        alert(I18n.t("js.error_during_sync"));
                 }
         });
 }
@@ -316,11 +319,11 @@ $(function(){
         callback: context_menu_callback ,
         items: {
             "sep1": "---------",
-            "new": {name: "New note",icon: "add"},
+            "new": {name: I18n.t("js.new_note"),icon: "add"},
               "sep2": "---------",
-            "search": {name: "Search by keyword",icon: "searchbykey"},
+            "search": {name: I18n.t("js.search_by_keyword"),icon: "searchbykey"},
               "sep3": "---------",
-            "settings": {name: "Settings", icon: "settings"}
+            "settings": {name: I18n.t("js.settings"), icon: "settings"}
 
         }
     });
@@ -343,13 +346,13 @@ $.contextMenu({
         callback: context_menu_callback ,
         items: {
             "sep1": "---------",
-            "make_public": {name: "Share with your team", icon: "share_team"},
+            "make_public": {name: I18n.t("js.share_with_your_team"), icon: "share_team"},
              "sep2": "---------",
-            "mail": {name: "Send by e-mail", icon: "mail"},
+            "mail": {name: I18n.t("js.send_by_email"), icon: "mail"},
              "sep3": "---------",
-            "edit": {name: "Edit", icon: "edit_notice"},
+            "edit": {name: I18n.t("js.edit"), icon: "edit_notice"},
              "sep4": "---------",
-            "delete": {name: "Delete", icon: "delete"}
+            "delete": {name: I18n.t("js.delete"), icon: "delete"}
 
         }
     });
@@ -359,11 +362,11 @@ $.contextMenu({
         callback: context_menu_callback ,
         items: {
             "sep1": "---------",
-            "mail": {name: "Send by e-mail", icon: "mail"},
+            "mail": {name: I18n.t("js.send_by_email"), icon: "mail"},
              "sep2": "---------",
-            "edit": {name: "Edit", icon: "edit_notice"},
+            "edit": {name: I18n.t("js.edit"), icon: "edit_notice"},
              "sep3": "---------",
-            "delete": {name: "Delete", icon: "delete"}
+            "delete": {name: I18n.t("js.delete"), icon: "delete"}
 
         }
     });
@@ -373,19 +376,23 @@ $.contextMenu({
         callback: context_menu_callback ,
         items: {
             "sep1": "---------",
-            "make_private": {name: "Make private", icon: "make_private"},
+            "make_private": {name: I18n.t("js.make_private"), icon: "make_private"},
              "sep2": "---------",
-            "mail": {name: "Send by e-mail", icon: "mail"},
+            "mail": {name: I18n.t("js.send_by_email"), icon: "mail"},
              "sep3": "---------",
-            "edit": {name: "Edit", icon: "edit_notice"},
+            "edit": {name: I18n.t("js.edit"), icon: "edit_notice"},
              "sep4": "---------",
-            "delete": {name: "Delete", icon: "delete"}
+            "delete": {name: I18n.t("js.delete"), icon: "delete"}
 
         }
     });
 
    $("#myModal_new").on ('show',function(){
     $("#notice_content").trigger('keydown');
+   });
+
+   $(".lang").click(function(){
+      window.location.href = "?locale="+$(this).attr("rel");
    });
 
 });
@@ -427,7 +434,7 @@ function contextMenuAction(key,id,obj)
                                     if (data.status == 1)
                                         sync_notices();
                                     else
-                                        alert("error during share with team");
+                                        alert(I18n.t("js.error_during_share"));
                                 }
                         });
                   break;
@@ -443,7 +450,7 @@ function contextMenuAction(key,id,obj)
                                     if (data.status == 1)
                                         sync_notices();
                                     else
-                                        alert("error during make Private");
+                                        alert(I18n.t("js.error_during_private"));
                                 }
                         });
                   break;
@@ -461,9 +468,8 @@ function contextMenuAction(key,id,obj)
                       success: function(data)
                                 {
                                     if (data.status != 1){
-                                     alert("error during delete");
-                                    }
-                                     sync_notices();
+                                      alert(I18n.t("js.error_during_share"));                                    }
+                                    sync_notices();
                                 }
                         });
                   break;

@@ -2,30 +2,30 @@
 <%= form_for setting  ,:class => 'form_horizontal' ,:remote => true do |f| %>
 
 	  <div class="control-group">
-				<%= label_tag 'Which Notes? ' , nil , :class=> 'control-label' %>
+				<%= label_tag t(:which_notes) , nil , :class=> 'control-label' %>
 			<div class="controls">
-				<%= f.select :notice_visibility ,options_for_select([['Show only own notes','0'],['Show notes of all team members','1']] , setting.notice_visibility )  %>
+				<%= f.select :notice_visibility ,options_for_select([[t(:show_only_own_notes),'0'],[t(:show_notes_of_all_team_members),'1']] , setting.notice_visibility )  %>
 			</div>
 		</div>
 
 	  <div class="control-group">
-				<%= label_tag 'Date Settings ' , nil , :class=> 'control-label'%>
+				<%= label_tag t(:date_settings) , nil , :class=> 'control-label'%>
 			<div class="controls">
-				<%= f.select :date_visibility ,options_for_select([['Show notes from today only',0],['Show notes of past 5 days',5],['Show notes of past 30 days',30]] , setting.date_visibility) %>
+				<%= f.select :date_visibility ,options_for_select([[t(:show_notes_from_today_only),0],[t(:show_notes_of_past_5_days),5],[t(:show_notes_of_past_5_days),30]] , setting.date_visibility) %>
 			</div>
 		</div>
 
 	  <div class="control-group">
-				<%= label_tag 'Delete ' , nil , :class=> 'control-label'%>
+				<%= label_tag t(:delete) , nil , :class=> 'control-label'%>
 			<div class="controls">
-				<%= f.select :auto_delete ,options_for_select([['Delete notes after 30 days automatically',30],['Notes shall be deleted manually',0]],setting.auto_delete) %>
+				<%= f.select :auto_delete ,options_for_select([[t(:delete_notes_after_30_days_automatically),30],[t(:notes_shall_be_deleted_manually),0]],setting.auto_delete) %>
 			</div>
 		</div>
 
 	  <div class="control-group">
 			<div class="controls">
-					<%=f.submit "Update Settings" ,:class => 'btn btn-primary' %>
-					<%=button_tag "Cancel" ,:class => 'btn' , 'data-dismiss' => 'modal','aria-hidden' => "true" %>
+					<%=f.submit t(:update_settings) ,:class => 'btn btn-primary' %>
+					<%=button_tag t(:cancel) ,:class => 'btn' , 'data-dismiss' => 'modal','aria-hidden' => "true" %>
 			</div>
 		</div>
 <% end %>

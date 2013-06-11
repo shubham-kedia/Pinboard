@@ -31,20 +31,22 @@
    	<%= render :partial => "layouts/login" %>
 	<% end %>
 
-
 <div id="notice" class="modal hide fade in" style="display: none; ">
 	<div  class="modal-header">
 		<a class="close" data-dismiss="modal">×</a>
-		<h3 id="notice_header">Upgrade your Account</h3>
+		<h3 id="notice_header"><%=I18n.translate(:upgrade_your_account)%></h3>
 	</div>
 	<div class="modal-body" id="notice_body">
 	</div>
 	<div class="modal-footer">
-		<a href="#" class="btn" data-dismiss="modal">Close</a>
+		<a href="#" class="btn" data-dismiss="modal"><%=I18n.translate(:close)%></a>
 	</div>
 </div>
 <script type="text/javascript">
 window.data_ary = <%= raw Team.all.map(&:name).to_json()%>;
+  I18n.defaultLocale = "<%= I18n.default_locale %>";
+  I18n.locale = "<%= I18n.locale %>";
+  I18n.fallbacks = true;
 </script>
 </body>
 </html>

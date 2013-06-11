@@ -29,6 +29,7 @@ gem "thin"
 
 gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
 gem 'chosen-rails'
+gem "i18n-js"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

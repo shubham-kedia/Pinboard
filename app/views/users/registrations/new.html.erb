@@ -2,26 +2,26 @@
 <%= form_for(resource, :as => resource_name,:html=>{:class=>"validate_reg"}, :url => registration_path(resource_name)) do |f| %>
   <%#= devise_error_messages! %>
 
-  <div><%= f.label :email %>
+  <div><%= f.label :email,t(:email) %>
   <%= f.email_field :email, :autofocus => true %></div>
 
-  <div><%= f.label :password %>
+  <div><%= f.label :password, t(:password) %>
   <%= f.password_field :password %></div>
 
-  <div><%= f.label :password_confirmation %>
+  <div><%= f.label :password_confirmation, t(:password_confirmation) %>
   <%= f.password_field :password_confirmation %></div>
 
 
 <div>
-  <label for="team_ids">Teams</label>
+  <label for="team_ids"><%= t(:teams)%></label>
   <%= select_tag "team_ids", options_from_collection_for_select(Team.all, "id", "name"),:multiple=>true,:class=>"chosen" %>
 </div>
 <div>
   <input type="checkbox" id="new_team_check">
-  <label for="new_team_check">Create New Team</label>
+  <label for="new_team_check"><%= t(:create_new_team)%></label>
 </div>  
 <div class="disabled">
-  <label for="new_team">Team Name</label>
+  <label for="new_team"><%= t(:team_name)%></label>
   <input id="new_team" disabled="disabled" type="text" name="new_team">
 </div> 
 
@@ -89,15 +89,18 @@
         messages: {
          "user[email]": {
            email: "Invalid Email",
-           remote: "Your Email is not available",
-           required: "Enter Your Email-ID"
+           remote: I18n.t("js.error_messages.email_not_available"),
+           required: I18n.t("js.error_messages.enter_email")
          },
          "user[password]":{
-            required :"Enter the Password"
+            required :I18n.t("js.error_messages.enter_password")
          },
          "user[password_confirmation]":{
-            required : "Enter the confirmation password",
-            equalTo : "Passwords do not match."
+            required : I18n.t("js.error_messages.enter_confirm_password"),
+            equalTo : I18n.t("js.error_messages.passwords_do_not_match")
+         },
+         "team_ids[]":{
+            checkteam:I18n.t("js.error_messages.select_or_create_team")
          }
          },
         highlight: function(label) {

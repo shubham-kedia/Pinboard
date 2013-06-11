@@ -5,7 +5,7 @@
   <div><%= f.label :email %>
   <%= f.email_field :email, :autofocus => true %></div>
 
-  <div><%= f.submit "Send Password Instructions" ,:class=>"btn btn-primary"%></div>
+  <div><%= f.submit "#{I18n.translate(:submit)}",:class=>"btn btn-primary"%></div>
 <% end %>
 <%= render "users/shared/links" %>
 
@@ -21,8 +21,8 @@
       },
       messages: {
 	     "user[email]": {
-	       email: "Invalid Email",
-	       remote: "Your Email is not available"
+	       email: I18n.t("js"),
+	       remote: I18n.t("js.error_messages.email_not_available")
 	     }
    		},
       highlight: function(label) {
