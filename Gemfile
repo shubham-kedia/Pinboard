@@ -29,6 +29,7 @@ gem "thin"
 
 gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
 gem 'chosen-rails'
+gem 'remotipart' , :git=>"git://github.com/svyatogor/remotipart.git",:branch=>"patch-1"
 gem "i18n-js"
 
 # To use ActiveModel has_secure_password

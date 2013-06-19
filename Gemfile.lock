@@ -19,6 +19,13 @@ GIT
       railties (>= 3.1)
 
 GIT
+  remote: git://github.com/svyatogor/remotipart.git
+  revision: bfd43507589b41fd98b127a51053bf49ebb478fd
+  branch: patch-1
+  specs:
+    remotipart (1.0.2)
+
+GIT
   remote: git://github.com/thoughtbot/paperclip.git
   revision: e377e85f5539739a15bdd4c4338cb1c0728865e7
   specs:
@@ -191,6 +198,7 @@ DEPENDENCIES
   paperclip!
   private_pub
   rails (= 3.2.9)
+  remotipart!
   sass-rails (~> 3.2.3)
   thin
   twitter-bootstrap-rails!

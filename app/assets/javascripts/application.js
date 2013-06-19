@@ -15,8 +15,8 @@
 //= require jquery.ui.dialog
 //= require chosen-jquery
 
-//=require i18n
-//=require i18n/translations
+//= require i18n
+//= require i18n/translations
 
 //= require jquery.remotipart
 //= require jquery.iframe-transport
@@ -392,7 +392,10 @@ $.contextMenu({
    });
 
    $(".lang").click(function(){
-      window.location.href = "?locale="+$(this).attr("rel");
+      $('<form>', {
+        "method":"POST",
+         "html": '<input type="hidden" name="locale" value="' + $(this).attr("rel")+ '" />',
+      }).appendTo(document.body).submit();
    });
 
 });
