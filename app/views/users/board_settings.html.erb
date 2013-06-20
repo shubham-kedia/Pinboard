@@ -11,7 +11,7 @@
 	  <div class="control-group">
 				<%= label_tag t(:date_settings) , nil , :class=> 'control-label'%>
 			<div class="controls">
-				<%= f.select :date_visibility ,options_for_select([[t(:show_notes_from_today_only),0],[t(:show_notes_of_past_5_days),5],[t(:show_notes_of_past_5_days),30]] , setting.date_visibility) %>
+				<%= f.select :date_visibility ,options_for_select([[t(:show_notes_from_today_only),0],[t(:show_notes_of_past_5_days),5],[t(:show_notes_of_past_30_days),30]] , setting.date_visibility) %>
 			</div>
 		</div>
 
