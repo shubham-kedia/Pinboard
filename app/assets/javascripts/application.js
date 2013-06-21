@@ -175,9 +175,14 @@ window.sync_notices = function()
                       $.each(data.private_notice, function(index, element) {
                         just_text=load_notice(data.user_id,element,'private',t,'');
                       });
-                      $(".tabbg_first,.tabbg_last").css("height",$("#private_tab").height());
                       load_public_notices(data,t,"yes");
-                      $(".tabbg_first,.tabbg_last").css("height",$("#private_tab").height());
+
+                      if($(".nav-tabs li:first").hasClass("active"))
+                        $(".tabbg_first,.tabbg_last").css("height",$("#private_tab").height());
+                      else
+                        $(".tabbg_first,.tabbg_last").css("height",$("#public_tab").height());
+
+
 
 
                     }

@@ -5,10 +5,10 @@
   </div>
   <div class="tabbable" id="notes_tab"> <!-- Only required for left/right tabs -->
     <ul class="nav nav-tabs">
-      <li class="active" >
+      <li class="active board_tab" rel="private">
         <a href="#private_tab" data-toggle="tab" access-type="private" id="private_button"><%=I18n.translate(:private)%> <%=I18n.translate(:notes)%></a>
       </li>
-      <li>
+      <li class="board_tab" rel="public">
         <a href="#public_tab" data-toggle="tab" access-type="public" id="public_button"><%=I18n.translate(:public)%> <%=I18n.translate(:notes)%></a>
       </li>
       <li class="refresh_notices hide">
