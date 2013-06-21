@@ -105,7 +105,7 @@ $(document).ready(function(){
             sync_notices();
             $(".refresh_notices").hide();
     });
-    
+
 // delete images and comments
     $(document).on("click",".This_comment",function() {
             var id = $(this).attr("id");
@@ -144,6 +144,13 @@ $(document).ready(function(){
                         });
     });
 
+$("#public_button").click(function(){
+  $(".tabbg_first,.tabbg_last").css("height",$("#public_tab").height());
+ });
+
+$("#private_button").click(function(){
+  $(".tabbg_first,.tabbg_last").css("height",$("#private_tab").height());
+ });
 
 var user_id_notices=0,first="yes",marginTop=0,marginLeft=0,column=0;
 window.sync_notices = function()
@@ -168,8 +175,9 @@ window.sync_notices = function()
                       $.each(data.private_notice, function(index, element) {
                         just_text=load_notice(data.user_id,element,'private',t,'');
                       });
-
+                      $(".tabbg_first,.tabbg_last").css("height",$("#private_tab").height());
                       load_public_notices(data,t,"yes");
+                      $(".tabbg_first,.tabbg_last").css("height",$("#private_tab").height());
 
 
                     }
@@ -192,7 +200,7 @@ window.load_public_notices = function (data,t,from_sync)
     //empty the board public
   $("#board_public").empty();
 
-  var total_string = '<div class="row">';
+  var total_string = '<div class="row"><div class="board_border_top"></div>';
 
     user_id_notices=0;
     first="yes";
@@ -213,12 +221,12 @@ window.load_public_notices = function (data,t,from_sync)
           // alert((data.public_notice).length);
           height=(current_user_notices * 30)+200;
 
-          if(first=="yes") 
+          if(first=="yes")
             first="no";
           else
             total_string +='</ul></div>';
 
-          if(column%3==0) 
+          if(column%3==0)
             total_string +='</div><div class="row">';
 
           column =column+1
@@ -236,7 +244,9 @@ window.load_public_notices = function (data,t,from_sync)
     total_string +='</div>';
     }
   total_string += '</div>';
+
   $("#board_public").html(total_string);
+  $(".tabbg_first,.tabbg_last").css("height",$("#public_tab").height());
 }
 window.load_notice = function (userid,data,type,template,set_margin)
 {
@@ -251,11 +261,11 @@ window.load_notice = function (userid,data,type,template,set_margin)
       data.set_margin=set_margin;
       data.className = 'context-menu-note-' + type;
       data.z_index=i;
-      data.images_popup = "";  
+      data.images_popup = "";
       data.img_count="";
       data.hidden_class_img="hide";
 
-      data.comments_popup = "";  
+      data.comments_popup = "";
       data.comment_count="";
       data.hidden_class_comment="hide";
 
@@ -283,10 +293,15 @@ window.load_notice = function (userid,data,type,template,set_margin)
       }
 
       //render template
-      if(type=='private')
+      if(type=='private'){
         $("#board_"+ type +" ul").append(t({element:data}));
-      else
-        return t({element:data});
+        $(".tabbg_first,.tabbg_last").css("height",$("#private_tab").height());
+      }
+      else{
+         $(".tabbg_first,.tabbg_last").css("height",$("#public_tab").height());
+         return t({element:data});
+      }
+
       return "";
     }
 
@@ -305,7 +320,7 @@ function inverseColor(theString)
   return newColor;
 }
 var hexbase="0123456789ABCDEF";
-function DecToHex(number) 
+function DecToHex(number)
 {
   return hexbase.charAt((number>> 4)& 0xf)+ hexbase.charAt(number& 0xf);
 }

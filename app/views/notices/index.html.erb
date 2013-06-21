@@ -6,10 +6,10 @@
   <div class="tabbable" id="notes_tab"> <!-- Only required for left/right tabs -->
     <ul class="nav nav-tabs">
       <li class="active" >
-        <a href="#private_tab" data-toggle="tab" access-type="private"><%=I18n.translate(:private)%> <%=I18n.translate(:notes)%></a>
+        <a href="#private_tab" data-toggle="tab" access-type="private" id="private_button"><%=I18n.translate(:private)%> <%=I18n.translate(:notes)%></a>
       </li>
       <li>
-        <a href="#public_tab" data-toggle="tab" access-type="public"><%=I18n.translate(:public)%> <%=I18n.translate(:notes)%></a>
+        <a href="#public_tab" data-toggle="tab" access-type="public" id="public_button"><%=I18n.translate(:public)%> <%=I18n.translate(:notes)%></a>
       </li>
       <li class="refresh_notices hide">
         <label class = "btn btn-danger"><%=I18n.translate(:reset_search)%></label>
@@ -19,6 +19,7 @@
     <div class="tab-content tabbg_middle">
       <div class="tab-pane active" id="private_tab">
         <div class="board_container context-menu-board" id="board_private">
+          <div class="board_border_top"><!-- <img src="assets/bg_tabs/center_bar.png"> --></div>
           <ul>
             <% unless @private_notices.nil?%>
               <%@private_notices.each do |notice| %>
@@ -35,11 +36,18 @@
             <%end%>
           </ul>
         </div>
+        <div class="board_border_bottom"><!-- <img src="assets/bg_tabs/center_bar.png"> --></div>
+
       </div>
+
       <div class="tab-pane" id="public_tab">
         <div class="board_container context-menu-board" id="board_public">
+
         </div>
+        <div class="clear" style="clear: both;"></div>
+       <div class="board_border_bottom" id="for_public_board"></div>
       </div>
+
     </div>
     <div class="tabbg_last"></div>
   </div>
@@ -78,7 +86,7 @@
             <%= f.text_area :content, :rows => 5 ,:cols => 10 ,:required => true %> <span id="char_left"></span><br />
           </td>
         </tr>
-        
+
         <tr>
           <td>
             <%=I18n.translate(:add)%> <%=I18n.translate(:images)%>

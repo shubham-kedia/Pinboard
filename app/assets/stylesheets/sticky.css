@@ -183,7 +183,7 @@ overflow:auto;
   transform: scaleX(-1);
   filter: FlipH;
   -ms-filter: "FlipH";
-        
+
   width: 15px;
   right: 20px;
   top: 0px;
@@ -265,14 +265,14 @@ overflow:auto;
   border-radius: 15px;
 }
 .tabbg_first{
-min-height:750px;
+/*min-height:750px;*/
 width:1%;
 display: block;
 float:left;
-background: url(bg_tabs/border.png) no-repeat;
+background: url(bg_tabs/border.png) repeat-y; /*no-repeat;*/
 }
 .tabbg_middle{
-min-height:750px;
+/*min-height:750px;*/
 float:left;
 width:98%;
 background: url(bg_tabs/half.png);
@@ -280,8 +280,26 @@ background: url(bg_tabs/half.png);
 }
 .tabbg_last{
   width:1%;
-min-height:750px;
+/*min-height:750px;*/
 float:left;
-background: url(bg_tabs/border.png) no-repeat;
+background: url(bg_tabs/border.png) repeat-y; /*no-repeat;*/
 
+}
+
+.board_border_top{
+background: url(bg_tabs/border_top.png) repeat-x; /*no-repeat;*/
+height: 9px;
+margin-top: -21px;
+/*width:98%;*/
+}
+
+.board_border_bottom{
+background: url(bg_tabs/border_top.png) repeat-x; /*no-repeat;*/
+height: 10px;
+margin-top: 56px;
+/*width:98%;*/
+}
+
+#for_public_tab{
+  margin-top:197px;
 }
